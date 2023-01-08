@@ -3,7 +3,7 @@ package com.bethena.living_walls.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bethena.living_walls.R
-import com.shyz.media_code.log.LogUtils
+import com.bethena.living_walls.log.LogUtils
 
 class LivingWallsConfigActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

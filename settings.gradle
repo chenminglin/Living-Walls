@@ -22,3 +22,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Living-Walls"
 include ':app'
+include ':walls:base_wall'
+include ':walls:circle'
+include ':walls_test'

@@ -1,4 +1,4 @@
-package com.bethena.living_walls.log
+package com.bethena.base_wall
 
 import android.util.Log
 
