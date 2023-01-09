@@ -6,7 +6,10 @@ object RandomUtil {
 
     fun randomInt(i:Int): Int{
         return Random().nextInt(i)
+
     }
+
+
 
     fun between2nums(min: Int, max: Int): Int {
         return min + Random().nextInt(max - min)

@@ -2,8 +2,10 @@ package com.bethena.living_walls.service
 
 import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
+import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.living_walls.log.LogUtils
 import com.bethena.walls.circle.CircleLivingWallEngineHandler
+import com.bethena.walls.starry_sky.StarrySkyLivingWallEngineHandler
 
 class LivingWallsService : WallpaperService() {
 
@@ -20,24 +22,24 @@ class LivingWallsService : WallpaperService() {
 
     inner class LivingWallsEngine : Engine() {
 
-        var engineHandler: CircleLivingWallEngineHandler? = null
+        var engineHandler: BaseEngineHandler? = null
+
 
         override fun onCreate(surfaceHolder: SurfaceHolder?) {
             super.onCreate(surfaceHolder)
-            engineHandler = CircleLivingWallEngineHandler(this@LivingWallsService)
+            engineHandler = StarrySkyLivingWallEngineHandler(this@LivingWallsService)
             engineHandler?.onCreate(surfaceHolder)
         }
 
         override fun onVisibilityChanged(visible: Boolean) {
             super.onVisibilityChanged(visible)
-
             engineHandler?.onVisibilityChanged(visible)
         }
 
-
-        private fun doDraw() {
-
+        override fun onDestroy() {
+            super.onDestroy()
         }
+
 
         override fun onSurfaceCreated(holder: SurfaceHolder?) {
             super.onSurfaceCreated(holder)

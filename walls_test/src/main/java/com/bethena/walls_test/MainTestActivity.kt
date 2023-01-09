@@ -3,22 +3,25 @@ package com.bethena.walls_test
 import android.os.Bundle
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.bethena.walls.circle.CircleLivingWallEngineHandler
+import com.bethena.base_wall.BaseEngineHandler
+import com.bethena.walls.starry_sky.StarrySkyLivingWallEngineHandler
 
-class MainActivity : AppCompatActivity() {
-    var circleLivingWallEngineHandler: CircleLivingWallEngineHandler? = null
+class MainTestActivity : AppCompatActivity() {
+    var wallEngineHandler: BaseEngineHandler? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
         var surfaceView = findViewById<SurfaceView>(R.id.surfaceView)
-        circleLivingWallEngineHandler = CircleLivingWallEngineHandler(this)
+//        wallEngineHandler = CircleLivingWallEngineHandler(this)
+        wallEngineHandler = StarrySkyLivingWallEngineHandler(this)
 
         surfaceView.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
-                circleLivingWallEngineHandler?.onCreate(holder)
+                wallEngineHandler?.onCreate(holder)
             }
 
             override fun surfaceChanged(
@@ -33,17 +36,21 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+        findViewById<Button>(R.id.btn_pause).setOnClickListener {
+            wallEngineHandler?.pause()
+        }
     }
 
     override fun onResume() {
         super.onResume()
         window.decorView.post {
-            circleLivingWallEngineHandler?.onVisibilityChanged(true)
+            wallEngineHandler?.onVisibilityChanged(true)
         }
     }
 
     override fun onPause() {
         super.onPause()
-        circleLivingWallEngineHandler?.onVisibilityChanged(false)
+        wallEngineHandler?.onVisibilityChanged(false)
     }
 }

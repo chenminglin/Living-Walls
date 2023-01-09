@@ -13,14 +13,12 @@ import android.os.Handler
 import android.os.Looper
 import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
+import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.LogUtils
 import com.bethena.base_wall.RandomUtil
 import com.bethena.base_wall.ScreenUtil
 
-class CircleLivingWallEngineHandler {
-    private var mContext: Context? = null
-    private var mHolder: SurfaceHolder? = null
-    private var mMainHandler: Handler? = null
+class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(context) {
     private var paint = Paint()
     private var isVisible = false;
     private var mSensorManager: SensorManager? = null
@@ -45,13 +43,10 @@ class CircleLivingWallEngineHandler {
 
         }
 
-    constructor(context: Context?) {
-        mContext = context
-    }
 
-    fun onCreate(surfaceHolder: SurfaceHolder?) {
-        mHolder = surfaceHolder
-        mHolder?.setFormat(PixelFormat.RGBA_8888)
+
+    override fun onCreate(surfaceHolder: SurfaceHolder?) {
+        super.onCreate(surfaceHolder)
         paint.isAntiAlias = true
         paint.color = Color.parseColor("#88ffffff")
         paint.strokeWidth = ScreenUtil.dp2pxF(mContext!!, 3f)
@@ -62,9 +57,8 @@ class CircleLivingWallEngineHandler {
         mSensorGravity = mSensorManager?.getDefaultSensor(Sensor.TYPE_GRAVITY)
     }
 
-    fun onVisibilityChanged(visible: Boolean) {
+    override fun onVisibilityChanged(visible: Boolean) {
         isVisible = visible
-        mMainHandler = Handler(Looper.getMainLooper())
 
         if (visible) {
             mSensorManager?.registerListener(
@@ -75,11 +69,14 @@ class CircleLivingWallEngineHandler {
             initCirclese()
             doDraw()
         } else {
-            mMainHandler?.removeCallbacksAndMessages(null)
+            mainHandler.removeCallbacksAndMessages(null)
             mSensorManager?.unregisterListener(mSensorGravityEventListener)
         }
     }
 
+    override fun pause() {
+        TODO("Not yet implemented")
+    }
 
 
     private fun doDraw() {
@@ -91,18 +88,9 @@ class CircleLivingWallEngineHandler {
         if (circlese.size == 0) {
             return
         }
-        var canvas = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            try {
-                mHolder?.lockHardwareCanvas()
-            } catch (e: Exception) {
-                mHolder?.lockCanvas()
-            }
-//                        mHolder?.lockCanvas()
-        } else {
-            mHolder?.lockCanvas()
-        }
-        mMainHandler?.postDelayed(Runnable {
-            mHolder?.let { it ->
+        var canvas = lockCanvas()
+        mainHandler.postDelayed(Runnable {
+            mSurfaceHolder?.let { it ->
 //                LogUtils.d("doDrawing..")
 
                 if (canvas == null) {
@@ -134,28 +122,6 @@ class CircleLivingWallEngineHandler {
                 doDraw()
             }
         }, 20)
-//        canvas?.drawColor(Color.BLACK)
-//        circlese.forEach {
-//            var anim = ValueAnimator.ofFloat(it.minRadius, it.maxRadius)
-//            anim.addUpdateListener { a ->
-//                LogUtils.d("anim..")
-//                canvas?.save()
-//                var raduis = a.getAnimatedValue() as Float
-//                it.radius = raduis
-//                paint.strokeWidth = it.paintWidth
-//                canvas?.drawCircle(it.centerX, it.centerY, it.radius, paint)
-//                canvas?.restore()
-//                if (canvas!=null){
-//                    mHolder?.unlockCanvasAndPost(canvas)
-//                }
-////                it.nextStep()
-//            }
-//            it.anim = anim
-//            anim.duration = 1000
-//            anim.repeatCount = ValueAnimator.INFINITE
-//            anim.repeatMode = ValueAnimator.REVERSE
-//            anim.start()
-//        }
     }
 
 

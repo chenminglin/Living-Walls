@@ -1,0 +1,132 @@
+package com.bethena.walls.starry_sky
+
+import android.content.Context
+import android.graphics.*
+import android.view.SurfaceHolder
+import androidx.core.content.ContextCompat
+import com.bethena.base_wall.BaseEngineHandler
+import com.bethena.base_wall.DrawableUtil
+import com.bethena.base_wall.RandomUtil
+import com.bethena.base_wall.ScreenUtil
+
+class StarrySkyLivingWallEngineHandler(context: Context?) : BaseEngineHandler(context) {
+    private var mPaint: Paint = Paint()
+    private var starBitmaps = arrayListOf<Bitmap>()
+    private var backgroundColor: Int? = null
+    private var starCount = 30
+    private var stars = arrayListOf<Star>()
+    private var bitmapSize = 0
+
+    private var meshColor = 0
+
+    override fun onCreate(surfaceHolder: SurfaceHolder?) {
+        super.onCreate(surfaceHolder)
+        mPaint.isAntiAlias = true
+        mContext?.let {
+            var starColor = ContextCompat.getColor(it, R.color.starry_sky_star)
+            var starBitmap1 =
+                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star, starColor, 0.5f)
+            var starBitmap2 =
+                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star, starColor, 1f)
+            var starBitmap3 =
+                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star, starColor, 1.5f)
+            starBitmaps.add(starBitmap1!!)
+            starBitmaps.add(starBitmap2!!)
+            starBitmaps.add(starBitmap3!!)
+
+            backgroundColor = ContextCompat.getColor(it, R.color.starry_sky_background)
+            bitmapSize = it.resources.getDimensionPixelSize(R.dimen.starry_sky_star_default_size)
+        }
+
+        meshColor = Color.parseColor("#54000000")
+
+    }
+
+    override fun onVisibilityChanged(visible: Boolean) {
+        if (mContext == null) {
+            return
+        }
+
+        if (visible) {
+            initStars()
+//            testDraw()
+            doDraw()
+        } else {
+            mainHandler.removeCallbacksAndMessages(null)
+        }
+    }
+
+    override fun pause() {
+        mainHandler.removeCallbacksAndMessages(null)
+    }
+
+    private fun testDraw() {
+        var canvas = lockCanvas()
+        var matrix1 = Matrix()
+        matrix1.setTranslate(100f, 100f)
+        var matrix2 = Matrix()
+        matrix2.setScale(2f, 2f)
+        matrix1.preConcat(matrix2)
+        canvas?.drawBitmap(starBitmaps[0], matrix1, mPaint)
+        mPaint.color = Color.WHITE
+        mPaint.style = Paint.Style.STROKE
+        mPaint.strokeWidth = ScreenUtil.dp2pxF(mContext!!, 1f)
+        canvas?.drawRect(100f, 100f, 100f + bitmapSize, 100f + bitmapSize, mPaint)
+        mSurfaceHolder?.unlockCanvasAndPost(canvas)
+    }
+
+    private fun doDraw() {
+        mainHandler.postDelayed({
+            if (stars.size == 0) {
+                return@postDelayed
+            }
+            var canvas = lockCanvas() ?: return@postDelayed
+
+            canvas.save()
+            if (backgroundColor != null) {
+                canvas.drawColor(backgroundColor!!)
+            }
+
+            stars.forEach {
+                it.draw(canvas, mPaint)
+            }
+
+//            canvas.drawColor(meshColor)
+
+            canvas.restore()
+            mSurfaceHolder?.unlockCanvasAndPost(canvas)
+            doDraw()
+        }, 20)
+    }
+
+    private fun initStars() {
+        stars.clear()
+        var canvas: Canvas? = lockCanvas() ?: return
+        var canvasWidth = canvas!!.width - bitmapSize
+        var canvasHeight = canvas.height - bitmapSize
+
+        for (i in 0 until starCount) {
+            var x = RandomUtil.randomInt(canvasWidth)
+            var y = RandomUtil.randomInt(canvasHeight)
+//            var scale = RandomUtil.between2numsF(0.5f, 3f)
+            var indexBitmap = RandomUtil.randomInt(starBitmaps.size)
+            var starBitmap = starBitmaps[indexBitmap]
+            var star = Star(starBitmap, x.toFloat(), y.toFloat(), 1f, 255, 0)
+//            star.reset()
+
+            star.bitmapSize = starBitmap.height
+            star.maxY = bitmapSize + canvas.height + bitmapSize
+            star.partOfMaxYtoFlash = RandomUtil.randomInt(4)
+            star.middleX =
+                intArrayOf(RandomUtil.randomInt(canvasWidth), RandomUtil.randomInt(canvasWidth))
+            star.increateY = RandomUtil.between2nums(10, 15)
+            star.increateDegree = RandomUtil.between2nums(-4, 4)
+            star.isBeat = RandomUtil.randomInt(2) == 1
+            star.increateScale = RandomUtil.between2numsF(0.01f, 0.06f)
+            star.partOfMaxYtoFlash = RandomUtil.between2nums(3, 6)
+            star.isBeat = true
+            stars.add(star)
+        }
+        mSurfaceHolder?.unlockCanvasAndPost(canvas)
+    }
+}
