@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
+import android.view.WindowManager
 
 /**
  * 屏幕、尺寸相关工具类
@@ -112,5 +113,16 @@ object ScreenUtil {
         }
 
         return dpi
+    }
+
+    val MAX_RATE = 144
+    fun getScreenRefreshRate(context: Context):Float{
+        var rate: Float
+        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager?
+        rate = windowManager?.defaultDisplay?.refreshRate ?: 60f
+        if (rate < 60) {
+            rate = 60f
+        }
+        return rate
     }
 }

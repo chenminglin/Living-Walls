@@ -13,9 +13,15 @@ abstract class BaseEngineHandler {
     var mContext: Context? = null
     lateinit var mainHandler:Handler
 
+    var refreshRate = 60L
+
     constructor(context: Context?) {
         mContext = context
         mainHandler = Handler(Looper.getMainLooper())
+        mContext?.let {
+            refreshRate = ScreenUtil.getScreenRefreshRate(it).toLong()
+        }
+
     }
 
     open fun onCreate(surfaceHolder: SurfaceHolder?) {
@@ -38,5 +44,10 @@ abstract class BaseEngineHandler {
 
     abstract fun onVisibilityChanged(visible: Boolean)
 
+    open fun onDestroy(){
+        pause()
+    }
+
     abstract fun pause()
+
 }

@@ -3,20 +3,16 @@ package com.bethena.walls.circle
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.PixelFormat
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
-import android.os.Handler
-import android.os.Looper
 import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.LogUtils
-import com.bethena.base_wall.RandomUtil
 import com.bethena.base_wall.ScreenUtil
+import kotlin.random.Random
 
 class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(context) {
     private var paint = Paint()
@@ -137,26 +133,26 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
             var margin = ScreenUtil.dp2px(this, 20f)
             var incre_dp_start = ScreenUtil.dp2pxF(this, 0.1f)
             var incre_dp_end = ScreenUtil.dp2pxF(this, 0.3f)
-            var incre_dp = RandomUtil.between2numsF(incre_dp_start, incre_dp_end)
+            var incre_dp = Random.nextDouble(incre_dp_start.toDouble(), incre_dp_end.toDouble())
 
             for (x in startX..windowWidth step (margin + maxRadius * 2).toInt()) {
                 for (y in startY..windowHeight step (margin + maxRadius * 2).toInt()) {
-                    var radius = RandomUtil.between2numsF(minRadius, maxRadius)
+                    var radius = Random.nextDouble(minRadius.toDouble(), maxRadius.toDouble())
                     var paintWidth =
-                        RandomUtil.between2numsF(
-                            ScreenUtil.dp2pxF(this, 0.5f),
-                            ScreenUtil.dp2pxF(this, 3f)
+                        Random.nextDouble(
+                            ScreenUtil.dp2pxF(this, 0.5f).toDouble(),
+                            ScreenUtil.dp2pxF(this, 3f).toDouble()
                         )
                     var circle = Circle(
                         x.toFloat(),
                         y.toFloat(),
-                        radius,
+                        radius.toFloat(),
                         minRadius,
                         maxRadius,
-                        incre_dp,
-                        paintWidth
+                        incre_dp.toFloat(),
+                        paintWidth.toFloat()
                     )
-                    circle.interpolator = interpolators[RandomUtil.randomInt(interpolators.size)]
+                    circle.interpolator = interpolators[Random.nextInt(interpolators.size)]
                     circlese.add(circle)
                 }
             }

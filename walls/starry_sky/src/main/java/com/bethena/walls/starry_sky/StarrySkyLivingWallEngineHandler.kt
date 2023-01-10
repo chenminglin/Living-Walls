@@ -6,8 +6,9 @@ import android.view.SurfaceHolder
 import androidx.core.content.ContextCompat
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.DrawableUtil
-import com.bethena.base_wall.RandomUtil
+import com.bethena.base_wall.LogUtils
 import com.bethena.base_wall.ScreenUtil
+import kotlin.random.Random
 
 class StarrySkyLivingWallEngineHandler(context: Context?) : BaseEngineHandler(context) {
     private var mPaint: Paint = Paint()
@@ -60,6 +61,12 @@ class StarrySkyLivingWallEngineHandler(context: Context?) : BaseEngineHandler(co
         mainHandler.removeCallbacksAndMessages(null)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
+
+    //测试用方法
     private fun testDraw() {
         var canvas = lockCanvas()
         var matrix1 = Matrix()
@@ -96,7 +103,7 @@ class StarrySkyLivingWallEngineHandler(context: Context?) : BaseEngineHandler(co
             canvas.restore()
             mSurfaceHolder?.unlockCanvasAndPost(canvas)
             doDraw()
-        }, 20)
+        }, 1000 / refreshRate)
     }
 
     private fun initStars() {
@@ -105,27 +112,35 @@ class StarrySkyLivingWallEngineHandler(context: Context?) : BaseEngineHandler(co
         var canvasWidth = canvas!!.width - bitmapSize
         var canvasHeight = canvas.height - bitmapSize
 
+        var ratePer = refreshRate / ScreenUtil.MAX_RATE.toFloat()
+
         for (i in 0 until starCount) {
-            var x = RandomUtil.randomInt(canvasWidth)
-            var y = RandomUtil.randomInt(canvasHeight)
+            var x = Random.nextInt(canvasWidth)
+            var y = Random.nextInt(canvasHeight)
 //            var scale = RandomUtil.between2numsF(0.5f, 3f)
-            var indexBitmap = RandomUtil.randomInt(starBitmaps.size)
+            var indexBitmap = Random.nextInt(starBitmaps.size)
             var starBitmap = starBitmaps[indexBitmap]
-            var star = Star(starBitmap, x.toFloat(), y.toFloat(), 1f, 255, 0)
+            var star = Star(starBitmap, x.toFloat(), y.toFloat(), 1f, 255, 0f)
 //            star.reset()
 
             star.bitmapSize = starBitmap.height
             star.maxY = bitmapSize + canvas.height + bitmapSize
-            star.partOfMaxYtoFlash = RandomUtil.randomInt(4)
+//            star.partOfMaxYtoFlash = Random.nextInt(4)
             star.middleX =
-                intArrayOf(RandomUtil.randomInt(canvasWidth), RandomUtil.randomInt(canvasWidth))
-            star.increateY = RandomUtil.between2nums(10, 15)
-            star.increateDegree = RandomUtil.between2nums(-4, 4)
-            star.isBeat = RandomUtil.randomInt(2) == 1
-            star.increateScale = RandomUtil.between2numsF(0.01f, 0.06f)
-            star.partOfMaxYtoFlash = RandomUtil.between2nums(3, 6)
-            star.isBeat = true
+                intArrayOf(Random.nextInt(canvasWidth), Random.nextInt(canvasWidth))
+
+
+
+            star.increateY = 10 * (1 - ratePer)
+
+            star.increateDegree = (Random.nextDouble(-4.0, 5.0) * (1 - ratePer)).toFloat()
+//            LogUtils.d("Random.nextInt(3) = ${Random.nextInt(3)}")
+            star.isBeat = (Random.nextInt(3) == 1)
+            star.increateScale = Random.nextDouble(0.01, 0.04).toFloat() * (1 - ratePer)
+            star.partOfMaxYtoFlash = Random.nextInt(3, 6)
+//            star.isBeat = true
             stars.add(star)
+            LogUtils.d(star.toString())
         }
         mSurfaceHolder?.unlockCanvasAndPost(canvas)
     }

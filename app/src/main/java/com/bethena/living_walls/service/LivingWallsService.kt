@@ -38,6 +38,7 @@ class LivingWallsService : WallpaperService() {
 
         override fun onDestroy() {
             super.onDestroy()
+            engineHandler?.onDestroy()
         }
 
 
