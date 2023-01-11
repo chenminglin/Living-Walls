@@ -136,7 +136,7 @@ data class Star(
         }
         scalePer = interpolatorScale.getInterpolation(scalePer)
         alpha = (255 * (1 - scalePer)).toInt()
-        LogUtils.d("alpha = $alpha  scalePer = $scalePer")
+//        LogUtils.d("alpha = $alpha  scalePer = $scalePer")
         return alpha
     }
 

@@ -1,4 +1,8 @@
 <resources>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="starry_sky_wall_name">Starry Sky</string>
+    <string name="starry_sky_config_n_of_stars">⭐️Number Of Stars⭐️</string>
+    <string name="starry_sky_config_speed">Speed</string>
+    <string name="starry_sky_background_color">Background Color</string>
+    <string name="starry_sky_star_color">Star Color</string>
 </resources>

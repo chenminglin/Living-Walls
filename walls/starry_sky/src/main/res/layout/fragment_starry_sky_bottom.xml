@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/bottom_sheet_paddingHorizontal"
+    android:paddingVertical="@dimen/bottom_sheet_paddingVertical">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/drag_handle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_star_num"
+        style="@style/ConfigItemTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/starry_sky_config_n_of_stars"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/drag_handle" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider_star_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stepSize="5"
+        android:valueFrom="0"
+        android:valueTo="100"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_star_num" />
+
+    <TextView
+        android:id="@+id/tv_speed"
+        style="@style/ConfigItemTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/starry_sky_config_speed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/slider_star_num" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider_speed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stepSize="0.5"
+        android:value="1"
+        android:valueFrom="0.5"
+        android:valueTo="5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_speed" />
+
+    <TextView
+        android:id="@+id/tv_background_color"
+        style="@style/ConfigItemTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/starry_sky_background_color"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/slider_speed" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_background_color_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_background_color" />
+
+
+    <TextView
+        android:id="@+id/tv_star_color"
+        style="@style/ConfigItemTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/starry_sky_star_color"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_background_color_picker" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/btn_group_star_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_star_color"
+        app:singleSelection="true">
+
+        <Button
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="颜色1" />
+
+        <Button
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="颜色2" />
+
+        <Button
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="颜色3" />
+
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

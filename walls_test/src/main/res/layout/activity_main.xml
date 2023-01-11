@@ -6,20 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainTestActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_main" />
-
     <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
-
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.Walls.Toolbar"
+        app:menu="@menu/menu_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

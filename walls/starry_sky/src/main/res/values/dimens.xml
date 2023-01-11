@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="starry_sky_star_default_size">24dp</dimen>
+    <dimen name="bottom_sheet_paddingVertical">10dp</dimen>
+    <dimen name="bottom_sheet_paddingHorizontal">16dp</dimen>
 </resources>

@@ -17,7 +17,6 @@ import kotlin.random.Random
 
 class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(context) {
     private var paint = Paint()
-    private var isVisible = false;
     private var mSensorManager: SensorManager? = null
     private var mSensorGravity: Sensor? = null
     private var circlese = arrayListOf<Circle>()

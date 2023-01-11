@@ -7,25 +7,46 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.DrawableUtil
-import com.bethena.base_wall.LogUtils
 import com.bethena.base_wall.ScreenUtil
 import kotlin.random.Random
 
 class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     private var mPaint: Paint = Paint()
     private var starBitmaps = arrayListOf<Bitmap>()
-    private var backgroundColor: Int? = null
-    private var starCount = 30
+
+    var starCount = StarrySkyConst.KEY_INIT_STARS_COUNT
+    var speed = StarrySkyConst.KEY_INIT_STARS_SPEED
+
     private var stars = arrayListOf<Star>()
     private var bitmapSize = 0
-
+    var backgroundColor = 0
+    var starColor = 0
     private var meshColor = 0
+
+    var backgroundColors = arrayListOf<Int>()
+    var starColors = arrayListOf<Int>()
+
 
     override fun onCreate(surfaceHolder: SurfaceHolder?) {
         super.onCreate(surfaceHolder)
         mPaint.isAntiAlias = true
+
+        doInit()
+
+    }
+
+    fun doInit(){
         mContext?.let {
-            var starColor = ContextCompat.getColor(it, R.color.starry_sky_star)
+            starColors.add(ContextCompat.getColor(it, R.color.starry_sky_star))
+            starColors.add(ContextCompat.getColor(it, R.color.starry_sky_star2))
+            starColors.add(ContextCompat.getColor(it, R.color.starry_sky_star3))
+
+            starColor = starColors[0]
+
+            backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background))
+            backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background2))
+            backgroundColor = backgroundColors[0]
+
             var starBitmap1 =
                 DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star2, starColor, 0.5f)
             var starBitmap2 =
@@ -36,15 +57,16 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             starBitmaps.add(starBitmap2!!)
             starBitmaps.add(starBitmap3!!)
 
-            backgroundColor = ContextCompat.getColor(it, R.color.starry_sky_background)
+
+
             bitmapSize = it.resources.getDimensionPixelSize(R.dimen.starry_sky_star_default_size)
         }
 
         meshColor = Color.parseColor("#54000000")
-
     }
 
     override fun onVisibilityChanged(visible: Boolean) {
+        super.onVisibilityChanged(visible)
         if (mContext == null) {
             return
         }
@@ -64,7 +86,10 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
 
     override fun onDestroy() {
         super.onDestroy()
-
+        starBitmaps.forEach {
+            it.recycle()
+        }
+        starBitmaps.clear()
     }
 
     //测试用方法
@@ -132,7 +157,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
 
 
 
-            star.increateY = 10 * (1 - ratePer)
+            star.increateY = (10 * (1 - ratePer)) * speed
 
             star.increateDegree = (Random.nextDouble(-4.0, 5.0) * (1 - ratePer)).toFloat()
 //            LogUtils.d("Random.nextInt(3) = ${Random.nextInt(3)}")
@@ -141,7 +166,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             star.partOfMaxYtoFlash = Random.nextInt(3, 6)
 //            star.isBeat = true
             stars.add(star)
-            LogUtils.d(star.toString())
+//            LogUtils.d(star.toString())
         }
         mSurfaceHolder?.unlockCanvasAndPost(canvas)
     }

@@ -12,17 +12,20 @@ import androidx.fragment.app.Fragment
 abstract class BaseEngineHandler {
     var mSurfaceHolder: SurfaceHolder? = null
     var mContext: Context? = null
-    lateinit var mainHandler:Handler
+    lateinit var mainHandler: Handler
 
     var refreshRate = 60L
+
+    protected var isVisible = false
+    var spUtils: SpUtils? = null
 
     constructor(context: Context?) {
         mContext = context
         mainHandler = Handler(Looper.getMainLooper())
         mContext?.let {
             refreshRate = ScreenUtil.getScreenRefreshRate(it).toLong()
+            spUtils = SpUtils(it, javaClass.name)
         }
-
     }
 
     open fun onCreate(surfaceHolder: SurfaceHolder?) {
@@ -43,14 +46,22 @@ abstract class BaseEngineHandler {
         return canvas
     }
 
-    abstract fun onVisibilityChanged(visible: Boolean)
+    open fun onVisibilityChanged(visible: Boolean) {
+        isVisible = visible
+    }
 
-    open fun onDestroy(){
+    open fun onDestroy() {
         pause()
+
+    }
+
+    fun restart() {
+        pause()
+        onVisibilityChanged(true)
     }
 
     abstract fun pause()
 
-    abstract fun newConfigFragment():Fragment
+    abstract fun newConfigFragment(): Fragment
 
 }

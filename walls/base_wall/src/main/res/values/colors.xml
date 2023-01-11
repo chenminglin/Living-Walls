@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="app_background">#0D47A1</color>
+
+    <color name="purple_200">#9FA8DA</color>
+    <color name="purple_500">#3F51B5</color>
+    <color name="purple_700">#303F9F</color>
+    <color name="teal_200">#FFF59D</color>
+    <color name="teal_700">#FBC02D</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
     <color name="alpha_5_white">#0DFFFFFF</color>
     <color name="alpha_10_white">#1AFFFFFF</color>
     <color name="alpha_15_white">#26FFFFFF</color>
