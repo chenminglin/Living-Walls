@@ -4,13 +4,14 @@ import android.content.Context
 import android.graphics.*
 import android.view.SurfaceHolder
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.DrawableUtil
 import com.bethena.base_wall.LogUtils
 import com.bethena.base_wall.ScreenUtil
 import kotlin.random.Random
 
-class StarrySkyLivingWallEngineHandler(context: Context?) : BaseEngineHandler(context) {
+class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     private var mPaint: Paint = Paint()
     private var starBitmaps = arrayListOf<Bitmap>()
     private var backgroundColor: Int? = null
@@ -26,11 +27,11 @@ class StarrySkyLivingWallEngineHandler(context: Context?) : BaseEngineHandler(co
         mContext?.let {
             var starColor = ContextCompat.getColor(it, R.color.starry_sky_star)
             var starBitmap1 =
-                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star, starColor, 0.5f)
+                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star2, starColor, 0.5f)
             var starBitmap2 =
-                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star, starColor, 1f)
+                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star2, starColor, 1f)
             var starBitmap3 =
-                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star, starColor, 1.5f)
+                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star2, starColor, 1.5f)
             starBitmaps.add(starBitmap1!!)
             starBitmaps.add(starBitmap2!!)
             starBitmaps.add(starBitmap3!!)
@@ -143,5 +144,9 @@ class StarrySkyLivingWallEngineHandler(context: Context?) : BaseEngineHandler(co
             LogUtils.d(star.toString())
         }
         mSurfaceHolder?.unlockCanvasAndPost(canvas)
+    }
+
+    override fun newConfigFragment(): Fragment {
+        return StarrySkySettingFragment()
     }
 }

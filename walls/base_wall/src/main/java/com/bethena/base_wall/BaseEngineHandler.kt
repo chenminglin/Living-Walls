@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.SurfaceHolder
+import androidx.fragment.app.Fragment
 
 abstract class BaseEngineHandler {
     var mSurfaceHolder: SurfaceHolder? = null
@@ -49,5 +50,7 @@ abstract class BaseEngineHandler {
     }
 
     abstract fun pause()
+
+    abstract fun newConfigFragment():Fragment
 
 }

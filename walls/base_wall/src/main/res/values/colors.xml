@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="alpha_5_white">#0DFFFFFF</color>
+    <color name="alpha_10_white">#1AFFFFFF</color>
+    <color name="alpha_15_white">#26FFFFFF</color>
+    <color name="alpha_16_white">#29FFFFFF</color>
+    <color name="alpha_20_white">#33FFFFFF</color>
+    <color name="alpha_24_white">#3DFFFFFF</color>
+    <color name="alpha_25_white">#40FFFFFF</color>
+    <color name="alpha_30_white">#4DFFFFFF</color>
+    <color name="alpha_35_white">#59FFFFFF</color>
+    <color name="alpha_40_white">#66FFFFFF</color>
+    <color name="alpha_50_white">#80FFFFFF</color>
+    <color name="alpha_70_white">#B3FFFFFF</color>
+    <color name="alpha_90_white">#E6FFFFFF</color>
+
+    <color name="alpha_06_black">#0F000000</color>
+    <color name="alpha_08_black">#14000000</color>
+    <color name="alpha_10_black">#1A000000</color>
+    <color name="alpha_15_black">#24000000</color>
+    <color name="alpha_30_black">#4D000000</color>
+    <color name="alpha_40_black">#66000000</color>
+    <color name="alpha_44_black">#70000000</color>
+    <color name="alpha_50_black">#80000000</color>
+    <color name="alpha_70_black">#B3000000</color>
+    <color name="alpha_75_black">#BF000000</color>
+</resources>

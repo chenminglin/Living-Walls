@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
+import androidx.fragment.app.Fragment
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.LogUtils
 import com.bethena.base_wall.ScreenUtil
@@ -71,7 +72,10 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
     }
 
     override fun pause() {
-        TODO("Not yet implemented")
+    }
+
+    override fun newConfigFragment(): Fragment {
+        return Fragment()
     }
 
 

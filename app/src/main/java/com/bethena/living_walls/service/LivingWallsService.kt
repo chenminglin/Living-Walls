@@ -4,8 +4,7 @@ import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.living_walls.log.LogUtils
-import com.bethena.walls.circle.CircleLivingWallEngineHandler
-import com.bethena.walls.starry_sky.StarrySkyLivingWallEngineHandler
+import com.bethena.walls.starry_sky.StarrySkyEngineHandler
 
 class LivingWallsService : WallpaperService() {
 
@@ -27,7 +26,7 @@ class LivingWallsService : WallpaperService() {
 
         override fun onCreate(surfaceHolder: SurfaceHolder?) {
             super.onCreate(surfaceHolder)
-            engineHandler = StarrySkyLivingWallEngineHandler(this@LivingWallsService)
+            engineHandler = StarrySkyEngineHandler(this@LivingWallsService)
             engineHandler?.onCreate(surfaceHolder)
         }
 
