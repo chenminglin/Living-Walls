@@ -6,7 +6,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
-import com.bethena.base_wall.LogUtils
+import com.bethena.base_wall.utils.LogUtil
 
 
 class MainTestActivity : AppCompatActivity() {
@@ -114,7 +114,7 @@ class MainTestActivity : AppCompatActivity() {
                 mFrameCount = 0
                 mLastFrameTime = 0
                 toolbar.title = "帧率：${Math.round(fps).toInt()}fps"
-                LogUtils.d("doFrame: $fps")
+                LogUtil.d("doFrame: $fps")
             } else {
                 ++mFrameCount
             }

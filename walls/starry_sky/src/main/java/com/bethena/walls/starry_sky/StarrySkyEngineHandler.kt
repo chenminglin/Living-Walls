@@ -6,9 +6,9 @@ import android.view.SurfaceHolder
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bethena.base_wall.BaseEngineHandler
-import com.bethena.base_wall.ColorUtil
-import com.bethena.base_wall.DrawableUtil
-import com.bethena.base_wall.ScreenUtil
+import com.bethena.base_wall.utils.ColorUtil
+import com.bethena.base_wall.utils.DrawableUtil
+import com.bethena.base_wall.utils.ScreenUtil
 import kotlin.random.Random
 
 class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
@@ -30,12 +30,18 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     init {
         mPaint.isAntiAlias = true
         mContext?.let {
+            bitmapSize = it.resources.getDimensionPixelSize(R.dimen.starry_sky_star_default_size)
+        }
+    }
+
+    override fun create() {
+        mContext?.let { it ->
+            starColors.clear()
+            backgroundColors.clear()
             var color1 = ContextCompat.getColor(it, R.color.starry_sky_star)
             starColors.add(color1)
             starColors.add(ContextCompat.getColor(it, R.color.starry_sky_star2))
             starColors.add(ContextCompat.getColor(it, R.color.starry_sky_star3))
-
-
 
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background))
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background2))
@@ -50,20 +56,13 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
                     )
                     starColor = it.getInt(const.KEY_STAR_COLOR, starColors[0])
                     backgroundColor = it.getInt(const.KEY_BACKGROUND_COLOR, backgroundColors[0])
-                    mashColor = ColorUtil.adjustAlpha(Color.BLACK,
-                        (it.getInt(const.KEY_MASH_PERCENT, 0)/100).toFloat()
+                    mashColor = ColorUtil.adjustAlpha(
+                        Color.BLACK,
+                        (it.getInt(const.KEY_MASH_PERCENT, 0) / 100).toFloat()
                     )
                 }
 
             }
-
-            bitmapSize = it.resources.getDimensionPixelSize(R.dimen.starry_sky_star_default_size)
-        }
-        create()
-    }
-
-    override fun create() {
-        mContext?.let { it ->
             if (starBitmaps.size > 0) {
                 starBitmaps.forEach { bitmap ->
                     bitmap.recycle()
@@ -81,6 +80,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             starBitmaps.add(starBitmap2!!)
             starBitmaps.add(starBitmap3!!)
         }
+        initStars()
     }
 
     override fun create(surfaceHolder: SurfaceHolder?) {
@@ -92,17 +92,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
 
     override fun onVisibilityChanged(visible: Boolean) {
         super.onVisibilityChanged(visible)
-        if (mContext == null) {
-            return
-        }
 
-        if (visible) {
-            initStars()
-//            testDraw()
-            doDraw()
-        } else {
-            mainHandler.removeCallbacksAndMessages(null)
-        }
     }
 
     override fun pause() {
@@ -134,7 +124,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         mSurfaceHolder?.unlockCanvasAndPost(canvas)
     }
 
-    private fun doDraw() {
+     override fun doDraw() {
         mainHandler.postDelayed({
             if (stars.size == 0) {
                 return@postDelayed
@@ -142,9 +132,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             var canvas = lockCanvas() ?: return@postDelayed
 
             canvas.save()
-            if (backgroundColor != null) {
-                canvas.drawColor(backgroundColor!!)
-            }
+            canvas.drawColor(backgroundColor)
 
             stars.forEach {
                 it.draw(canvas, mPaint)

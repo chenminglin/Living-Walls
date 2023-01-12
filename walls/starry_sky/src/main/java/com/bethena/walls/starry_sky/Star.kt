@@ -7,7 +7,6 @@ import android.graphics.Paint
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
-import com.bethena.base_wall.LogUtils
 
 data class Star(
     val starBitmap: Bitmap,

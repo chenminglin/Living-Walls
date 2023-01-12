@@ -1,9 +1,9 @@
-package com.bethena.base_wall
+package com.bethena.base_wall.utils
 
 import android.content.Context
 import android.content.SharedPreferences
 
-class SpUtils {
+class SpUtil {
     private var sSharedPreferences: SharedPreferences? = null
     private var sEditor: SharedPreferences.Editor? = null
 
@@ -61,6 +61,23 @@ class SpUtils {
             return false
         }
         return sSharedPreferences!!.getBoolean(key, defValue)
+    }
+
+
+    fun putString(key: String?, value: String) {
+        sEditor?.putString(key, value)
+        sEditor?.apply()
+    }
+
+    fun getString(key: String?): String {
+        return getString(key, "")
+    }
+
+    fun getString(key: String?, defValue: String): String {
+        if (sSharedPreferences == null) {
+            return ""
+        }
+        return sSharedPreferences!!.getString(key, defValue)!!
     }
 
 

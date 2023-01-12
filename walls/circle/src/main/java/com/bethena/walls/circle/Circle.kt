@@ -1,8 +1,6 @@
 package com.bethena.walls.circle
 
-import android.animation.ValueAnimator
 import android.view.animation.*
-import com.bethena.base_wall.LogUtils
 
 data class Circle(
     val centerX: Float, val centerY: Float,

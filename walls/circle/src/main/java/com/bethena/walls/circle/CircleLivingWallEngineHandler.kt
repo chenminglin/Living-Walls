@@ -11,8 +11,8 @@ import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
 import androidx.fragment.app.Fragment
 import com.bethena.base_wall.BaseEngineHandler
-import com.bethena.base_wall.LogUtils
-import com.bethena.base_wall.ScreenUtil
+import com.bethena.base_wall.utils.LogUtil
+import com.bethena.base_wall.utils.ScreenUtil
 import kotlin.random.Random
 
 class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(context) {
@@ -29,7 +29,7 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
                     val yAcceleration = event.values[1]
                     val zAcceleration = event.values[2]
 
-                    LogUtils.d("xAcceleration = $xAcceleration yAcceleration = $yAcceleration zAcceleration = $zAcceleration")
+                    LogUtil.d("xAcceleration = $xAcceleration yAcceleration = $yAcceleration zAcceleration = $zAcceleration")
                 }
             }
 
@@ -50,7 +50,7 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
         paint.color = Color.parseColor("#88ffffff")
         paint.strokeWidth = ScreenUtil.dp2pxF(mContext!!, 3f)
         paint.style = Paint.Style.STROKE
-        LogUtils.d("LivingWallsEngine onCreate-----")
+        LogUtil.d("LivingWallsEngine onCreate-----")
         mSensorManager =
             mContext?.getSystemService(WallpaperService.SENSOR_SERVICE) as SensorManager
         mSensorGravity = mSensorManager?.getDefaultSensor(Sensor.TYPE_GRAVITY)
@@ -81,9 +81,9 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
     }
 
 
-    private fun doDraw() {
+    override fun doDraw() {
         if (!isVisible) {
-            LogUtils.d("doDraw return..")
+            LogUtil.d("doDraw return..")
             return
         }
 
@@ -181,7 +181,7 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
 //            circlese.add(circle)
         }
 
-        LogUtils.d("init finish")
+        LogUtil.d("init finish")
 
     }
 

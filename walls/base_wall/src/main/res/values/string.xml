@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="found_error">The program has an error.</string>
+    <string name="set_wallpaper">Set wallpeper</string>
+</resources>

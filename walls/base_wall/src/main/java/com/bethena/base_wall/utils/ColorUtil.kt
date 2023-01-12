@@ -1,4 +1,4 @@
-package com.bethena.base_wall
+package com.bethena.base_wall.utils
 
 import android.graphics.Color
 import androidx.annotation.ColorInt

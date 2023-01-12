@@ -1,4 +1,4 @@
-package com.bethena.base_wall
+package com.bethena.base_wall.utils
 
 import android.app.Activity
 import android.content.Context

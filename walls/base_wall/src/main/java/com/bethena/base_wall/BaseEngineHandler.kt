@@ -8,6 +8,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.SurfaceHolder
 import androidx.fragment.app.Fragment
+import com.bethena.base_wall.utils.ScreenUtil
+import com.bethena.base_wall.utils.SpUtil
 
 abstract class BaseEngineHandler {
     var mSurfaceHolder: SurfaceHolder? = null
@@ -17,14 +19,14 @@ abstract class BaseEngineHandler {
     var refreshRate = 60L
 
     protected var isVisible = false
-    var spUtils: SpUtils? = null
+    var spUtils: SpUtil? = null
 
     constructor(context: Context?) {
         mContext = context
         mainHandler = Handler(Looper.getMainLooper())
         mContext?.let {
             refreshRate = ScreenUtil.getScreenRefreshRate(it).toLong()
-            spUtils = SpUtils(it, javaClass.name)
+            spUtils = SpUtil(it, javaClass.name)
         }
 
     }
@@ -51,6 +53,17 @@ abstract class BaseEngineHandler {
 
     open fun onVisibilityChanged(visible: Boolean) {
         isVisible = visible
+        if (mContext == null) {
+            return
+        }
+
+        if (visible) {
+            create()
+//            testDraw()
+            doDraw()
+        } else {
+            mainHandler.removeCallbacksAndMessages(null)
+        }
     }
 
     open fun onDestroy() {
@@ -60,11 +73,11 @@ abstract class BaseEngineHandler {
 
     fun restart() {
         pause()
-        create()
         onVisibilityChanged(true)
     }
 
-    abstract fun pause()
+    protected abstract fun pause()
+    protected abstract fun doDraw()
 
     abstract fun newConfigFragment(): Fragment
 
