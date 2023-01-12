@@ -61,7 +61,7 @@ class LivingWallsService : WallpaperService() {
             holder: SurfaceHolder?, format: Int, width: Int, height: Int
         ) {
             super.onSurfaceChanged(holder, format, width, height)
-
+            engineHandler?.restart()
             LogUtil.d("LivingWallsService LivingWallsEngine onSurfaceChanged-----${this@LivingWallsService}")
         }
 

@@ -76,7 +76,7 @@ abstract class BaseEngineHandler {
         onVisibilityChanged(true)
     }
 
-    protected abstract fun pause()
+    abstract fun pause()
     protected abstract fun doDraw()
 
     abstract fun newConfigFragment(): Fragment
