@@ -39,10 +39,13 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
 
         }
 
+    override fun create() {
+
+    }
 
 
-    override fun onCreate(surfaceHolder: SurfaceHolder?) {
-        super.onCreate(surfaceHolder)
+    override fun create(surfaceHolder: SurfaceHolder?) {
+        super.create(surfaceHolder)
         paint.isAntiAlias = true
         paint.color = Color.parseColor("#88ffffff")
         paint.strokeWidth = ScreenUtil.dp2pxF(mContext!!, 3f)

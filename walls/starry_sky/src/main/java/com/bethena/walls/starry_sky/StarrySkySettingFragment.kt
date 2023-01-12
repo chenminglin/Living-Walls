@@ -1,10 +1,12 @@
 package com.bethena.walls.starry_sky
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.view.SurfaceHolder.Callback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bethena.base_wall.ColorUtil
 import com.bethena.base_wall.LogUtils
 import com.bethena.base_wall.colorpicker.ColorItem
 import com.bethena.base_wall.colorpicker.ColorPickerAdapter
@@ -28,16 +30,11 @@ class StarrySkySettingFragment : Fragment(), Slider.OnChangeListener, Slider.OnS
     ): View? {
         setHasOptionsMenu(true)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_starry_sky_setting, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        view.findViewById<View>()
+        var view = inflater.inflate(R.layout.fragment_starry_sky_setting, container, false)
         surfaceView = view.findViewById(R.id.surfaceView)
         surfaceView.holder.addCallback(object : Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
-                engineHandler.onCreate(holder)
+                engineHandler.create(holder)
             }
 
             override fun surfaceChanged(
@@ -52,6 +49,13 @@ class StarrySkySettingFragment : Fragment(), Slider.OnChangeListener, Slider.OnS
 
             }
         })
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        view.findViewById<View>()
+
     }
 
 
@@ -66,6 +70,7 @@ class StarrySkySettingFragment : Fragment(), Slider.OnChangeListener, Slider.OnS
                 bottomSheetDialog.setContentView(R.layout.fragment_starry_sky_bottom)
                 var slider_star_num = bottomSheetDialog.findViewById<Slider>(R.id.slider_star_num)
                 var slider_speed = bottomSheetDialog.findViewById<Slider>(R.id.slider_speed)
+                var slider_mash = bottomSheetDialog.findViewById<Slider>(R.id.slider_mash)
                 slider_star_num?.let {
                     var value = engineHandler.spUtils?.getInt(
                         StarrySkyConst.KEY_STARS_COUNT, StarrySkyConst.KEY_INIT_STARS_COUNT
@@ -73,12 +78,27 @@ class StarrySkySettingFragment : Fragment(), Slider.OnChangeListener, Slider.OnS
                     it.value = value!!.toFloat()
                     it.addOnChangeListener(this@StarrySkySettingFragment)
                     it.addOnSliderTouchListener(this@StarrySkySettingFragment)
+
                 }
                 slider_speed?.let {
                     var value = engineHandler.spUtils?.getFloat(
                         StarrySkyConst.KEY_STARS_SPEED, StarrySkyConst.KEY_INIT_STARS_SPEED
                     )
                     it.value = value!!
+                    it.setLabelFormatter { value ->
+                        "${value}x"
+                    }
+                    it.addOnChangeListener(this@StarrySkySettingFragment)
+                    it.addOnSliderTouchListener(this@StarrySkySettingFragment)
+                }
+                slider_mash?.let {
+                    var value = engineHandler.spUtils?.getInt(
+                        StarrySkyConst.KEY_MASH_PERCENT, StarrySkyConst.KEY_INIT_MASH
+                    )
+                    it.value = value!!.toFloat()
+                    it.setLabelFormatter { value ->
+                        "${value}%"
+                    }
                     it.addOnChangeListener(this@StarrySkySettingFragment)
                     it.addOnSliderTouchListener(this@StarrySkySettingFragment)
                 }
@@ -101,13 +121,56 @@ class StarrySkySettingFragment : Fragment(), Slider.OnChangeListener, Slider.OnS
                         it.removeOnChangeListener(this)
                         it.removeOnSliderTouchListener(this)
                     }
+
+                    slider_mash?.let {
+                        engineHandler.spUtils?.putInt(
+                            StarrySkyConst.KEY_MASH_PERCENT,
+                            it.value.toInt()
+                        )
+
+                        it.removeOnChangeListener(this)
+                        it.removeOnSliderTouchListener(this)
+                    }
                 }
-                var rv_background_color_picker = bottomSheetDialog.findViewById<RecyclerView>(R.id.rv_background_color_picker)
+
+                var rv_background_color_picker =
+                    bottomSheetDialog.findViewById<RecyclerView>(R.id.rv_background_color_picker)
                 var colorItems = arrayListOf<ColorItem>()
                 engineHandler.backgroundColors.forEach {
-                    colorItems.add(ColorItem(it,it == engineHandler.backgroundColor))
+                    colorItems.add(ColorItem(it, it == engineHandler.backgroundColor))
                 }
-                rv_background_color_picker?.adapter = ColorPickerAdapter(colorItems)
+                var backgroundColorAdapter = ColorPickerAdapter(colorItems)
+                backgroundColorAdapter.setOnItemChildClickListener { adapter, view, position ->
+                    for (colorItem in colorItems) {
+                        colorItem.isSelected = colorItem == colorItems[position]
+                    }
+                    adapter.notifyDataSetChanged()
+                    engineHandler.backgroundColor = colorItems[position].colorValue
+                    engineHandler.spUtils?.putInt(
+                        StarrySkyConst.KEY_BACKGROUND_COLOR, engineHandler.backgroundColor
+                    )
+                }
+                rv_background_color_picker?.adapter = backgroundColorAdapter
+
+                var rv_star_color_picker =
+                    bottomSheetDialog.findViewById<RecyclerView>(R.id.rv_star_color_picker)
+                var starColorItems = arrayListOf<ColorItem>()
+                engineHandler.starColors.forEach {
+                    starColorItems.add(ColorItem(it, it == engineHandler.starColor))
+                }
+                var starColorAdapter = ColorPickerAdapter(starColorItems)
+                starColorAdapter.setOnItemChildClickListener { adapter, view, position ->
+                    for (colorItem in starColorItems) {
+                        colorItem.isSelected = colorItem == starColorItems[position]
+                    }
+                    adapter.notifyDataSetChanged()
+                    engineHandler.starColor = starColorItems[position].colorValue
+                    engineHandler.spUtils?.putInt(
+                        StarrySkyConst.KEY_STAR_COLOR, engineHandler.starColor
+                    )
+                    engineHandler.restart()
+                }
+                rv_star_color_picker?.adapter = starColorAdapter
                 bottomSheetDialog.show()
             }
         }
@@ -123,7 +186,9 @@ class StarrySkySettingFragment : Fragment(), Slider.OnChangeListener, Slider.OnS
                     return@postDelayed
                 }
                 LogUtils.d("onValueChange ---- isSliderTouching = $isSliderTouching ")
-                if (isSliderTouching) {
+                if ((slider.id == R.id.slider_star_num
+                            || slider.id == R.id.slider_speed) && isSliderTouching
+                ) {
                     return@postDelayed
                 }
                 when (slider.id) {
@@ -135,8 +200,11 @@ class StarrySkySettingFragment : Fragment(), Slider.OnChangeListener, Slider.OnS
                         engineHandler.speed = value
                         engineHandler.restart()
                     }
+                    R.id.slider_mash -> {
+                        engineHandler.mashColor = ColorUtil.adjustAlpha(Color.BLACK, value / 100)
+                    }
                 }
-                engineHandler.restart()
+
             }
         }, 200)
 

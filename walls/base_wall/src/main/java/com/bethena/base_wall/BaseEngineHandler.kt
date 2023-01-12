@@ -26,9 +26,12 @@ abstract class BaseEngineHandler {
             refreshRate = ScreenUtil.getScreenRefreshRate(it).toLong()
             spUtils = SpUtils(it, javaClass.name)
         }
+
     }
 
-    open fun onCreate(surfaceHolder: SurfaceHolder?) {
+    abstract fun create()
+
+    open fun create(surfaceHolder: SurfaceHolder?) {
         mSurfaceHolder = surfaceHolder
         mSurfaceHolder?.setFormat(PixelFormat.RGBA_8888)
     }
@@ -57,6 +60,7 @@ abstract class BaseEngineHandler {
 
     fun restart() {
         pause()
+        create()
         onVisibilityChanged(true)
     }
 

@@ -27,7 +27,7 @@ class LivingWallsService : WallpaperService() {
         override fun onCreate(surfaceHolder: SurfaceHolder?) {
             super.onCreate(surfaceHolder)
             engineHandler = StarrySkyEngineHandler(this@LivingWallsService)
-            engineHandler?.onCreate(surfaceHolder)
+            engineHandler?.create(surfaceHolder)
         }
 
         override fun onVisibilityChanged(visible: Boolean) {

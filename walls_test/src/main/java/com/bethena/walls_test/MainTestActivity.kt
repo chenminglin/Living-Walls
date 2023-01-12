@@ -36,7 +36,7 @@ class MainTestActivity : AppCompatActivity() {
 
         surfaceView.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
-                TestApp.wallEngineHandler?.onCreate(holder)
+                TestApp.wallEngineHandler?.create(holder)
             }
 
             override fun surfaceChanged(
