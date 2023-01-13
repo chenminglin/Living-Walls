@@ -29,7 +29,7 @@ ext {
             liveDataKtx        : "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0",
             activityKtx        : "androidx.activity:activity-ktx:1.2.3",
 
-            googleMaterial     : "com.google.android.material:material:1.6.1",
+            googleMaterial     : "com.google.android.material:material:1.7.0",
             googleGson         : "com.google.code.gson:gson:2.8.6",
 
             //---------------- 网络相关 --------------------

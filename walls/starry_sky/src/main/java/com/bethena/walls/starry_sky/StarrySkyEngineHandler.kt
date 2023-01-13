@@ -58,7 +58,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
                     backgroundColor = it.getInt(const.KEY_BACKGROUND_COLOR, backgroundColors[0])
                     mashColor = ColorUtil.adjustAlpha(
                         Color.BLACK,
-                        (it.getInt(const.KEY_MASH_PERCENT, 0) / 100).toFloat()
+                        it.getInt(const.KEY_MASH_PERCENT, 0) / 100f
                     )
                 }
 
@@ -187,4 +187,6 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     override fun newConfigFragment(): Fragment {
         return StarrySkySettingFragment()
     }
+
+    
 }

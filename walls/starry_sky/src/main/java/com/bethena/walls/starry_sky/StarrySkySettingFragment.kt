@@ -206,6 +206,7 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
                         engineHandler.restart()
                     }
                     R.id.slider_mash -> {
+
                         engineHandler.mashColor = ColorUtil.adjustAlpha(Color.BLACK, value / 100)
                     }
                 }

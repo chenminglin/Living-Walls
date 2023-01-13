@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.bethena.base_wall.BaseActivity
 import com.bethena.base_wall.BaseFragment
 import com.bethena.base_wall.WallInfo
 import com.bethena.base_wall.utils.ToastUtil
@@ -13,28 +13,36 @@ import com.bethena.living_walls.Const
 import com.bethena.living_walls.R
 import com.bethena.living_walls.service.LivingWallsService
 
-class LivingWallsConfigActivity : AppCompatActivity() {
+class LivingWallsConfigActivity : BaseActivity() {
     lateinit var fragment: BaseFragment
-    var wallInfo:WallInfo? = null
+    var wallInfo: WallInfo? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_living_walls_config)
         var toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        wallInfo = intent.getParcelableExtra(Const.KEY_WALLS)
-        if (wallInfo != null) {
-            try {
-                var fragmentClass = Class.forName(wallInfo!!.configClassName)
-                    .asSubclass(BaseFragment::class.java)
-                fragment = fragmentClass.newInstance()
 
-                supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.fragment_container, fragment)
-                    .commitAllowingStateLoss()
-            } catch (e: Exception) {
-                ToastUtil.showLong(this, com.bethena.base_wall.R.string.found_error)
-                finish()
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
+
+        wallInfo = intent.getParcelableExtra(Const.KEY_WALLS)
+
+        if (wallInfo != null) {
+            toolbar.title = wallInfo?.name
+            if (savedInstanceState == null) {
+                try {
+                    var fragmentClass = Class.forName(wallInfo!!.configClassName)
+                        .asSubclass(BaseFragment::class.java)
+                    fragment = fragmentClass.newInstance()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .add(R.id.fragment_container, fragment)
+                        .commitAllowingStateLoss()
+                } catch (e: Exception) {
+                    ToastUtil.showLong(this, com.bethena.base_wall.R.string.found_error)
+                    finish()
+                }
             }
         } else {
             ToastUtil.showLong(this, com.bethena.base_wall.R.string.found_error)

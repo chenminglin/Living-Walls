@@ -40,6 +40,7 @@ dependencies {
     androidTestImplementation rootProject.ext.depsLibs.androidxJunit
     androidTestImplementation rootProject.ext.depsLibs.androidxEspresso
 
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
+    api rootProject.ext.depsLibs.recyclerAdapter
+    api rootProject.ext.depsLibs.immersionbar
 
 }

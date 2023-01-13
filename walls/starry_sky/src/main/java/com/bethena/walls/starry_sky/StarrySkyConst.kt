@@ -15,4 +15,5 @@ object StarrySkyConst {
     val KEY_INIT_STARS_SPEED = 1f
     val KEY_INIT_MASH = 0
     val KEY_INIT_MASH_COLOR = Color.parseColor("#00ffffff")
+
 }

@@ -4,4 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class WallInfo(val handlerClassName: String, val configClassName: String) : Parcelable
+data class WallInfo(val name: String,
+                    val handlerClassName: String,
+                    val configClassName: String) :
+    Parcelable

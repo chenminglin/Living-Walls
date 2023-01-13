@@ -76,6 +76,8 @@ abstract class BaseEngineHandler {
         onVisibilityChanged(true)
     }
 
+
+
     abstract fun pause()
     protected abstract fun doDraw()
 
