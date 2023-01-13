@@ -1,6 +1,7 @@
 package com.bethena.walls.circle
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Paint
 import android.hardware.Sensor
@@ -125,6 +126,8 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
             }
         }, 20)
     }
+
+
 
 
     fun initCirclese() {

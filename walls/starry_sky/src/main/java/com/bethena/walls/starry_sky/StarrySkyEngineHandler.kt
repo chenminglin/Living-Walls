@@ -145,6 +145,8 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         }, 1000 / refreshRate)
     }
 
+
+
     private fun initStars() {
         stars.clear()
         var canvas: Canvas? = lockCanvas() ?: return
@@ -188,5 +190,5 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         return StarrySkySettingFragment()
     }
 
-    
+
 }

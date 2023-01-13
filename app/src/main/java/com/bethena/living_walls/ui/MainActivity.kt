@@ -14,12 +14,12 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<View>(R.id.button).setOnClickListener {
-            var wallInfo = WallInfo("",
-                StarrySkyEngineHandler::class.java.name,
-                StarrySkySettingFragment::class.java.name
-            )
-            LivingWallsConfigActivity.start(this@MainActivity, wallInfo)
-        }
+//        findViewById<View>(R.id.button).setOnClickListener {
+//            var wallInfo = WallInfo("",
+//                StarrySkyEngineHandler::class.java.name,
+//                StarrySkySettingFragment::class.java.name
+//            )
+//        }
+//        LivingWallsConfigActivity.start(this@MainActivity, wallInfo)
     }
 }

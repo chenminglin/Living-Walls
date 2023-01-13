@@ -1,12 +1,19 @@
 package com.bethena.walls_test
 
+import android.Manifest
 import android.content.Intent
-import android.os.Bundle
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.os.*
 import android.view.*
+import android.view.PixelCopy.OnPixelCopyFinishedListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener
 import com.bethena.base_wall.utils.LogUtil
+import com.permissionx.guolindev.PermissionX
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 
 class MainTestActivity : AppCompatActivity() {
@@ -15,23 +22,19 @@ class MainTestActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
     var choreographer = Choreographer.getInstance()
     var frameCallback = FrameCallback()
+    lateinit var surfaceView: SurfaceView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         toolbar = findViewById(R.id.toolbar)
         toolbar.title = " "
-        toolbar.setOnMenuItemClickListener(object : OnMenuItemClickListener {
-            override fun onMenuItemClick(item: MenuItem?): Boolean {
 
-                return true
-            }
-        })
         setSupportActionBar(toolbar)
 
 //        setSupportActionBar()
 
-        var surfaceView = findViewById<SurfaceView>(R.id.surfaceView)
+        surfaceView = findViewById(R.id.surfaceView)
 //        wallEngineHandler = CircleLivingWallEngineHandler(this)
 
         surfaceView.holder.addCallback(object : SurfaceHolder.Callback {
@@ -40,10 +43,7 @@ class MainTestActivity : AppCompatActivity() {
             }
 
             override fun surfaceChanged(
-                holder: SurfaceHolder,
-                format: Int,
-                width: Int,
-                height: Int
+                holder: SurfaceHolder, format: Int, width: Int, height: Int
             ) {
             }
 
@@ -73,10 +73,11 @@ class MainTestActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
+
 
     override fun onMenuOpened(featureId: Int, menu: Menu): Boolean {
         return super.onMenuOpened(featureId, menu)
@@ -96,6 +97,57 @@ class MainTestActivity : AppCompatActivity() {
             R.id.menu_config -> {
                 var intent = Intent(this@MainTestActivity, ConfigTestActivity::class.java)
                 startActivity(intent)
+            }
+            R.id.menu_cut -> {
+
+                PermissionX.init(this).permissions(
+                    arrayListOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                ).request { allGranted, grantedList, deniedList ->
+                    if (allGranted) {
+
+//                        TestApp.wallEngineHandler?.isCutPicture = true
+
+                        var bitmap = Bitmap.createBitmap(
+                            surfaceView.width/2, surfaceView.height/2, Bitmap.Config.RGB_565
+                        )
+
+                        var canvas = Canvas(bitmap)
+                        surfaceView.draw(canvas)
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            PixelCopy.request(surfaceView,bitmap,object :OnPixelCopyFinishedListener{
+                                override fun onPixelCopyFinished(p0: Int) {
+                                    // 将位图压缩为 PNG 格式
+                                    val byteArrayOutputStream = ByteArrayOutputStream()
+                                    bitmap.let {
+                                        it.compress(Bitmap.CompressFormat.PNG, 30, byteArrayOutputStream)
+                                        // 保存图像到文件
+                                        val PIC_SAVE_PATH_DIR by lazy {
+                                            "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath}${File.separator}Camera${File.separator}"
+                                        }
+                                        var dir = PIC_SAVE_PATH_DIR
+                                        var dirFile = File(dir)
+                                        if (!dirFile.exists()) {
+                                            dirFile.mkdirs()
+                                        }
+
+                                        var path = dir + "cut_${System.currentTimeMillis()}.png"
+
+                                        val fileOutputStream = FileOutputStream(path)
+                                        fileOutputStream.write(byteArrayOutputStream.toByteArray())
+                                        fileOutputStream.close()
+                                        byteArrayOutputStream.close()
+//                            it.recycle()
+                                    }
+                                }
+                            }, Handler(Looper.getMainLooper()))
+                        }
+
+
+                    }
+                }
+
+
             }
         }
         return super.onOptionsItemSelected(item)

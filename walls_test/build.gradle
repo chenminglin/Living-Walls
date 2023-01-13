@@ -44,6 +44,7 @@ dependencies {
     androidTestImplementation rootProject.ext.depsLibs.androidxJunit
     androidTestImplementation rootProject.ext.depsLibs.androidxEspresso
 
+    implementation rootProject.ext.depsLibs.permissionx
 
     implementation project(path: ':walls:circle')
     implementation project(path: ':walls:starry_sky')
