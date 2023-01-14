@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.utils.ColorUtil
 import com.bethena.base_wall.utils.DrawableUtil
+import com.bethena.base_wall.utils.LogUtil
 import com.bethena.base_wall.utils.ScreenUtil
 import kotlin.random.Random
 
@@ -152,12 +153,14 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         var canvas: Canvas? = lockCanvas() ?: return
         var canvasWidth = canvas!!.width - bitmapSize
         var canvasHeight = canvas.height - bitmapSize
+        LogUtil.d("initStars canvasHeight = $canvasHeight")
 
         var ratePer = refreshRate / ScreenUtil.MAX_RATE.toFloat()
 
         for (i in 0 until starCount) {
             var x = Random.nextInt(canvasWidth)
             var y = Random.nextInt(canvasHeight)
+            LogUtil.d("initStars y = $y")
 //            var scale = RandomUtil.between2numsF(0.5f, 3f)
             var indexBitmap = Random.nextInt(starBitmaps.size)
             var starBitmap = starBitmaps[indexBitmap]

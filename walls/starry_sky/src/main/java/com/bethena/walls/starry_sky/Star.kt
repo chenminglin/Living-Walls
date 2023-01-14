@@ -148,13 +148,16 @@ data class Star(
             x = realX
         }
         var per = y % dHeight / dHeight//当前段落百分比
-        var dx = Math.abs(x - middleX[n]) * interpolatorX.getInterpolation(per)
+        if (n<middleX.size){
+            var dx = Math.abs(x - middleX[n]) * interpolatorX.getInterpolation(per)
 //        var dx = Math.abs(x - middleX[n]) * per
-        if (x >= middleX[n].toFloat()) {
-            realX = x - dx
-        } else {
-            realX = x + dx
+            if (x >= middleX[n].toFloat()) {
+                realX = x - dx
+            } else {
+                realX = x + dx
+            }
         }
+
 //        LogUtils.d("x = $x realX = $realX currentSection = $currentSection middleX[0] = ${middleX[0]} middleX[1] = ${middleX[1]}")
     }
 
@@ -191,7 +194,7 @@ data class Star(
         }
 
 //        }
-        if (y >= canvas.height) {
+        if (y >= maxY) {
             reset()
 //            isEnd = true
         }
