@@ -108,7 +108,7 @@ class MainTestActivity : AppCompatActivity() {
 //                        TestApp.wallEngineHandler?.isCutPicture = true
 
                         var bitmap = Bitmap.createBitmap(
-                            surfaceView.width/2, surfaceView.height/2, Bitmap.Config.RGB_565
+                            surfaceView.width, surfaceView.height, Bitmap.Config.RGB_565
                         )
 
                         var canvas = Canvas(bitmap)
@@ -120,7 +120,7 @@ class MainTestActivity : AppCompatActivity() {
                                     // 将位图压缩为 PNG 格式
                                     val byteArrayOutputStream = ByteArrayOutputStream()
                                     bitmap.let {
-                                        it.compress(Bitmap.CompressFormat.PNG, 30, byteArrayOutputStream)
+                                        it.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
                                         // 保存图像到文件
                                         val PIC_SAVE_PATH_DIR by lazy {
                                             "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath}${File.separator}Camera${File.separator}"

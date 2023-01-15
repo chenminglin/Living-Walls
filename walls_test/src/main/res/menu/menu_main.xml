@@ -5,6 +5,7 @@
         android:id="@+id/menu_cut"
         android:icon="@drawable/ic_baseline_content_cut_24"
         app:showAsAction="always"
+        android:contentDescription="截图"
         />
     <item
         android:id="@+id/menu_pause"

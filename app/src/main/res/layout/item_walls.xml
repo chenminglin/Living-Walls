@@ -14,12 +14,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_walls_cover"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:scaleType="centerCrop"
-            app:backgroundTint="?attr/colorControlNormal"  />
+            app:shapeAppearance="?attr/shapeAppearanceCornerLarge"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
 
         <TextView
             android:id="@+id/tv_title"
