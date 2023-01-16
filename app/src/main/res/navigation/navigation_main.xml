@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:label="homeFragment"
+        android:name="com.bethena.living_walls.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home"
+        >
+
+        <action android:id="@+id/action_to_settings"
+            app:destination="@id/settingFragment">
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:label="settingsFragment"
+        android:name="com.bethena.living_walls.ui.settings.SettingsFragment">
+
+    </fragment>
+
+
+
+
+</navigation>

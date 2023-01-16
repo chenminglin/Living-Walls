@@ -31,7 +31,16 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
     ): View? {
         setHasOptionsMenu(true)
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_starry_sky_setting, container, false)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun layoutId(): Int {
+        return R.layout.fragment_starry_sky_setting
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        view.findViewById<View>()
         surfaceView = view.findViewById(R.id.surfaceView)
         surfaceView.holder.addCallback(object : Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
@@ -50,13 +59,6 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
 
             }
         })
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        view.findViewById<View>()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

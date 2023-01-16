@@ -51,6 +51,14 @@ dependencies {
     implementation rootProject.ext.depsLibs.androidxAppCompat
     implementation rootProject.ext.depsLibs.googleMaterial
     implementation rootProject.ext.depsLibs.androidxConstrant
+    implementation rootProject.ext.depsLibs.viewModelKtx
+    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
     testImplementation rootProject.ext.depsLibs.junit
     androidTestImplementation rootProject.ext.depsLibs.androidxJunit
