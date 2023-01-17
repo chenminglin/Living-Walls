@@ -1,5 +1,7 @@
 package com.bethena.living_walls.ui.home
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -33,5 +35,12 @@ class MainActivity : BaseActivity() {
             }
         }
         return true
+    }
+
+    companion object{
+        fun start(context: Context){
+            var intent = Intent(context,MainActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 }

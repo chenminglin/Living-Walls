@@ -10,18 +10,17 @@
 
     <string name="main_menu_settings">Settings</string>
 
-    <!-- Preference Titles -->
     <string name="settings_header_general">General</string>
-    <string name="sync_header">Sync</string>
+    <string name="settings_item_theme">Theme</string>
+    <string name="settings_item_theme_key">theme_key</string>
+    <string name="settings_item_theme_defaul">system</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <string name="settings_item_language">Language</string>
+    <string name="settings_item_language_key">language_key</string>
+    <string name="settings_item_language_defaul">""</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <string name="settings_header_more">More Options</string>
+
+
 </resources>

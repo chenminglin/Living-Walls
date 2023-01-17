@@ -8,4 +8,16 @@
 
     <string name="main_navigation_home">主页</string>
     <string name="main_navigation_mine">我的</string>
+
+
+    <string name="main_menu_settings">设置</string>
+
+    <string name="settings_header_general">常规</string>
+    <string name="settings_item_theme">主题</string>
+    <string name="settings_item_theme_key">theme_key</string>
+    <string name="settings_item_theme_defaul">system</string>
+
+    <string name="settings_item_language">语言</string>
+    <string name="settings_item_language_key">language_key</string>
+    <string name="settings_item_language_defaul">""</string>
 </resources>

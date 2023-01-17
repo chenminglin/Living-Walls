@@ -1,12 +1,27 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+    <string-array name="settings_theme">
+        <item>Follow system</item>
+        <item>Light</item>
+        <item>Dark</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="settings_theme_values">
+        <item>@string/settings_item_theme_defaul</item>
+        <item>light</item>
+        <item>dark</item>
     </string-array>
+
+
+    <string-array name="settings_language">
+        <item>Follow system</item>
+        <item>English</item>
+        <item>简体中文</item>
+    </string-array>
+
+    <string-array name="settings_language_values">
+        <item>@string/settings_item_language_defaul</item>
+        <item>en</item>
+        <item>zh-CN</item>
+    </string-array>
+
 </resources>
