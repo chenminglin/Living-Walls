@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.SurfaceHolder
 import androidx.fragment.app.Fragment
+import com.bethena.base_wall.utils.LogUtil
 import com.bethena.base_wall.utils.ScreenUtil
 import com.bethena.base_wall.utils.SpUtil
 
@@ -21,7 +22,9 @@ abstract class BaseEngineHandler {
     protected var isVisible = false
     var spUtils: SpUtil? = null
 
+    //在子类的init前面调用
     constructor(context: Context?) {
+        LogUtil.d("BaseEngineHandler constructor")
         mContext = context
         mainHandler = Handler(Looper.getMainLooper())
         mContext?.let {
@@ -31,9 +34,15 @@ abstract class BaseEngineHandler {
 
     }
 
-    abstract fun create()
+    /**
+     * 初始化可变素材
+     */
+    abstract fun initVariableMaterial()
 
-    open fun create(surfaceHolder: SurfaceHolder?) {
+    /**
+     * surfaceHolder创建调用
+     */
+    open fun surfaceCreated(surfaceHolder: SurfaceHolder?) {
         mSurfaceHolder = surfaceHolder
         mSurfaceHolder?.setFormat(PixelFormat.RGBA_8888)
     }
@@ -58,7 +67,7 @@ abstract class BaseEngineHandler {
         }
 
         if (visible) {
-            create()
+            initVariableMaterial()
 //            testDraw()
             doDraw()
         } else {

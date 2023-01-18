@@ -4,22 +4,32 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.view.SurfaceHolder.Callback
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bethena.base_wall.BaseConfigFragment
 import com.bethena.base_wall.BaseFragment
-import com.bethena.base_wall.utils.ColorUtil
-import com.bethena.base_wall.utils.LogUtil
 import com.bethena.base_wall.colorpicker.ColorItem
 import com.bethena.base_wall.colorpicker.ColorPickerAdapter
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.bethena.base_wall.utils.ColorUtil
+import com.bethena.base_wall.utils.LogUtil
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.slider.Slider
 
 
-class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider.OnSliderTouchListener {
+class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
+    Slider.OnSliderTouchListener {
 
     lateinit var engineHandler: StarrySkyEngineHandler
     lateinit var surfaceView: SurfaceView
     var isSliderTouching = false
+    lateinit var bottomDrawerBehaviorColor: BottomSheetBehavior<View>
+    lateinit var bottomDrawerBehaviorEqualizer: BottomSheetBehavior<View>
+    var slider_star_num: Slider? = null
+    var slider_speed: Slider? = null
+    var slider_mash: Slider? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         engineHandler = StarrySkyEngineHandler(context)
@@ -35,7 +45,7 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
     }
 
     override fun layoutId(): Int {
-        return R.layout.fragment_starry_sky_setting
+        return R.layout.fragment_starry_sky_config
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +54,10 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
         surfaceView = view.findViewById(R.id.surfaceView)
         surfaceView.holder.addCallback(object : Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
-                engineHandler.create(holder)
+                //这里会调用两次，不知道为什么
+                engineHandler.surfaceCreated(holder)
+                initSettingParams(view)
+                initColorAdapter(view)
             }
 
             override fun surfaceChanged(
@@ -59,36 +72,90 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
 
             }
         })
+
+        initDrawer(view)
+
+        var bar = view.findViewById<BottomAppBar>(R.id.bar)
+
+        slider_star_num = view.findViewById(R.id.slider_star_num)
+        slider_speed = view.findViewById(R.id.slider_speed)
+        slider_mash = view.findViewById(R.id.slider_mash)
+
+        initBtnCheck(view)
+
+        (activity as AppCompatActivity?)!!.setSupportActionBar(bar)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_config_starry_sky, menu)
-    }
+    fun initDrawer(view: View){
+        val bottomDrawerColor: View = view.findViewById(R.id.bottom_drawer_color)
+        bottomDrawerBehaviorColor = BottomSheetBehavior.from(bottomDrawerColor)
+        bottomDrawerBehaviorColor.setUpdateImportantForAccessibilityOnSiblings(true)
+        bottomDrawerBehaviorColor.state = BottomSheetBehavior.STATE_HIDDEN
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_config -> {
-                showSettingSheet()
+        bottomDrawerBehaviorColor.addBottomSheetCallback(object : BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                }
             }
 
-        }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+        })
 
-        return super.onOptionsItemSelected(item)
+        val bottomDrawerEqualizer: View = view.findViewById(R.id.bottom_drawer_equalizer)
+        bottomDrawerBehaviorEqualizer = BottomSheetBehavior.from(bottomDrawerEqualizer)
+        bottomDrawerBehaviorEqualizer.setUpdateImportantForAccessibilityOnSiblings(true)
+        bottomDrawerBehaviorEqualizer.state = BottomSheetBehavior.STATE_HIDDEN
+
+        bottomDrawerBehaviorEqualizer.addBottomSheetCallback(object : BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    slider_star_num?.let {
+                        engineHandler.spUtils?.putInt(
+                            StarrySkyConst.KEY_STARS_COUNT,
+                            it.value.toInt()
+                        )
+                    }
+                    slider_speed?.let {
+                        engineHandler.spUtils?.putFloat(
+                            StarrySkyConst.KEY_STARS_SPEED,
+                            it.value
+                        )
+                    }
+                    slider_mash?.let {
+                        engineHandler.spUtils?.putInt(
+                            StarrySkyConst.KEY_MASH_PERCENT,
+                            it.value.toInt()
+                        )
+                    }
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+        })
     }
 
-    private fun showSettingSheet(){
-        var bottomSheetDialog = BottomSheetDialog(requireContext())
-        bottomSheetDialog.setContentView(R.layout.fragment_starry_sky_bottom)
-        var slider_star_num = bottomSheetDialog.findViewById<Slider>(R.id.slider_star_num)
-        var slider_speed = bottomSheetDialog.findViewById<Slider>(R.id.slider_speed)
-        var slider_mash = bottomSheetDialog.findViewById<Slider>(R.id.slider_mash)
+    fun initBtnCheck(view: View){
+        var fab_check = view.findViewById<FloatingActionButton>(R.id.fab_check)
+        fab_check.setOnClickListener {
+            checkWall()
+        }
+    }
+
+    var isSlideInited = false
+    fun initSettingParams(view: View) {
+        LogUtil.d("initSettingParams")
+        if (isSlideInited) {
+            return
+        }
         slider_star_num?.let {
             var value = engineHandler.spUtils?.getInt(
                 StarrySkyConst.KEY_STARS_COUNT, StarrySkyConst.KEY_INIT_STARS_COUNT
             )
             it.value = value!!.toFloat()
-            it.addOnChangeListener(this@StarrySkySettingFragment)
-            it.addOnSliderTouchListener(this@StarrySkySettingFragment)
+            it.addOnChangeListener(this@StarrySkyConfigFragment)
+            it.addOnSliderTouchListener(this@StarrySkyConfigFragment)
 
         }
         slider_speed?.let {
@@ -99,8 +166,8 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
             it.setLabelFormatter { value ->
                 "${value}x"
             }
-            it.addOnChangeListener(this@StarrySkySettingFragment)
-            it.addOnSliderTouchListener(this@StarrySkySettingFragment)
+            it.addOnChangeListener(this@StarrySkyConfigFragment)
+            it.addOnSliderTouchListener(this@StarrySkyConfigFragment)
         }
         slider_mash?.let {
             var value = engineHandler.spUtils?.getInt(
@@ -110,42 +177,20 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
             it.setLabelFormatter { value ->
                 "${value}%"
             }
-            it.addOnChangeListener(this@StarrySkySettingFragment)
-            it.addOnSliderTouchListener(this@StarrySkySettingFragment)
+            it.addOnChangeListener(this@StarrySkyConfigFragment)
+            it.addOnSliderTouchListener(this@StarrySkyConfigFragment)
         }
+        isSlideInited = true
+    }
 
-        bottomSheetDialog.setOnDismissListener {
-            slider_star_num?.let {
-                engineHandler.spUtils?.putInt(
-                    StarrySkyConst.KEY_STARS_COUNT,
-                    it.value.toInt()
-                )
-                it.removeOnChangeListener(this)
-                it.removeOnSliderTouchListener(this)
-            }
+    var isAdapterInit = false
 
-            slider_speed?.let {
-                engineHandler.spUtils?.putFloat(
-                    StarrySkyConst.KEY_STARS_SPEED,
-                    it.value
-                )
-                it.removeOnChangeListener(this)
-                it.removeOnSliderTouchListener(this)
-            }
-
-            slider_mash?.let {
-                engineHandler.spUtils?.putInt(
-                    StarrySkyConst.KEY_MASH_PERCENT,
-                    it.value.toInt()
-                )
-
-                it.removeOnChangeListener(this)
-                it.removeOnSliderTouchListener(this)
-            }
+    fun initColorAdapter(view: View){
+        if (isAdapterInit){
+            return
         }
-
         var rv_background_color_picker =
-            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv_background_color_picker)
+            view.findViewById<RecyclerView>(R.id.rv_background_color_picker)
         var colorItems = arrayListOf<ColorItem>()
         engineHandler.backgroundColors.forEach {
             colorItems.add(ColorItem(it, it == engineHandler.backgroundColor))
@@ -164,7 +209,7 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
         rv_background_color_picker?.adapter = backgroundColorAdapter
 
         var rv_star_color_picker =
-            bottomSheetDialog.findViewById<RecyclerView>(R.id.rv_star_color_picker)
+            view.findViewById<RecyclerView>(R.id.rv_star_color_picker)
         var starColorItems = arrayListOf<ColorItem>()
         engineHandler.starColors.forEach {
             starColorItems.add(ColorItem(it, it == engineHandler.starColor))
@@ -182,7 +227,24 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
             engineHandler.restart()
         }
         rv_star_color_picker?.adapter = starColorAdapter
-        bottomSheetDialog.show()
+        isAdapterInit = true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_config_starry_sky, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_config_color -> {
+                bottomDrawerBehaviorColor.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+
+            R.id.menu_config_equalizer -> {
+                bottomDrawerBehaviorEqualizer.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
@@ -215,8 +277,6 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
 
             }
         }, 200)
-
-
     }
 
 
@@ -234,7 +294,19 @@ class StarrySkySettingFragment : BaseFragment(), Slider.OnChangeListener, Slider
 
     override fun onDestroy() {
         super.onDestroy()
+        slider_star_num?.let {
+            it.removeOnChangeListener(this)
+            it.removeOnSliderTouchListener(this)
+        }
 
+        slider_speed?.let {
+            it.removeOnChangeListener(this)
+            it.removeOnSliderTouchListener(this)
+        }
+        slider_mash?.let {
+            it.removeOnChangeListener(this)
+            it.removeOnSliderTouchListener(this)
+        }
     }
 
     override fun onStartTrackingTouch(slider: Slider) {

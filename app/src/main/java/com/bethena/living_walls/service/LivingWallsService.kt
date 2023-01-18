@@ -34,7 +34,7 @@ class LivingWallsService : WallpaperService() {
         override fun onCreate(surfaceHolder: SurfaceHolder?) {
             super.onCreate(surfaceHolder)
             engineHandler = StarrySkyEngineHandler(this@LivingWallsService)
-            engineHandler?.create(surfaceHolder)
+            engineHandler?.surfaceCreated(surfaceHolder)
             LogUtil.d("LivingWallsService LivingWallsEngine onCreate-----${this@LivingWallsService} $this")
         }
 

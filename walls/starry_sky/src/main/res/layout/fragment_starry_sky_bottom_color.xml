@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_drawer_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/bottom_sheet_paddingHorizontal"
+    android:paddingVertical="@dimen/bottom_sheet_paddingVertical">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/drag_handle_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_background_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="6dp"
+        android:text="@string/starry_sky_background_color"
+        app:layout_constraintBottom_toBottomOf="@id/rv_background_color_picker"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/drag_handle_color" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_background_color_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintLeft_toRightOf="@id/tv_background_color"
+        app:layout_constraintTop_toBottomOf="@id/drag_handle_color"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_color_picker" />
+
+
+    <TextView
+        android:id="@+id/tv_star_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/starry_sky_star_color"
+        app:layout_constraintBottom_toBottomOf="@id/rv_star_color_picker"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_background_color_picker" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_star_color_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintLeft_toLeftOf="@id/rv_background_color_picker"
+        app:layout_constraintTop_toBottomOf="@id/rv_background_color_picker"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_color_picker" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

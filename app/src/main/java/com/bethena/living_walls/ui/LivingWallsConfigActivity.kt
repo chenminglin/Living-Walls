@@ -7,7 +7,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import com.bethena.base_wall.BaseActivity
-import com.bethena.base_wall.BaseFragment
+import com.bethena.base_wall.BaseConfigFragment
+import com.bethena.base_wall.OnWallCheckListener
 import com.bethena.base_wall.WallInfo
 import com.bethena.base_wall.utils.ToastUtil
 import com.bethena.living_walls.Const
@@ -15,7 +16,7 @@ import com.bethena.living_walls.R
 import com.bethena.living_walls.service.LivingWallsService
 
 class LivingWallsConfigActivity : BaseActivity() {
-    lateinit var fragment: BaseFragment
+    lateinit var fragment: BaseConfigFragment
     var wallInfo: WallInfo? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +40,13 @@ class LivingWallsConfigActivity : BaseActivity() {
             if (savedInstanceState == null) {
                 try {
                     var fragmentClass = Class.forName(wallInfo!!.configClassName)
-                        .asSubclass(BaseFragment::class.java)
+                        .asSubclass(BaseConfigFragment::class.java)
                     fragment = fragmentClass.newInstance()
+                    fragment.onWallCheckListener = object : OnWallCheckListener {
+                        override fun onWallCheck() {
+                            LivingWallsService.start(this@LivingWallsConfigActivity, wallInfo!!)
+                        }
+                    }
                     supportFragmentManager
                         .beginTransaction()
                         .add(R.id.fragment_container, fragment)
@@ -55,9 +61,6 @@ class LivingWallsConfigActivity : BaseActivity() {
             finish()
         }
 
-        findViewById<View>(R.id.fab_check).setOnClickListener {
-            LivingWallsService.start(this@LivingWallsConfigActivity, wallInfo!!)
-        }
 
     }
 

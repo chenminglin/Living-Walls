@@ -4,11 +4,17 @@
     >
 
     <item
-        android:id="@+id/menu_config"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:title="settings"
+        android:id="@+id/menu_config_color"
+        android:icon="@drawable/ic_baseline_setting_color_lens_24"
+        android:title="color"
         android:visible="true"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/menu_config_equalizer"
+        android:icon="@drawable/ic_round_equalizer_24"
+        android:title="settings"
+        android:visible="true"
+        app:showAsAction="always" />
 
 </menu>

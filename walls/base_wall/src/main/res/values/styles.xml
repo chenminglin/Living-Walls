@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Widget.Walls.Toolbar" parent="Widget.Material3.Toolbar.OnSurface" >
     </style>
 
     <style name="ConfigItemTitleText" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">16sp</item>
     </style>
+
+<!--    <style name="Widget.Material3.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">-->
+<!--        <item name="android:elevation" tools:ignore="NewApi">@dimen/m3_bottom_sheet_elevation</item>-->
+<!--        <item name="marginLeftSystemWindowInsets">true</item>-->
+<!--        <item name="marginRightSystemWindowInsets">true</item>-->
+<!--        <item name="paddingBottomSystemWindowInsets">true</item>-->
+<!--        <item name="paddingTopSystemWindowInsets">true</item>-->
+<!--        <item name="paddingLeftSystemWindowInsets">false</item>-->
+<!--        <item name="paddingRightSystemWindowInsets">false</item>-->
+<!--        <item name="shapeAppearance">@macro/m3_comp_sheet_bottom_docked_container_shape</item>-->
+<!--        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Material3.Corner.Top</item>-->
+<!--        <item name="shouldRemoveExpandedCorners">false</item>-->
+<!--        <item name="backgroundTint">@macro/m3_comp_sheet_bottom_docked_container_color</item>-->
+<!--    </style>-->
 </resources>

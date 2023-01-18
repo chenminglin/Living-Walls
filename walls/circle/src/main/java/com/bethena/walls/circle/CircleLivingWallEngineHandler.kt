@@ -1,7 +1,6 @@
 package com.bethena.walls.circle
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Paint
 import android.hardware.Sensor
@@ -40,13 +39,13 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
 
         }
 
-    override fun create() {
+    override fun initVariableMaterial() {
 
     }
 
 
-    override fun create(surfaceHolder: SurfaceHolder?) {
-        super.create(surfaceHolder)
+    override fun surfaceCreated(surfaceHolder: SurfaceHolder?) {
+        super.surfaceCreated(surfaceHolder)
         paint.isAntiAlias = true
         paint.color = Color.parseColor("#88ffffff")
         paint.strokeWidth = ScreenUtil.dp2pxF(mContext!!, 3f)

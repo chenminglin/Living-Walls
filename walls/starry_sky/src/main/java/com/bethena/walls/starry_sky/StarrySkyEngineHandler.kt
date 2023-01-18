@@ -29,14 +29,10 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     var starColors = arrayListOf<Int>()
 
     init {
+        LogUtil.d("StarrySkyEngineHandler init")
         mPaint.isAntiAlias = true
         mContext?.let {
             bitmapSize = it.resources.getDimensionPixelSize(R.dimen.starry_sky_star_default_size)
-        }
-    }
-
-    override fun create() {
-        mContext?.let { it ->
             starColors.clear()
             backgroundColors.clear()
             var color1 = ContextCompat.getColor(it, R.color.starry_sky_star)
@@ -62,8 +58,12 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
                         it.getInt(const.KEY_MASH_PERCENT, 0) / 100f
                     )
                 }
-
             }
+        }
+    }
+
+    override fun initVariableMaterial() {
+        mContext?.let { it ->
             if (starBitmaps.size > 0) {
                 starBitmaps.forEach { bitmap ->
                     bitmap.recycle()
@@ -84,8 +84,8 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         initStars()
     }
 
-    override fun create(surfaceHolder: SurfaceHolder?) {
-        super.create(surfaceHolder)
+    override fun surfaceCreated(surfaceHolder: SurfaceHolder?) {
+        super.surfaceCreated(surfaceHolder)
 
 
     }
@@ -190,7 +190,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     }
 
     override fun newConfigFragment(): Fragment {
-        return StarrySkySettingFragment()
+        return StarrySkyConfigFragment()
     }
 
 
