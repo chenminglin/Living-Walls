@@ -29,7 +29,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     var starColors = arrayListOf<Int>()
 
     init {
-        LogUtil.d("StarrySkyEngineHandler init")
+        LogUtil.d("StarrySkyEngineHandler init mContext = $mContext")
         mPaint.isAntiAlias = true
         mContext?.let {
             bitmapSize = it.resources.getDimensionPixelSize(R.dimen.starry_sky_star_default_size)
@@ -42,6 +42,28 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
 
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background))
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background2))
+        }
+        spUtils?.let {
+            StarrySkyConst.let { const ->
+                starCount = it.getInt(
+                    const.KEY_STARS_COUNT, const.KEY_INIT_STARS_COUNT
+                )
+                speed = it.getFloat(
+                    const.KEY_STARS_SPEED, const.KEY_INIT_STARS_SPEED
+                )
+                starColor = it.getInt(const.KEY_STAR_COLOR, starColors[0])
+                backgroundColor = it.getInt(const.KEY_BACKGROUND_COLOR, backgroundColors[0])
+                mashColor = ColorUtil.adjustAlpha(
+                    Color.BLACK,
+                    it.getInt(const.KEY_MASH_PERCENT, 0) / 100f
+                )
+            }
+        }
+
+    }
+
+    override fun initVariableMaterial() {
+        mContext?.let { it ->
 
             spUtils?.let {
                 StarrySkyConst.let { const ->
@@ -59,11 +81,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
                     )
                 }
             }
-        }
-    }
 
-    override fun initVariableMaterial() {
-        mContext?.let { it ->
             if (starBitmaps.size > 0) {
                 starBitmaps.forEach { bitmap ->
                     bitmap.recycle()
@@ -87,12 +105,12 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     override fun surfaceCreated(surfaceHolder: SurfaceHolder?) {
         super.surfaceCreated(surfaceHolder)
 
-
     }
 
 
     override fun onVisibilityChanged(visible: Boolean) {
         super.onVisibilityChanged(visible)
+        LogUtil.d("StarrySkyEngineHandler onVisibilityChanged")
 
     }
 

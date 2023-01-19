@@ -55,6 +55,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
         surfaceView.holder.addCallback(object : Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
                 //这里会调用两次，不知道为什么
+                LogUtil.d("surfaceView surfaceCreated")
                 engineHandler.surfaceCreated(holder)
                 initSettingParams(view)
                 initColorAdapter(view)

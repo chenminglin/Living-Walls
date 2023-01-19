@@ -1,5 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory app:title="@string/settings_header_general">
         <ListPreference
             app:defaultValue="@string/settings_item_theme_defaul"
@@ -21,9 +21,49 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/settings_header_more"
-        >
+    <PreferenceCategory app:title="@string/settings_header_more">
 
+        <Preference
+            app:icon="@drawable/ic_twitter"
+            app:summary="\@Bethena555"
+            app:title="@string/settings_item_twitter">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://twitter.com/Bethena555" />
+        </Preference>
+
+        <Preference
+            app:icon="@drawable/ic_round_bug_report_24"
+            app:summary="Email:chenxiaolin.bethena@gmail.com"
+            app:title="@string/settings_item_bug_report">
+            <intent
+                android:action="android.intent.action.SENDTO"
+                android:data="mailto:chenxiaolin.bethena@gmail.com" />
+        </Preference>
+
+        <Preference
+            app:icon="@drawable/ic_round_privacy_tip_24"
+            app:title="@string/settings_item_privacy">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Privacy/1.0/privacy.md" />
+        </Preference>
+
+        <Preference
+            app:icon="@drawable/ic_round_privacy_tip_24"
+            app:title="@string/settings_item_terms">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Terms/1.0/Terms.md" />
+        </Preference>
+
+
+
+        <Preference
+            app:icon="@drawable/ic_round_info_24"
+            app:title="@string/settings_item_about">
+
+        </Preference>
 
     </PreferenceCategory>
 

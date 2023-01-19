@@ -67,14 +67,14 @@ class LivingWallsConfigActivity : BaseActivity() {
     companion object {
         fun start(activity: Activity, wallInfo: WallInfo, view: View) {
             var intent = Intent(activity, LivingWallsConfigActivity::class.java)
-            var pair1 = android.util.Pair(view, Const.KEY_TRANSITION_VIEW)
-//            var pair2 = android.util.Pair(titleView, Const.KEY_TRANSITION_TITLE_VIEW)
-            val options = ActivityOptions.makeSceneTransitionAnimation(
-                activity, pair1
-            )
+//            var pair1 = android.util.Pair(view, Const.KEY_TRANSITION_VIEW)
+////            var pair2 = android.util.Pair(titleView, Const.KEY_TRANSITION_TITLE_VIEW)
+//            val options = ActivityOptions.makeSceneTransitionAnimation(
+//                activity, pair1
+//            )
             intent.putExtra(Const.KEY_WALLS, wallInfo)
 
-            activity.startActivity(intent, options.toBundle())
+            activity.startActivity(intent)
 //            activity.startActivity(intent)
         }
     }

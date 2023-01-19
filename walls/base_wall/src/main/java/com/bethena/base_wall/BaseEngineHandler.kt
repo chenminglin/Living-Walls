@@ -22,6 +22,7 @@ abstract class BaseEngineHandler {
     protected var isVisible = false
     var spUtils: SpUtil? = null
 
+
     //在子类的init前面调用
     constructor(context: Context?) {
         LogUtil.d("BaseEngineHandler constructor")
@@ -62,13 +63,14 @@ abstract class BaseEngineHandler {
 
     open fun onVisibilityChanged(visible: Boolean) {
         isVisible = visible
+        LogUtil.d("BaseEngineHandler onVisibilityChanged visible = $visible mContext = $mContext")
         if (mContext == null) {
             return
         }
 
         if (visible) {
-            initVariableMaterial()
 //            testDraw()
+            initVariableMaterial()
             doDraw()
         } else {
             mainHandler.removeCallbacksAndMessages(null)

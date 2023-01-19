@@ -1,13 +1,18 @@
 package com.bethena.living_walls.ui.settings
 
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.bethena.base_wall.utils.LogUtil
 import com.bethena.living_walls.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+
 
 class SettingsFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -24,7 +29,23 @@ class SettingsFragment : PreferenceFragmentCompat(),
                 .getDefaultSharedPreferences(it).registerOnSharedPreferenceChangeListener(this)
 
         }
+    }
 
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
+        when (preference.title) {
+            getString(R.string.settings_item_about) -> {
+                activity?.let {
+//                    var aboutFragment = AboutFragment()
+//                    aboutFragment.show(it.supportFragmentManager,"")
+
+                    MaterialAlertDialogBuilder(it)
+                        .setView(R.layout.fragment_about)
+                        .show()
+                }
+            }
+        }
+
+        return super.onPreferenceTreeClick(preference)
     }
 
     override fun onDestroy() {
@@ -42,7 +63,6 @@ class SettingsFragment : PreferenceFragmentCompat(),
         if (sp == null || key == null) {
             return
         }
-        var a = sp.getString(key, "")
 
         when (key) {
             resources.getString(R.string.settings_item_theme_key) -> {
@@ -50,7 +70,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
                 var themeValue = sp.getString(key, themeDefault)
                 changeTheme(themeValue!!)
             }
-            resources.getString(R.string.settings_item_language_key)->{
+            resources.getString(R.string.settings_item_language_key) -> {
                 var languageDefault = resources.getString(R.string.settings_item_language_defaul)
                 var languageValue = sp.getString(key, languageDefault)
                 var local = LocaleListCompat.forLanguageTags(languageValue)
@@ -79,7 +99,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
         AppCompatDelegate.setDefaultNightMode(uiMode)
     }
 
-    fun changeLanguage(local: LocaleListCompat){
+    fun changeLanguage(local: LocaleListCompat) {
         AppCompatDelegate.setApplicationLocales(local)
     }
 
