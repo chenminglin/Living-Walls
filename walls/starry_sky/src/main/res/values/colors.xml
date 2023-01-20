@@ -2,6 +2,7 @@
 <resources>
     <color name="starry_sky_background">#081D40</color>
     <color name="starry_sky_background2">#414287</color>
+    <color name="starry_sky_background3">@color/black</color>
     <color name="starry_sky_star">#FBE652</color>
     <color name="starry_sky_star2">#E79E41</color>
     <color name="starry_sky_star3">#DA6642</color>

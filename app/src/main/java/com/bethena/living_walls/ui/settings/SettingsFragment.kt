@@ -4,12 +4,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.bethena.base_wall.utils.LogUtil
+import com.bethena.living_walls.BuildConfig
 import com.bethena.living_walls.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -38,8 +40,11 @@ class SettingsFragment : PreferenceFragmentCompat(),
 //                    var aboutFragment = AboutFragment()
 //                    aboutFragment.show(it.supportFragmentManager,"")
 
+                    var dialogView = layoutInflater.inflate(R.layout.fragment_about,null,false)
+                    var tv_version = dialogView.findViewById<TextView>(R.id.tv_version)
+                    tv_version.text = BuildConfig.VERSION_NAME
                     MaterialAlertDialogBuilder(it)
-                        .setView(R.layout.fragment_about)
+                        .setView(dialogView)
                         .show()
                 }
             }

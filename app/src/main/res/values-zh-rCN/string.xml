@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">治愈壁纸</string>
-    <string name="main_title">Cure Wall</string>
+    <string name="main_title">Healing Wall</string>
 
-    <string name="app_desc">无视频，无全图，这些壁纸都是通过代码生成的。</string>
+    <string name="app_desc">提供一些治愈的壁纸。</string>
     <string name="app_desc_help">帮助</string>
 
     <string name="main_navigation_home">主页</string>
@@ -20,4 +20,15 @@
     <string name="settings_item_language">语言</string>
     <string name="settings_item_language_key">language_key</string>
     <string name="settings_item_language_defaul">""</string>
+
+
+    <string name="settings_header_more">更多选项</string>
+    <string name="settings_item_about">关于</string>
+    <string name="settings_item_twitter">推特</string>
+    <string name="settings_item_support">支持</string>
+    <string name="settings_item_support_summary">如果您喜欢我的Healing Wall ，可以支持一下我，帮助我为您提供更好的服务，以作为我开发更多更好看的壁纸。</string>
+    <string name="settings_item_bug_report">问题反馈</string>
+    <string name="settings_item_privacy">隐私政策</string>
+    <string name="settings_item_terms">服务条款</string>
+    <string name="settings_item_coffee_url">https://www.buymeacoffee.com/Bethena</string>
 </resources>

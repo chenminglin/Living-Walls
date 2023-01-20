@@ -110,26 +110,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
 
         bottomDrawerBehaviorEqualizer.addBottomSheetCallback(object : BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                    slider_star_num?.let {
-                        engineHandler.spUtils?.putInt(
-                            StarrySkyConst.KEY_STARS_COUNT,
-                            it.value.toInt()
-                        )
-                    }
-                    slider_speed?.let {
-                        engineHandler.spUtils?.putFloat(
-                            StarrySkyConst.KEY_STARS_SPEED,
-                            it.value
-                        )
-                    }
-                    slider_mash?.let {
-                        engineHandler.spUtils?.putInt(
-                            StarrySkyConst.KEY_MASH_PERCENT,
-                            it.value.toInt()
-                        )
-                    }
-                }
+
             }
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -263,21 +244,38 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
                 }
                 when (slider.id) {
                     R.id.slider_star_num -> {
-                        engineHandler.starCount = value.toInt()
-                        engineHandler.restart()
+                        engineHandler.apply {
+                            spUtils?.putInt(
+                                StarrySkyConst.KEY_STARS_COUNT,
+                                value.toInt()
+                            )
+                            starCount = value.toInt()
+                            restart()
+                        }
                     }
                     R.id.slider_speed -> {
-                        engineHandler.speed = value
-                        engineHandler.restart()
+                        engineHandler.apply {
+                            spUtils?.putFloat(
+                                StarrySkyConst.KEY_STARS_SPEED,
+                                value
+                            )
+                            speed = value
+                            restart()
+                        }
                     }
                     R.id.slider_mash -> {
-
-                        engineHandler.mashColor = ColorUtil.adjustAlpha(Color.BLACK, value / 100)
+                        engineHandler.apply {
+                            spUtils?.putInt(
+                                StarrySkyConst.KEY_MASH_PERCENT,
+                                value.toInt()
+                            )
+                            mashColor = ColorUtil.adjustAlpha(Color.BLACK, value / 100)
+                        }
                     }
                 }
 
             }
-        }, 200)
+        }, 500)
     }
 
 

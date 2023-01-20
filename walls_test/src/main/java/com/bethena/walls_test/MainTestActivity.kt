@@ -1,6 +1,7 @@
 package com.bethena.walls_test
 
 import android.Manifest
+import android.app.WallpaperManager
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -51,6 +52,7 @@ class MainTestActivity : AppCompatActivity() {
             }
 
         })
+
 
     }
 

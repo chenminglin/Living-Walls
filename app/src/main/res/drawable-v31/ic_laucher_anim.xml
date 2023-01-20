@@ -1,0 +1,76 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="56dp"
+            android:height="56dp"
+            android:viewportWidth="56"
+            android:viewportHeight="56">
+            <group
+                android:name="group_big_star"
+                android:pivotX="24"
+                android:pivotY="28"
+                android:rotation="360">
+                <path
+                    android:name="big_star"
+                    android:pathData="M 24 34.15 L 28.84 37.08 C 29.72 37.62 30.82 36.83 30.58 35.82 L 29.3 30.31 L 33.58 26.6 C 34.37 25.92 33.94 24.64 32.91 24.55 L 27.27 24.07 L 25.07 18.87 C 24.67 17.93 23.32 17.93 22.93 18.87 L 20.72 24.07 L 15.08 24.55 C 14.06 24.63 13.63 25.92 14.41 26.6 L 18.69 30.31 L 17.41 35.82 C 17.18 36.82 18.27 37.61 19.15 37.08 L 24 34.15 Z"
+                    android:fillColor="#fae552"/>
+            </group>
+            <group
+                android:name="group_r_t_star"
+                android:pivotX="36"
+                android:pivotY="20">
+                <path
+                    android:name="r_t_star"
+                    android:pathData="M 36.71 23.33 L 37.64 21.28 L 39.67 20.37 C 40.13 20.16 40.13 19.51 39.67 19.3 L 37.62 18.37 L 36.71 16.33 C 36.5 15.87 35.85 15.87 35.64 16.33 L 34.71 18.38 L 32.67 19.29 C 32.21 19.5 32.21 20.15 32.67 20.36 L 34.72 21.29 L 35.63 23.33 C 35.84 23.78 36.5 23.78 36.71 23.33 Z"
+                    android:fillColor="#fae552"/>
+            </group>
+            <group
+                android:name="group_r_b_star"
+                android:pivotX="36"
+                android:pivotY="36">
+                <path
+                    android:name="r_b_star"
+                    android:pathData="M 35.63 32.67 L 34.7 34.72 L 32.66 35.63 C 32.2 35.84 32.2 36.49 32.66 36.7 L 34.71 37.63 L 35.63 39.67 C 35.84 40.13 36.49 40.13 36.7 39.67 L 37.63 37.62 L 39.66 36.71 C 40.12 36.5 40.12 35.85 39.66 35.64 L 37.61 34.71 L 36.7 32.67 C 36.49 32.22 35.84 32.22 35.63 32.67 Z"
+                    android:fillColor="#fae552"/>
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="group_big_star">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="rotation"
+                android:duration="500"
+                android:valueFrom="180"
+                android:valueTo="360"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        </aapt:attr>
+    </target>
+    <target android:name="group_r_t_star">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:startOffset="500"
+                android:duration="250"
+                android:valueFrom="0"
+                android:valueTo="1"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        </aapt:attr>
+    </target>
+    <target android:name="group_r_b_star">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:startOffset="607"
+                android:duration="393"
+                android:valueFrom="0"
+                android:valueTo="1"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        </aapt:attr>
+    </target>
+</animated-vector>

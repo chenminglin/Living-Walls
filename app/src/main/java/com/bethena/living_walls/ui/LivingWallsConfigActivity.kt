@@ -45,6 +45,7 @@ class LivingWallsConfigActivity : BaseActivity() {
                     fragment.onWallCheckListener = object : OnWallCheckListener {
                         override fun onWallCheck() {
                             LivingWallsService.start(this@LivingWallsConfigActivity, wallInfo!!)
+                            finish()
                         }
                     }
                     supportFragmentManager

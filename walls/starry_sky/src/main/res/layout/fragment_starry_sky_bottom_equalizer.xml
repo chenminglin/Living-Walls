@@ -16,7 +16,6 @@
 
     <TextView
         android:id="@+id/tv_star_num"
-        style="@style/ConfigItemTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/starry_sky_config_n_of_stars"
@@ -30,13 +29,12 @@
         android:layout_height="wrap_content"
         android:stepSize="5"
         android:valueFrom="0"
-        android:valueTo="100"
+        android:valueTo="70"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_star_num" />
 
     <TextView
         android:id="@+id/tv_speed"
-        style="@style/ConfigItemTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/starry_sky_config_speed"
@@ -58,7 +56,6 @@
 
     <TextView
         android:id="@+id/tv_mash"
-        style="@style/ConfigItemTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/starry_sky_config_mash"
@@ -73,7 +70,7 @@
         android:stepSize="10"
         android:value="0"
         android:valueFrom="0"
-        android:valueTo="100"
+        android:valueTo="80"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_mash" />
 

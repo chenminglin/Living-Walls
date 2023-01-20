@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Cure Wall</string>
-    <string name="main_title">Cure Wall</string>
+    <string name="app_name">Healing Wall</string>
+    <string name="main_title">Healing Wall</string>
 
-    <string name="app_desc">Ignoring video, without full picture, these wallpapers are generated through code.</string>
+    <string name="app_desc">No video,No Image, these wallpapers are generated through code.</string>
     <string name="app_desc_help">help</string>
 
     <string name="main_navigation_home">Home</string>
@@ -23,9 +23,11 @@
     <string name="settings_header_more">More Options</string>
     <string name="settings_item_about">About</string>
     <string name="settings_item_twitter">Twitter</string>
+    <string name="settings_item_support">Support</string>
+    <string name="settings_item_support_summary">If you like my Healing Wall, you can support me so that I can provide you with better service and develop more beautiful wallpapers for you.</string>
     <string name="settings_item_bug_report">Bug Report</string>
     <string name="settings_item_privacy">Privacy Policy</string>
     <string name="settings_item_terms">Terms &amp; Conditions</string>
-    <string name="settings_item_coffee">https://www.buymeacoffee.com/Bethena</string>
+    <string name="settings_item_coffee_url">https://www.buymeacoffee.com/Bethena</string>
 
 </resources>

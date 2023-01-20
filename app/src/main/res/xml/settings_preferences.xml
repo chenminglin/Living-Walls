@@ -41,29 +41,30 @@
                 android:data="mailto:chenxiaolin.bethena@gmail.com" />
         </Preference>
 
-        <Preference
-            app:icon="@drawable/ic_round_privacy_tip_24"
-            app:title="@string/settings_item_privacy">
+        <Preference app:title="@string/settings_item_support"
+            app:summary="@string/settings_item_support_summary"
+            app:icon="@drawable/ic_round_coffee_24">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Privacy/1.0/privacy.md" />
+                android:data="https://www.buymeacoffee.com/Bethena" />
         </Preference>
 
-        <Preference
-            app:icon="@drawable/ic_round_privacy_tip_24"
-            app:title="@string/settings_item_terms">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Terms/1.0/Terms.md" />
-        </Preference>
+        <PreferenceCategory app:title="@string/settings_item_about">
+            <Preference app:title="@string/settings_item_privacy">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Privacy/1.0/privacy.md" />
+            </Preference>
 
+            <Preference app:title="@string/settings_item_terms">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Terms/1.0/Terms.md" />
+            </Preference>
 
+            <Preference app:title="@string/settings_item_about"></Preference>
+        </PreferenceCategory>
 
-        <Preference
-            app:icon="@drawable/ic_round_info_24"
-            app:title="@string/settings_item_about">
-
-        </Preference>
 
     </PreferenceCategory>
 

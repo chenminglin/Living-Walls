@@ -42,6 +42,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
 
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background))
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background2))
+            backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background3))
         }
         spUtils?.let {
             StarrySkyConst.let { const ->
@@ -172,13 +173,14 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         var canvasWidth = canvas!!.width - bitmapSize
         var canvasHeight = canvas.height - bitmapSize
         LogUtil.d("initStars canvasHeight = $canvasHeight")
+        LogUtil.d("initStars starCount = $starCount")
 
         var ratePer = refreshRate / ScreenUtil.MAX_RATE.toFloat()
 
         for (i in 0 until starCount) {
             var x = Random.nextInt(canvasWidth)
             var y = Random.nextInt(canvasHeight)
-            LogUtil.d("initStars y = $y")
+//            LogUtil.d("initStars y = $y")
 //            var scale = RandomUtil.between2numsF(0.5f, 3f)
             var indexBitmap = Random.nextInt(starBitmaps.size)
             var starBitmap = starBitmaps[indexBitmap]
