@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.LocaleListCompat
 import com.bethena.base_wall.utils.AppUtil
 import com.bethena.healingwall.R
 import com.bethena.healingwall.utils.LocalUtil
@@ -27,10 +28,11 @@ class HomeHelpFragment : BottomSheetDialogFragment() {
 
         var assetName = "help_cn.txt"
 
-        var local = LocalUtil.getLocal(requireContext())
-        var langValues = resources.getStringArray(R.array.settings_language_values)
-        assetName = when (local) {
-            langValues[2] -> {
+        var local = LocaleListCompat.getDefault()[0]
+
+//        var langValues = resources.getStringArray(R.array.settings_language_values)
+        assetName = when (local?.language) {
+            "zh" -> {
                 "help_cn.txt"
             }
             else -> {

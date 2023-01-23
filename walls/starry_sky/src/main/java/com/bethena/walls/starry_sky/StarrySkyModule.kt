@@ -11,7 +11,10 @@ class StarrySkyModule : BaseWallModule() {
             name,
             "cover_starry_sky.png",
             StarrySkyEngineHandler::class.java.name,
-            StarrySkyConfigFragment::class.java.name
+            StarrySkyConfigFragment::class.java.name,
+            BuildConfig.VERSION,
+            true,
+            1
         )
         return this
     }

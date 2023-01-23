@@ -1,10 +1,10 @@
 package com.bethena.walls_test
 
 import android.Manifest
-import android.app.WallpaperManager
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
 import android.os.*
 import android.view.*
 import android.view.PixelCopy.OnPixelCopyFinishedListener
@@ -94,7 +94,11 @@ class MainTestActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_pause -> {
-                TestApp.wallEngineHandler?.pause()
+                if (TestApp.wallEngineHandler!!.isPaused) {
+                    TestApp.wallEngineHandler?.restart()
+                } else {
+                    TestApp.wallEngineHandler?.pause()
+                }
             }
             R.id.menu_config -> {
                 var intent = Intent(this@MainTestActivity, ConfigTestActivity::class.java)
@@ -117,32 +121,58 @@ class MainTestActivity : AppCompatActivity() {
                         surfaceView.draw(canvas)
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            PixelCopy.request(surfaceView,bitmap,object :OnPixelCopyFinishedListener{
-                                override fun onPixelCopyFinished(p0: Int) {
-                                    // 将位图压缩为 PNG 格式
-                                    val byteArrayOutputStream = ByteArrayOutputStream()
-                                    bitmap.let {
-                                        it.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-                                        // 保存图像到文件
-                                        val PIC_SAVE_PATH_DIR by lazy {
-                                            "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath}${File.separator}Camera${File.separator}"
-                                        }
-                                        var dir = PIC_SAVE_PATH_DIR
-                                        var dirFile = File(dir)
-                                        if (!dirFile.exists()) {
-                                            dirFile.mkdirs()
-                                        }
+                            PixelCopy.request(
+                                surfaceView,
+                                bitmap,
+                                object : OnPixelCopyFinishedListener {
+                                    override fun onPixelCopyFinished(p0: Int) {
+                                        // 将位图压缩为 PNG 格式
+                                        val byteArrayOutputStream = ByteArrayOutputStream()
+                                        bitmap.let {
+                                            it.compress(
+                                                Bitmap.CompressFormat.PNG,
+                                                100,
+                                                byteArrayOutputStream
+                                            )
+                                            // 保存图像到文件
+                                            val PIC_SAVE_PATH_DIR by lazy {
+                                                "${
+                                                    Environment.getExternalStoragePublicDirectory(
+                                                        Environment.DIRECTORY_DCIM
+                                                    ).absolutePath
+                                                }${File.separator}Camera${File.separator}"
+                                            }
+                                            var dir = PIC_SAVE_PATH_DIR
+                                            var dirFile = File(dir)
+                                            if (!dirFile.exists()) {
+                                                dirFile.mkdirs()
+                                            }
 
-                                        var path = dir + "cut_${System.currentTimeMillis()}.png"
+                                            var path = dir + "cut_${System.currentTimeMillis()}.png"
 
-                                        val fileOutputStream = FileOutputStream(path)
-                                        fileOutputStream.write(byteArrayOutputStream.toByteArray())
-                                        fileOutputStream.close()
-                                        byteArrayOutputStream.close()
+                                            val fileOutputStream = FileOutputStream(path)
+                                            fileOutputStream.write(byteArrayOutputStream.toByteArray())
+                                            fileOutputStream.close()
+                                            byteArrayOutputStream.close()
+
+//    try {
+//      MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(),
+//          file.getName(), null);
+//    } catch (FileNotFoundException e) {
+//      throw new IllegalStateException("File couldn't be found");
+//    }
+                                            this@MainTestActivity.sendBroadcast(
+                                                Intent(
+                                                    Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                                                    Uri.fromFile(File(path))
+                                                )
+                                            )
 //                            it.recycle()
+                                        }
                                     }
-                                }
-                            }, Handler(Looper.getMainLooper()))
+                                },
+                                Handler(Looper.getMainLooper())
+                            )
                         }
 
 

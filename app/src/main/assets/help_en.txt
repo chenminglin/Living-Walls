@@ -1,25 +1,25 @@
 Help
 
-1.Preface
+1. Preface
 
 Thank you very much for using my personal development of healing wallpaper, I am working to develop a wallpaper App that allows users to feel healed during use, not other common App uses a video to do dynamic wallpaper, 99% of the wallpaper is written through code, some may use vector graphics.
 
-2.The benefits of wallpapers realized by code?
+2. The benefits of wallpaper realized by code?
 
-Wallpapers implemented by code can freely configure its wallpaper color, theme, number and other attributes.
+Wallpapers realized by code, you can freely configure its wallpaper color, theme, number and other attributes.
 
-The animation smoothness can be adjusted according to the screen refresh rate.
+Can be based on the screen refresh rate to adjust the smoothness of the animation.
 
 Smaller size, general video dynamic wallpapers or regular wallpapers are occupy a relatively large storage space.
 
-3.Will it be very power hungry?
+3. will not be very power hungry?
 
-The dynamic wallpaper will use the space similar to the video player in the process of refreshing, if it keeps refreshing, it will definitely lead to a lot of power consumption, but you will not be refreshed when the lock screen, or desktop applications are in the background, which is equivalent to being in a static state. Since this project is in its early stage, it may also lead to some anomalies that produce very serious power consumption. If such problems occur, I hope you can find my contact information on the settings page of the app to give me feedback on these problems so that I can fix it earlier.
+Dynamic wallpaper in the process of refresh will use similar to the video player controls, if you have been continuously refreshed, will certainly lead to the consumption of a lot of power, but you lock screen, or desktop applications in the background is not refreshed, equivalent to in a static state. As this project is in its early stage, it may also lead to some abnormal situations that produce very serious power consumption. If such problems occur, I hope you can find my contact information on the settings page of the app to give me feedback on these problems so that I can fix it earlier.
 
-4.Can you work with me?
+4. Can you work with me?
 
 The answer is yes.
 
-Because the project is in the early stage, I don't plan to open source the project, but I will be responsible for the development and operation of the project.
+Because the project is in the early stage, I do not intend to open source the project, as for the project development and operation of this piece, or by my personal responsibility.
 
 If you have a dynamic wallpaper animation you want to do, you can communicate with me on Twitter or send me an email, and you can find my contact information on the settings page of the app.

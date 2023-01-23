@@ -62,6 +62,7 @@ abstract class BaseEngineHandler {
     }
 
     open fun onVisibilityChanged(visible: Boolean) {
+        isPaused = false
         isVisible = visible
         LogUtil.d("BaseEngineHandler onVisibilityChanged visible = $visible mContext = $mContext")
         if (mContext == null) {
@@ -87,9 +88,14 @@ abstract class BaseEngineHandler {
         onVisibilityChanged(true)
     }
 
+    var isPaused = false
 
 
-    abstract fun pause()
+    open fun pause() {
+        isPaused = true
+    }
+
+
     protected abstract fun doDraw()
 
     abstract fun newConfigFragment(): Fragment

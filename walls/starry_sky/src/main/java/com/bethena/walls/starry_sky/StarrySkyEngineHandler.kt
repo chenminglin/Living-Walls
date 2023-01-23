@@ -114,6 +114,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     }
 
     override fun pause() {
+        super.pause()
         mainHandler.removeCallbacksAndMessages(null)
     }
 
@@ -203,10 +204,6 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             } else {
                 star.middleX = intArrayOf(Random.nextInt(canvasWidth), Random.nextInt(canvasWidth))
             }
-
-
-
-
 
 
             star.increateY = (10 * (1 - ratePer)) * speed
