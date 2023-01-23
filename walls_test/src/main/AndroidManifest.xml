@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LivingWalls">
+        android:theme="@style/Theme.HealingWall">
         <activity
             android:name=".NavTestActivity"
             android:exported="true"

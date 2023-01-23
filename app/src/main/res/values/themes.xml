@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.LivingWalls.Splash" parent="Base.Theme.LivingWalls">
+    <style name="Theme.HealingWall.Splash" parent="Base.Theme.HealingWall">
         <item name="android:windowBackground">@drawable/bg_laucher_window</item>
     </style>
 </resources>

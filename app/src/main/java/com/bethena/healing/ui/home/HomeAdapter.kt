@@ -1,9 +1,9 @@
-package com.bethena.living_walls.ui.home
+package com.bethena.healing.ui.home
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bethena.base_wall.WallInfo
 import com.bethena.base_wall.utils.AppUtil
-import com.bethena.living_walls.R
+import com.bethena.healing.R
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 

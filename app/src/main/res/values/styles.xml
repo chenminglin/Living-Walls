@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.LivingWalls.ToolbarTitleText" parent="@style/TextAppearance.Material3.ActionBar.Title">
+    <style name="Widget.HealingWall.ToolbarTitleText" parent="@style/TextAppearance.Material3.ActionBar.Title">
         <item name="android:fontFamily">@font/oleo_script_regular</item>
         <item name="fontFamily">@font/oleo_script_regular</item>
     </style>

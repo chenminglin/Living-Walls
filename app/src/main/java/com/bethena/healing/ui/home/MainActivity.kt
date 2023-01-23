@@ -1,4 +1,4 @@
-package com.bethena.living_walls.ui.home
+package com.bethena.healing.ui.home
 
 import android.content.Context
 import android.content.Intent
@@ -7,8 +7,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import com.bethena.base_wall.BaseActivity
-import com.bethena.living_walls.R
-import com.bethena.living_walls.ui.settings.SettingsActivity
+import com.bethena.healing.R
+import com.bethena.healing.ui.settings.SettingsActivity
 
 class MainActivity : BaseActivity() {
     //    lateinit var navController: NavController

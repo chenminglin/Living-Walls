@@ -1,4 +1,4 @@
-package com.bethena.living_walls
+package com.bethena.healing
 
 object Const {
     val KEY_APP_SP_NAME = "key_app_sp_name"

@@ -1,4 +1,4 @@
-package com.bethena.living_walls.ui.home
+package com.bethena.healing.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bethena.base_wall.utils.AppUtil
-import com.bethena.living_walls.R
-import com.bethena.living_walls.utils.LocalUtil
+import com.bethena.healing.R
+import com.bethena.healing.utils.LocalUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class HomeHelpFragment : BottomSheetDialogFragment() {

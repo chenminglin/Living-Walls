@@ -1,4 +1,4 @@
-package com.bethena.living_walls.ui
+package com.bethena.healing.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -10,16 +10,16 @@ import com.bethena.base_wall.BaseConfigFragment
 import com.bethena.base_wall.OnWallCheckListener
 import com.bethena.base_wall.WallInfo
 import com.bethena.base_wall.utils.ToastUtil
-import com.bethena.living_walls.Const
-import com.bethena.living_walls.R
-import com.bethena.living_walls.service.LivingWallsService
+import com.bethena.healing.Const
+import com.bethena.healing.R
+import com.bethena.healing.service.HealingWallService
 
-class LivingWallsConfigActivity : BaseActivity() {
+class HealingWallConfigActivity : BaseActivity() {
     lateinit var fragment: BaseConfigFragment
     var wallInfo: WallInfo? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_living_walls_config)
+        setContentView(R.layout.activity_healing_wall_config)
         var toolbar = findViewById<Toolbar>(R.id.toolbar)
 
         // Set up shared element transition
@@ -43,7 +43,7 @@ class LivingWallsConfigActivity : BaseActivity() {
                     fragment = fragmentClass.newInstance()
                     fragment.onWallCheckListener = object : OnWallCheckListener {
                         override fun onWallCheck() {
-                            LivingWallsService.start(this@LivingWallsConfigActivity, wallInfo!!)
+                            HealingWallService.start(this@HealingWallConfigActivity, wallInfo!!)
                             finish()
                         }
                     }
@@ -73,7 +73,7 @@ class LivingWallsConfigActivity : BaseActivity() {
 
     companion object {
         fun start(activity: Activity, wallInfo: WallInfo, view: View) {
-            var intent = Intent(activity, LivingWallsConfigActivity::class.java)
+            var intent = Intent(activity, HealingWallConfigActivity::class.java)
 //            var pair1 = android.util.Pair(view, Const.KEY_TRANSITION_VIEW)
 ////            var pair2 = android.util.Pair(titleView, Const.KEY_TRANSITION_TITLE_VIEW)
 //            val options = ActivityOptions.makeSceneTransitionAnimation(

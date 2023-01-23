@@ -1,13 +1,13 @@
-package com.bethena.living_walls.ui.home
+package com.bethena.healing.ui.home
 
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bethena.base_wall.BaseFragment
 import com.bethena.base_wall.WallInfo
-import com.bethena.living_walls.App
-import com.bethena.living_walls.R
-import com.bethena.living_walls.ui.LivingWallsConfigActivity
+import com.bethena.healing.App
+import com.bethena.healing.R
+import com.bethena.healing.ui.HealingWallConfigActivity
 
 class HomeFragment : BaseFragment() {
     override fun layoutId(): Int {
@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment() {
         adapter.setOnItemClickListener { adapter, view, position ->
 //            var titleView = view.findViewById<View>(R.id.tv_title)
             activity?.let {
-                LivingWallsConfigActivity.start(
+                HealingWallConfigActivity.start(
                     it,
                     App.wallModules[position].wallInfo!!,
                     view

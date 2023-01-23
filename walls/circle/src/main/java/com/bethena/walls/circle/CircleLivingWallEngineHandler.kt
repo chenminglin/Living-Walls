@@ -50,7 +50,7 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
         paint.color = Color.parseColor("#88ffffff")
         paint.strokeWidth = ScreenUtil.dp2pxF(mContext!!, 3f)
         paint.style = Paint.Style.STROKE
-        LogUtil.d("LivingWallsEngine onCreate-----")
+        LogUtil.d("HealingWallEngine onCreate-----")
         mSensorManager =
             mContext?.getSystemService(WallpaperService.SENSOR_SERVICE) as SensorManager
         mSensorGravity = mSensorManager?.getDefaultSensor(Sensor.TYPE_GRAVITY)

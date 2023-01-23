@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:title="@string/main_title"
-            app:titleTextAppearance="@style/Widget.LivingWalls.ToolbarTitleText" />
+            app:titleTextAppearance="@style/Widget.HealingWall.ToolbarTitleText" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

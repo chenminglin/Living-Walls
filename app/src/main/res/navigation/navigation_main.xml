@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:label="homeFragment"
-        android:name="com.bethena.living_walls.ui.home.HomeFragment"
+        android:name="com.bethena.healing.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home"
         >
 
@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/settingFragment"
         android:label="settingsFragment"
-        android:name="com.bethena.living_walls.ui.settings.SettingsFragment">
+        android:name="com.bethena.healing.ui.settings.SettingsFragment">
 
     </fragment>
 

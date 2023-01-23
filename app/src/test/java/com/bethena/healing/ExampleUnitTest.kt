@@ -1,4 +1,4 @@
-package com.bethena.living_walls
+package com.bethena.healing
 
 import org.junit.Test
 

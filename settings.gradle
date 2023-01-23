@@ -21,7 +21,7 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "Living-Walls"
+rootProject.name = "HealingWall"
 include ':app'
 include ':walls:base_wall'
 include ':walls:circle'

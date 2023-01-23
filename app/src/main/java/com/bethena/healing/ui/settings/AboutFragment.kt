@@ -1,12 +1,11 @@
-package com.bethena.living_walls.ui.settings
+package com.bethena.healing.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.DialogFragment.STYLE_NO_TITLE
-import com.bethena.living_walls.R
+import com.bethena.healing.R
 
 class AboutFragment : DialogFragment() {
 
