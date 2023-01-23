@@ -1,11 +1,11 @@
-package com.bethena.healing.ui.settings
+package com.bethena.healingwall.ui.settings
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import com.bethena.base_wall.BaseActivity
-import com.bethena.healing.R
+import com.bethena.healingwall.R
 
 class SettingsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,9 +1,9 @@
-package com.bethena.healing.utils
+package com.bethena.healingwall.utils
 
 import android.content.Context
 import androidx.core.os.LocaleListCompat
 import androidx.preference.PreferenceManager
-import com.bethena.healing.R
+import com.bethena.healingwall.R
 
 object LocalUtil {
 

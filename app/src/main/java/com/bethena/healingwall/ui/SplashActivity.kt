@@ -1,4 +1,4 @@
-package com.bethena.healing.ui
+package com.bethena.healingwall.ui
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -15,8 +15,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import com.bethena.base_wall.BaseActivity
 import com.bethena.base_wall.utils.LogUtil
-import com.bethena.healing.R
-import com.bethena.healing.ui.home.MainActivity
+import com.bethena.healingwall.R
+import com.bethena.healingwall.ui.home.MainActivity
 
 class SplashActivity : BaseActivity() {
 

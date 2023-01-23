@@ -1,4 +1,4 @@
-package com.bethena.healing.ui.settings
+package com.bethena.healingwall.ui.settings
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,8 +9,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.bethena.base_wall.utils.LogUtil
-import com.bethena.healing.BuildConfig
-import com.bethena.healing.R
+import com.bethena.healingwall.BuildConfig
+import com.bethena.healingwall.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 

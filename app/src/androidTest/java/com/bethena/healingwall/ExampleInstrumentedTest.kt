@@ -1,4 +1,4 @@
-package com.bethena.healing
+package com.bethena.healingwall
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -17,7 +17,7 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.bethena.healing", appContext.packageName)
+        assertEquals("com.bethena.healingwall", appContext.packageName)
 
     }
 }

@@ -1,4 +1,4 @@
-package com.bethena.healing.service
+package com.bethena.healingwall.service
 
 import android.app.Activity
 import android.app.WallpaperManager
@@ -9,8 +9,8 @@ import android.view.SurfaceHolder
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.WallInfo
 import com.bethena.base_wall.utils.LogUtil
-import com.bethena.healing.App
-import com.bethena.healing.Const
+import com.bethena.healingwall.App
+import com.bethena.healingwall.Const
 import com.bethena.walls.starry_sky.StarrySkyEngineHandler
 
 class HealingWallService : WallpaperService() {

@@ -1,13 +1,13 @@
-package com.bethena.healing.ui.home
+package com.bethena.healingwall.ui.home
 
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bethena.base_wall.BaseFragment
 import com.bethena.base_wall.WallInfo
-import com.bethena.healing.App
-import com.bethena.healing.R
-import com.bethena.healing.ui.HealingWallConfigActivity
+import com.bethena.healingwall.App
+import com.bethena.healingwall.R
+import com.bethena.healingwall.ui.HealingWallConfigActivity
 
 class HomeFragment : BaseFragment() {
     override fun layoutId(): Int {

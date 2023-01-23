@@ -1,4 +1,4 @@
-package com.bethena.healing.ui
+package com.bethena.healingwall.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -10,9 +10,9 @@ import com.bethena.base_wall.BaseConfigFragment
 import com.bethena.base_wall.OnWallCheckListener
 import com.bethena.base_wall.WallInfo
 import com.bethena.base_wall.utils.ToastUtil
-import com.bethena.healing.Const
-import com.bethena.healing.R
-import com.bethena.healing.service.HealingWallService
+import com.bethena.healingwall.Const
+import com.bethena.healingwall.R
+import com.bethena.healingwall.service.HealingWallService
 
 class HealingWallConfigActivity : BaseActivity() {
     lateinit var fragment: BaseConfigFragment

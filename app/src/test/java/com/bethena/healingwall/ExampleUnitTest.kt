@@ -1,4 +1,4 @@
-package com.bethena.healing
+package com.bethena.healingwall
 
 import org.junit.Test
 

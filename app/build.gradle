@@ -1,14 +1,15 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
-    namespace 'com.bethena.healing'
+    namespace 'com.bethena.healingwall'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
-        applicationId "com.bethena.healing"
+        applicationId "com.bethena.healingwall"
         minSdk rootProject.ext.android.minSdk
         targetSdk rootProject.ext.android.targetSdk
         versionCode rootProject.ext.android.versionCode
@@ -59,6 +60,11 @@ dependencies {
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
+
+
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
 
     testImplementation rootProject.ext.depsLibs.junit
     androidTestImplementation rootProject.ext.depsLibs.androidxJunit
