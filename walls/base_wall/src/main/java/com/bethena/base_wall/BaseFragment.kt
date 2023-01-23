@@ -17,4 +17,6 @@ abstract class BaseFragment : Fragment() {
     }
 
     abstract fun layoutId(): Int
+
+    abstract fun onBackPressed(): Boolean
 }

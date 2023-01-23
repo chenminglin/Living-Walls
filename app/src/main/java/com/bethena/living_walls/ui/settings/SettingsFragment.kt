@@ -1,8 +1,6 @@
 package com.bethena.living_walls.ui.settings
 
-import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
@@ -26,11 +24,9 @@ class SettingsFragment : PreferenceFragmentCompat(),
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings_preferences, rootKey)
 
-        context?.let {
-            PreferenceManager
-                .getDefaultSharedPreferences(it).registerOnSharedPreferenceChangeListener(this)
-
-        }
+        PreferenceManager
+            .getDefaultSharedPreferences(requireContext())
+            .registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
@@ -40,7 +36,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
 //                    var aboutFragment = AboutFragment()
 //                    aboutFragment.show(it.supportFragmentManager,"")
 
-                    var dialogView = layoutInflater.inflate(R.layout.fragment_about,null,false)
+                    var dialogView = layoutInflater.inflate(R.layout.fragment_about, null, false)
                     var tv_version = dialogView.findViewById<TextView>(R.id.tv_version)
                     tv_version.text = BuildConfig.VERSION_NAME
                     MaterialAlertDialogBuilder(it)
@@ -56,11 +52,10 @@ class SettingsFragment : PreferenceFragmentCompat(),
     override fun onDestroy() {
         super.onDestroy()
 
-        context?.let {
-            PreferenceManager
-                .getDefaultSharedPreferences(it).unregisterOnSharedPreferenceChangeListener(this)
+        PreferenceManager
+            .getDefaultSharedPreferences(requireContext())
+            .unregisterOnSharedPreferenceChangeListener(this)
 
-        }
     }
 
     override fun onSharedPreferenceChanged(sp: SharedPreferences?, key: String?) {

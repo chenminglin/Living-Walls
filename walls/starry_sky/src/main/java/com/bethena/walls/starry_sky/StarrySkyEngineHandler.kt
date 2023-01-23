@@ -144,7 +144,8 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         mSurfaceHolder?.unlockCanvasAndPost(canvas)
     }
 
-     override fun doDraw() {
+    override fun doDraw() {
+//        LogUtil.d("doDraw")
         mainHandler.postDelayed({
             if (stars.size == 0) {
                 return@postDelayed
@@ -164,7 +165,6 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             doDraw()
         }, 1000 / refreshRate)
     }
-
 
 
     private fun initStars() {

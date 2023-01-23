@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="laucher_background_color">#005DB8</color>
+
 </resources>

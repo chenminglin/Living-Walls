@@ -1,0 +1,16 @@
+package com.bethena.living_walls.utils
+
+import android.content.Context
+import androidx.preference.PreferenceManager
+import com.bethena.living_walls.R
+
+object LocalUtil {
+
+    fun getLocal(context: Context): String? {
+        var preference = PreferenceManager.getDefaultSharedPreferences(context)
+        var lanDefaultValue = context.getString(R.string.settings_item_language_defaul)
+        var lanKey = context.getString(R.string.settings_item_language_key)
+        var lanValue = preference.getString(lanKey, lanDefaultValue)
+        return lanValue
+    }
+}

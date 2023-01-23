@@ -2,7 +2,7 @@
     <string name="app_name">Healing Wall</string>
     <string name="main_title">Healing Wall</string>
 
-    <string name="app_desc">No video,No Image, these wallpapers are generated through code.</string>
+    <string name="app_desc">Provide you with some healing wallpapers.\nMore wallpapers are in development.</string>
     <string name="app_desc_help">help</string>
 
     <string name="main_navigation_home">Home</string>

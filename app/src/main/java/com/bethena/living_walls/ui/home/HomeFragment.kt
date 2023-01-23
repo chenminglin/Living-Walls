@@ -9,9 +9,14 @@ import com.bethena.living_walls.App
 import com.bethena.living_walls.R
 import com.bethena.living_walls.ui.LivingWallsConfigActivity
 
-class HomeFragment:BaseFragment() {
+class HomeFragment : BaseFragment() {
     override fun layoutId(): Int {
         return R.layout.fragment_home
+    }
+
+    override fun onBackPressed(): Boolean {
+
+        return false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,9 +38,20 @@ class HomeFragment:BaseFragment() {
             }
         }
 
-        adapter.setHeaderView(layoutInflater.inflate(R.layout.header_home, null, false))
+
+        adapter.setHeaderView(initHeaderView())
         adapter.data = walls
         rv_walls.adapter = adapter
+    }
+
+
+    private fun initHeaderView(): View {
+        var headerView = layoutInflater.inflate(R.layout.header_home, null, false)
+        var btn_help = headerView.findViewById<View>(R.id.btn_help)
+        btn_help.setOnClickListener {
+            HomeHelpFragment().show(childFragmentManager, null)
+        }
+        return headerView
     }
 
 

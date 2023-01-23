@@ -7,7 +7,6 @@ import android.view.SurfaceHolder.Callback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bethena.base_wall.BaseConfigFragment
-import com.bethena.base_wall.BaseFragment
 import com.bethena.base_wall.colorpicker.ColorItem
 import com.bethena.base_wall.colorpicker.ColorPickerAdapter
 import com.bethena.base_wall.utils.ColorUtil
@@ -48,6 +47,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
         return R.layout.fragment_starry_sky_config
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        view.findViewById<View>()
@@ -85,9 +85,11 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
         initBtnCheck(view)
 
         (activity as AppCompatActivity?)!!.setSupportActionBar(bar)
+
+
     }
 
-    fun initDrawer(view: View){
+    fun initDrawer(view: View) {
         val bottomDrawerColor: View = view.findViewById(R.id.bottom_drawer_color)
         bottomDrawerBehaviorColor = BottomSheetBehavior.from(bottomDrawerColor)
         bottomDrawerBehaviorColor.setUpdateImportantForAccessibilityOnSiblings(true)
@@ -118,7 +120,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
         })
     }
 
-    fun initBtnCheck(view: View){
+    fun initBtnCheck(view: View) {
         var fab_check = view.findViewById<FloatingActionButton>(R.id.fab_check)
         fab_check.setOnClickListener {
             checkWall()
@@ -167,8 +169,8 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
 
     var isAdapterInit = false
 
-    fun initColorAdapter(view: View){
-        if (isAdapterInit){
+    fun initColorAdapter(view: View) {
+        if (isAdapterInit) {
             return
         }
         var rv_background_color_picker =
@@ -230,6 +232,21 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
     }
 
 
+    override fun onBackPressed(): Boolean {
+        if (bottomDrawerBehaviorColor.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomDrawerBehaviorColor.state = BottomSheetBehavior.STATE_HIDDEN
+            return true
+        }
+
+        if (bottomDrawerBehaviorEqualizer.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomDrawerBehaviorEqualizer.state = BottomSheetBehavior.STATE_HIDDEN
+            return true
+        }
+
+        return false
+    }
+
+
     override fun onValueChange(slider: Slider, value: Float, fromUser: Boolean) {
         view?.postDelayed({
             activity?.let {
@@ -275,7 +292,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
                 }
 
             }
-        }, 500)
+        }, 300)
     }
 
 

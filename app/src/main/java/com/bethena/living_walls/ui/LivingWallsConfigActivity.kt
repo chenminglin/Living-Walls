@@ -1,7 +1,6 @@
 package com.bethena.living_walls.ui
 
 import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -62,8 +61,15 @@ class LivingWallsConfigActivity : BaseActivity() {
             finish()
         }
 
-
     }
+
+    override fun onBackPressed() {
+        if (!fragment.onBackPressed()){
+            super.onBackPressed()
+        }
+    }
+
+
 
     companion object {
         fun start(activity: Activity, wallInfo: WallInfo, view: View) {
