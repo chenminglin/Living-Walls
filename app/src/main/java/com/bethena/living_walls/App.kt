@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.preference.PreferenceManager
 import com.bethena.base_wall.BaseWallModule
 import com.bethena.base_wall.utils.SpUtil
+import com.bethena.living_walls.utils.LocalUtil
 import com.bethena.walls.starry_sky.StarrySkyModule
 import kotlin.properties.Delegates
 
@@ -21,6 +22,7 @@ class App : Application() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         initTheme()
+        initLanguage()
     }
 
     override fun onCreate() {
@@ -34,7 +36,7 @@ class App : Application() {
 
     }
 
-    fun initTheme(){
+    private fun initTheme(){
 //        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
 //        var config = resources.configuration
 //        config.uiMode = Configuration.UI_MODE_NIGHT_YES
@@ -61,4 +63,12 @@ class App : Application() {
         }
         AppCompatDelegate.setDefaultNightMode(nightMode)
     }
+
+
+    private fun initLanguage(){
+        var localeList = LocalUtil.getLocaleListCompat(this)
+        AppCompatDelegate.setApplicationLocales(localeList)
+    }
+
+
 }
