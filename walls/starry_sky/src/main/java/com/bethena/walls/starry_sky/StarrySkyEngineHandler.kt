@@ -55,8 +55,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
                 starColor = it.getInt(const.KEY_STAR_COLOR, starColors[0])
                 backgroundColor = it.getInt(const.KEY_BACKGROUND_COLOR, backgroundColors[0])
                 mashColor = ColorUtil.adjustAlpha(
-                    Color.BLACK,
-                    it.getInt(const.KEY_MASH_PERCENT, 0) / 100f
+                    Color.BLACK, it.getInt(const.KEY_MASH_PERCENT, 0) / 100f
                 )
             }
         }
@@ -77,8 +76,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
                     starColor = it.getInt(const.KEY_STAR_COLOR, starColors[0])
                     backgroundColor = it.getInt(const.KEY_BACKGROUND_COLOR, backgroundColors[0])
                     mashColor = ColorUtil.adjustAlpha(
-                        Color.BLACK,
-                        it.getInt(const.KEY_MASH_PERCENT, 0) / 100f
+                        Color.BLACK, it.getInt(const.KEY_MASH_PERCENT, 0) / 100f
                     )
                 }
             }
@@ -172,6 +170,8 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         var canvas: Canvas? = lockCanvas() ?: return
         var canvasWidth = canvas!!.width - bitmapSize
         var canvasHeight = canvas.height - bitmapSize
+        //是否横屏
+        var isLangscape = canvasWidth >= canvasHeight
         LogUtil.d("initStars canvasHeight = $canvasHeight")
         LogUtil.d("initStars starCount = $starCount")
 
@@ -190,8 +190,22 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             star.bitmapSize = starBitmap.height
             star.maxY = bitmapSize + canvas.height + bitmapSize
 //            star.partOfMaxYtoFlash = Random.nextInt(4)
-            star.middleX =
-                intArrayOf(Random.nextInt(canvasWidth), Random.nextInt(canvasWidth))
+            if (isLangscape) {
+                if (star.initX >= 0 && star.initX <= canvasWidth / 2) {
+                    star.middleX =
+                        intArrayOf(Random.nextInt(canvasWidth / 2), Random.nextInt(canvasWidth / 2))
+                } else {
+                    star.middleX = intArrayOf(
+                        Random.nextInt(canvasWidth / 2, canvasWidth),
+                        Random.nextInt(canvasWidth / 2, canvasWidth)
+                    )
+                }
+            } else {
+                star.middleX = intArrayOf(Random.nextInt(canvasWidth), Random.nextInt(canvasWidth))
+            }
+
+
+
 
 
 
