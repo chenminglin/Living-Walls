@@ -13,7 +13,7 @@ class HomeAdapter() : BaseQuickAdapter<WallInfo, BaseViewHolder>(R.layout.item_w
         if (item.coverBitmap == null) {
             item.coverBitmap = AppUtil.getBitmapFromAsset(context, item.assetCover)
         }
-        holder.setText(R.id.tv_title, item.name)
+        holder.setText(R.id.tv_title, item.nameResId)
         holder.setImageBitmap(R.id.iv_walls_cover, item.coverBitmap)
 
     }

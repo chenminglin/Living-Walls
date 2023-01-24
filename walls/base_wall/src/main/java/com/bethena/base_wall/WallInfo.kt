@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class WallInfo(
     val name: String,
+    val nameResId: Int,
     val assetCover: String,
     val handlerClassName: String,
     val configClassName: String,

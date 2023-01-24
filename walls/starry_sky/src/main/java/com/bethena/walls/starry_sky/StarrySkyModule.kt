@@ -9,6 +9,7 @@ class StarrySkyModule : BaseWallModule() {
         var name = context.resources.getString(R.string.starry_sky_wall_name)
         wallInfo = WallInfo(
             name,
+            R.string.starry_sky_wall_name,
             "cover_starry_sky.png",
             StarrySkyEngineHandler::class.java.name,
             StarrySkyConfigFragment::class.java.name,

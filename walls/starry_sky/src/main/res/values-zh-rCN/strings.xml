@@ -1,0 +1,9 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="starry_sky_wall_name">星空</string>
+    <string name="starry_sky_config_n_of_stars">数量</string>
+    <string name="starry_sky_config_speed">速度</string>
+    <string name="starry_sky_config_mash">遮罩</string>
+    <string name="starry_sky_background_color">背景颜色</string>
+    <string name="starry_sky_star_color">星星颜色</string>
+</resources>

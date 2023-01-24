@@ -35,7 +35,9 @@ class HealingWallConfigActivity : BaseActivity() {
         wallInfo = intent.getParcelableExtra(Const.KEY_WALLS)
 
         if (wallInfo != null) {
-            title = wallInfo?.name
+            if (wallInfo!!.nameResId != 0) {
+                title = resources.getString(wallInfo!!.nameResId)
+            }
             if (savedInstanceState == null) {
                 try {
                     var fragmentClass = Class.forName(wallInfo!!.configClassName)
@@ -64,11 +66,10 @@ class HealingWallConfigActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (!fragment.onBackPressed()){
+        if (!fragment.onBackPressed()) {
             super.onBackPressed()
         }
     }
-
 
 
     companion object {

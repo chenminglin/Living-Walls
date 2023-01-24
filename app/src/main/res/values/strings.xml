@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Healing Wall</string>
-    <string name="main_title">Healing Wall</string>
+    <string name="app_name">Healing Walls</string>
+    <string name="main_title">Healing Walls</string>
 
-    <string name="app_desc">Provide you with some healing wallpapers.\nMore wallpapers are in development.</string>
+    <string name="app_desc">Provide you with some healing live wallpapers.\nMore wallpapers are in development.</string>
     <string name="app_desc_help">help</string>
 
     <string name="main_navigation_home">Home</string>
@@ -24,7 +24,7 @@
     <string name="settings_item_about">About</string>
     <string name="settings_item_twitter">Twitter</string>
     <string name="settings_item_support">Support</string>
-    <string name="settings_item_support_summary">If you like my Healing Wall, you can support me so that I can provide you with better service and develop more beautiful wallpapers for you.</string>
+    <string name="settings_item_support_summary">If you like my Healing Walls, you can support me so that I can provide you with better service and develop more beautiful wallpapers for you.</string>
     <string name="settings_item_bug_report">Bug Report</string>
     <string name="settings_item_privacy">Privacy Policy</string>
     <string name="settings_item_terms">Terms &amp; Conditions</string>
