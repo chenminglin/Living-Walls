@@ -41,6 +41,6 @@ dependencies {
     androidTestImplementation rootProject.ext.depsLibs.androidxEspresso
 
     api rootProject.ext.depsLibs.recyclerAdapter
-    api rootProject.ext.depsLibs.immersionbar
+//    api rootProject.ext.depsLibs.immersionbar
 
 }

@@ -7,10 +7,14 @@ object LogUtil {
     val TAG = "LogUtils"
     val DEBUG = BuildConfig.DEBUG
     fun d(msg: String) {
-        Log.d(TAG, msg)
+        if (DEBUG) {
+            Log.d(TAG, msg)
+        }
     }
 
     fun e(msg: String) {
-        Log.e(TAG, msg)
+        if (DEBUG) {
+            Log.e(TAG, msg)
+        }
     }
 }
