@@ -24,6 +24,7 @@
 
     <string name="settings_header_more">更多选项</string>
     <string name="settings_item_about">关于</string>
+    <string name="settings_item_version">版本号</string>
     <string name="settings_item_twitter">推特</string>
     <string name="settings_item_support">支持</string>
     <string name="settings_item_support_summary">如果您喜欢我的Healing Walls ，可以支持一下我，帮助我为您提供更好的服务，以作为我开发更多更好看的壁纸。</string>

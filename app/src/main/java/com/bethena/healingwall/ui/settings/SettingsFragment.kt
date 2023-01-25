@@ -27,23 +27,30 @@ class SettingsFragment : PreferenceFragmentCompat(),
         PreferenceManager
             .getDefaultSharedPreferences(requireContext())
             .registerOnSharedPreferenceChangeListener(this)
+
+        var itemVersionTitle = resources.getString(R.string.settings_item_version)
+        var preference = findPreference<Preference>(itemVersionTitle)
+        preference?.summary = BuildConfig.VERSION_NAME
     }
+
+
+
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         when (preference.title) {
-            getString(R.string.settings_item_about) -> {
-                activity?.let {
-//                    var aboutFragment = AboutFragment()
-//                    aboutFragment.show(it.supportFragmentManager,"")
-
-                    var dialogView = layoutInflater.inflate(R.layout.fragment_about, null, false)
-                    var tv_version = dialogView.findViewById<TextView>(R.id.tv_version)
-                    tv_version.text = BuildConfig.VERSION_NAME
-                    MaterialAlertDialogBuilder(it)
-                        .setView(dialogView)
-                        .show()
-                }
-            }
+//            getString(R.string.settings_item_about) -> {
+//                activity?.let {
+////                    var aboutFragment = AboutFragment()
+////                    aboutFragment.show(it.supportFragmentManager,"")
+//
+//                    var dialogView = layoutInflater.inflate(R.layout.fragment_about, null, false)
+//                    var tv_version = dialogView.findViewById<TextView>(R.id.tv_version)
+//                    tv_version.text = BuildConfig.VERSION_NAME
+//                    MaterialAlertDialogBuilder(it)
+//                        .setView(dialogView)
+//                        .show()
+//                }
+//            }
         }
 
         return super.onPreferenceTreeClick(preference)

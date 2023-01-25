@@ -41,9 +41,10 @@
                 android:data="mailto:chenxiaolin.bethena@gmail.com" />
         </Preference>
 
-        <Preference app:title="@string/settings_item_support"
+        <Preference
+            app:icon="@drawable/ic_round_coffee_24"
             app:summary="@string/settings_item_support_summary"
-            app:icon="@drawable/ic_round_coffee_24">
+            app:title="@string/settings_item_support">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://www.buymeacoffee.com/Bethena" />
@@ -62,7 +63,9 @@
                     android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Terms/1.0/Terms.md" />
             </Preference>
 
-            <Preference app:title="@string/settings_item_about"></Preference>
+            <Preference
+                app:key="@string/settings_item_version"
+                app:title="@string/settings_item_version" />
         </PreferenceCategory>
 
 
