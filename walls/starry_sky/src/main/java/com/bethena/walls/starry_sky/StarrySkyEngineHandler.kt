@@ -19,6 +19,10 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     var starCount = StarrySkyConst.KEY_INIT_STARS_COUNT
     var speed = StarrySkyConst.KEY_INIT_STARS_SPEED
 
+    var baseIncreateY = 0f
+    var baseRefreshTime = 1000 / 60
+    var refreshTime = 0L
+
     private var stars = arrayListOf<Star>()
     private var bitmapSize = 0
     var backgroundColor = 0
@@ -43,6 +47,8 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background))
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background2))
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background3))
+            baseIncreateY = ScreenUtil.dp2pxF(it, 0.07f);
+            refreshTime = 1000 / refreshRate
         }
         spUtils?.let {
             StarrySkyConst.let { const ->
@@ -89,11 +95,11 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             }
 
             var starBitmap1 =
-                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star2, starColor, 0.5f)
+                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star, starColor, 0.5f)
             var starBitmap2 =
-                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star2, starColor, 1f)
+                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star, starColor, 1f)
             var starBitmap3 =
-                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star2, starColor, 1.5f)
+                DrawableUtil.getDrawableToBitmap(it, R.drawable.ic_baseline_star, starColor, 1.3f)
             starBitmaps.add(starBitmap1!!)
             starBitmaps.add(starBitmap2!!)
             starBitmaps.add(starBitmap3!!)
@@ -162,7 +168,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             canvas.restore()
             mSurfaceHolder?.unlockCanvasAndPost(canvas)
             doDraw()
-        }, 1000 / refreshRate)
+        }, refreshTime)
     }
 
 
@@ -176,8 +182,10 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         LogUtil.d("initStars canvasHeight = $canvasHeight")
         LogUtil.d("initStars starCount = $starCount")
 
-        var ratePer = refreshRate / ScreenUtil.MAX_RATE.toFloat()
-
+        var ratePer = refreshTime / baseRefreshTime.toFloat()
+        LogUtil.d("initStars ratePer = $ratePer")
+        var increateY = baseRefreshTime * ratePer * speed * baseIncreateY
+        LogUtil.d("initStars increateY = $increateY")
         for (i in 0 until starCount) {
             var x = Random.nextInt(canvasWidth)
             var y = Random.nextInt(canvasHeight)
@@ -191,32 +199,55 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             star.bitmapSize = starBitmap.height
             star.maxY = bitmapSize + canvas.height + bitmapSize
 //            star.partOfMaxYtoFlash = Random.nextInt(4)
+            var randomXSection = Random.nextInt(2)
             if (isLangscape) {
                 if (star.initX >= 0 && star.initX <= canvasWidth / 2) {
-                    star.middleX =
-                        intArrayOf(Random.nextInt(canvasWidth / 2), Random.nextInt(canvasWidth / 2))
+                    if (randomXSection == 0) {
+                        star.middleX =
+                            intArrayOf(Random.nextInt(canvasWidth / 2))
+                    } else {
+                        star.middleX =
+                            intArrayOf(
+                                Random.nextInt(canvasWidth / 2),
+                                Random.nextInt(canvasWidth / 2)
+                            )
+                    }
                 } else {
-                    star.middleX = intArrayOf(
-                        Random.nextInt(canvasWidth / 2, canvasWidth),
-                        Random.nextInt(canvasWidth / 2, canvasWidth)
-                    )
+                    if (randomXSection == 0) {
+                        star.middleX = intArrayOf(
+                            Random.nextInt(canvasWidth / 2, canvasWidth)
+                        )
+                    } else {
+                        star.middleX = intArrayOf(
+                            Random.nextInt(canvasWidth / 2, canvasWidth),
+                            Random.nextInt(canvasWidth / 2, canvasWidth)
+                        )
+                    }
+
                 }
             } else {
-                star.middleX = intArrayOf(Random.nextInt(canvasWidth), Random.nextInt(canvasWidth))
+                if (randomXSection == 0) {
+                    star.middleX = intArrayOf(Random.nextInt(canvasWidth))
+                } else {
+                    star.middleX =
+                        intArrayOf(Random.nextInt(canvasWidth), Random.nextInt(canvasWidth))
+                }
+
             }
 
 
-            star.increateY = (10 * (1 - ratePer)) * speed
+            star.increateY = increateY
 
-            star.increateDegree = (Random.nextDouble(-4.0, 5.0) * (1 - ratePer)).toFloat()
+            star.increateDegree = (Random.nextDouble(-3.0, 3.0) * ratePer).toFloat()
 //            LogUtils.d("Random.nextInt(3) = ${Random.nextInt(3)}")
             star.isBeat = (Random.nextInt(3) == 1)
-            star.increateScale = Random.nextDouble(0.01, 0.04).toFloat() * (1 - ratePer)
+            star.increateScale = Random.nextDouble(0.01, 0.03).toFloat() * ratePer
             star.partOfMaxYtoFlash = Random.nextInt(3, 6)
 //            star.isBeat = true
             stars.add(star)
 //            LogUtils.d(star.toString())
         }
+
         mSurfaceHolder?.unlockCanvasAndPost(canvas)
     }
 

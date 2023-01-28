@@ -21,6 +21,8 @@ import com.google.android.material.slider.Slider
 class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
     Slider.OnSliderTouchListener {
 
+    private val TAG = "StarrySkyConfigFragment"
+
     lateinit var engineHandler: StarrySkyEngineHandler
     lateinit var surfaceView: SurfaceView
     var isSliderTouching = false
@@ -248,51 +250,22 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
 
 
     override fun onValueChange(slider: Slider, value: Float, fromUser: Boolean) {
-        view?.postDelayed({
-            activity?.let {
-                if (!fromUser) {
-                    return@postDelayed
+        if (!fromUser) {
+            return
+        }
+        LogUtil.d(TAG, "onValueChange ---- isSliderTouching = $isSliderTouching ")
+        when (slider.id) {
+            R.id.slider_mash -> {
+                engineHandler.apply {
+                    spUtils?.putInt(
+                        StarrySkyConst.KEY_MASH_PERCENT,
+                        value.toInt()
+                    )
+                    mashColor = ColorUtil.adjustAlpha(Color.BLACK, value / 100)
                 }
-                LogUtil.d("onValueChange ---- isSliderTouching = $isSliderTouching ")
-                if ((slider.id == R.id.slider_star_num
-                            || slider.id == R.id.slider_speed) && isSliderTouching
-                ) {
-                    return@postDelayed
-                }
-                when (slider.id) {
-                    R.id.slider_star_num -> {
-                        engineHandler.apply {
-                            spUtils?.putInt(
-                                StarrySkyConst.KEY_STARS_COUNT,
-                                value.toInt()
-                            )
-                            starCount = value.toInt()
-                            restart()
-                        }
-                    }
-                    R.id.slider_speed -> {
-                        engineHandler.apply {
-                            spUtils?.putFloat(
-                                StarrySkyConst.KEY_STARS_SPEED,
-                                value
-                            )
-                            speed = value
-                            restart()
-                        }
-                    }
-                    R.id.slider_mash -> {
-                        engineHandler.apply {
-                            spUtils?.putInt(
-                                StarrySkyConst.KEY_MASH_PERCENT,
-                                value.toInt()
-                            )
-                            mashColor = ColorUtil.adjustAlpha(Color.BLACK, value / 100)
-                        }
-                    }
-                }
-
             }
-        }, 300)
+        }
+
     }
 
 
@@ -326,13 +299,37 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
     }
 
     override fun onStartTrackingTouch(slider: Slider) {
-        LogUtil.d("onStartTrackingTouch ---- ")
+        LogUtil.d(TAG, "onStartTrackingTouch ---- ")
         isSliderTouching = true
 
     }
 
     override fun onStopTrackingTouch(slider: Slider) {
+        LogUtil.d(TAG, "onStopTrackingTouch ---- ")
         isSliderTouching = false
+        when (slider.id) {
+            R.id.slider_star_num -> {
+                engineHandler.apply {
+                    spUtils?.putInt(
+                        StarrySkyConst.KEY_STARS_COUNT,
+                        slider.value.toInt()
+                    )
+                    starCount = slider.value.toInt()
+                    restart()
+                }
+            }
+            R.id.slider_speed -> {
+                engineHandler.apply {
+                    spUtils?.putFloat(
+                        StarrySkyConst.KEY_STARS_SPEED,
+                        slider.value
+                    )
+                    speed = slider.value
+                    restart()
+                }
+            }
+
+        }
     }
 
 

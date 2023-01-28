@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
@@ -28,14 +29,13 @@ data class Star(
     var maxY = 0
     var middleX = intArrayOf()
     var interpolatorY = OvershootInterpolator()
-    var interpolatorX = DecelerateInterpolator()
+    var interpolatorX = interpolatorXs.random()
     var interpolatorScale = AccelerateInterpolator()
     var isBeat = false
     var increateScale = 0f
 
     val MAX_SCALE = 1.3f
     val MIN_SCALE = 0.7f
-
 
 
     //控制闪烁分几段
@@ -148,7 +148,7 @@ data class Star(
             x = realX
         }
         var per = y % dHeight / dHeight//当前段落百分比
-        if (n<middleX.size){
+        if (n < middleX.size) {
             var dx = Math.abs(x - middleX[n]) * interpolatorX.getInterpolation(per)
 //        var dx = Math.abs(x - middleX[n]) * per
             if (x >= middleX[n].toFloat()) {
@@ -204,5 +204,12 @@ data class Star(
         return "Star(initX=$initX, initY=$initY, initScale=$initScale, initAlpha=$initAlpha, initDegree=$initDegree, x=$x, y=$y, increateY=$increateY, increateDegree=$increateDegree, scale=$scale, alpha=$alpha, degree=$degree, bitmapSize=$bitmapSize, maxY=$maxY, middleX=${middleX.contentToString()}, isBeat=$isBeat, increateScale=$increateScale, realX=$realX, isAlphaAnimRever=$isAlphaAnimRever, currentSection=$currentSection, isEnd=$isEnd, isBeatRever=$isBeatRever)"
     }
 
+    companion object {
+        var interpolatorXs = arrayOf(
+            AccelerateDecelerateInterpolator(),
+            DecelerateInterpolator(),
+            OvershootInterpolator()
+        )
+    }
 
 }

@@ -1,10 +1,10 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="@dimen/starry_sky_star_default_size"
-    android:height="@dimen/starry_sky_star_default_size"
-    android:tint="#000000"
+    android:width="24dp"
+    android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
+
     <path
-        android:fillColor="@android:color/white"
-        android:pathData="M12,17.27L18.18,21l-1.64,-7.03L22,9.24l-7.19,-0.61L12,2 9.19,8.63 2,9.24l5.46,4.73L5.82,21z" />
+        android:fillColor="#FAE552"
+        android:pathData="M11.122,1.61C11.501,0.915 12.499,0.915 12.878,1.61L15.511,6.438C15.655,6.702 15.91,6.887 16.205,6.942L21.61,7.954C22.388,8.1 22.697,9.049 22.153,9.624L18.375,13.62C18.169,13.839 18.071,14.138 18.11,14.436L18.817,19.89C18.919,20.675 18.112,21.261 17.397,20.922L12.429,18.564C12.158,18.435 11.842,18.435 11.571,18.564L6.603,20.922C5.888,21.261 5.081,20.675 5.183,19.89L5.89,14.436C5.929,14.138 5.832,13.839 5.625,13.62L1.847,9.624C1.303,9.049 1.612,8.1 2.39,7.954L7.795,6.942C8.09,6.887 8.345,6.702 8.489,6.438L11.122,1.61Z" />
 </vector>

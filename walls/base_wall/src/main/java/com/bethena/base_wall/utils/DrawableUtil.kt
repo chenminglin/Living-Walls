@@ -7,6 +7,9 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 
 object DrawableUtil {
+    fun getDrawableToBitmap(context: Context?, drawableId: Int): Bitmap? {
+        return getDrawableToBitmap(context, drawableId, 0)
+    }
 
     fun getDrawableToBitmap(context: Context?, drawableId: Int, colorValue: Int): Bitmap? {
         var bitmap: Bitmap? = null

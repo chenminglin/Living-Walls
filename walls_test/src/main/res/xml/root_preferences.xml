@@ -28,7 +28,6 @@
         <SwitchPreferenceCompat
             app:dependency="sync"
             app:key="attachment"
-            app:icon="@drawable/ic_baseline_star2"
             app:summaryOff="@string/attachment_summary_off"
             app:summaryOn="@string/attachment_summary_on"
             app:title="@string/attachment_title" />
