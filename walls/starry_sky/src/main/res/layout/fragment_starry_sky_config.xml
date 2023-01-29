@@ -28,7 +28,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:contentDescription="check"
+        app:tint="?attr/colorControlNormal"
+        style="@style/Widget.Material3.FloatingActionButton.Primary"
         app:layout_anchor="@id/bar"
+        app:layout_anchorGravity="bottom|right|end"
         app:srcCompat="@drawable/ic_baseline_check_24" />
 
     <include

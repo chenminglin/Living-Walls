@@ -5,6 +5,12 @@
     <string name="app_desc">Provide you with some healing live wallpapers.\nMore wallpapers are in development.</string>
     <string name="app_desc_help">help</string>
 
+    <string name="wall_suggestion_power_saving">Power saving</string>
+    <string name="wall_suggestion_phone">Phone</string>
+    <string name="wall_suggestion_tablet">Tablet</string>
+    <string name="wall_suggestion_portrait">Portrait</string>
+    <string name="wall_suggestion_landscape">Landscape</string>
+
     <string name="main_navigation_home">Home</string>
     <string name="main_navigation_mine">Mine</string>
 

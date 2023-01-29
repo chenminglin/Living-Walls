@@ -3,6 +3,10 @@ package com.bethena.walls.starry_sky
 import android.content.Context
 import android.graphics.*
 import android.view.SurfaceHolder
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.OvershootInterpolator
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bethena.base_wall.BaseEngineHandler
@@ -22,6 +26,9 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     var baseIncreateY = 0f
     var baseRefreshTime = 1000 / 60
     var refreshTime = 0L
+
+
+
 
     private var stars = arrayListOf<Star>()
     private var bitmapSize = 0
@@ -47,7 +54,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background))
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background2))
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background3))
-            baseIncreateY = ScreenUtil.dp2pxF(it, 0.07f);
+            baseIncreateY = ScreenUtil.dp2pxF(it, 0.05f);
             refreshTime = 1000 / refreshRate
         }
         spUtils?.let {
@@ -186,6 +193,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         LogUtil.d("initStars ratePer = $ratePer")
         var increateY = baseRefreshTime * ratePer * speed * baseIncreateY
         LogUtil.d("initStars increateY = $increateY")
+
         for (i in 0 until starCount) {
             var x = Random.nextInt(canvasWidth)
             var y = Random.nextInt(canvasHeight)

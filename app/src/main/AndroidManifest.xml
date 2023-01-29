@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HealingWall"
         tools:targetApi="32">
+
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"

@@ -29,7 +29,7 @@ data class Star(
     var maxY = 0
     var middleX = intArrayOf()
     var interpolatorY = OvershootInterpolator()
-    var interpolatorX = interpolatorXs.random()
+    var interpolatorX = DecelerateInterpolator()
     var interpolatorScale = AccelerateInterpolator()
     var isBeat = false
     var increateScale = 0f
@@ -204,12 +204,6 @@ data class Star(
         return "Star(initX=$initX, initY=$initY, initScale=$initScale, initAlpha=$initAlpha, initDegree=$initDegree, x=$x, y=$y, increateY=$increateY, increateDegree=$increateDegree, scale=$scale, alpha=$alpha, degree=$degree, bitmapSize=$bitmapSize, maxY=$maxY, middleX=${middleX.contentToString()}, isBeat=$isBeat, increateScale=$increateScale, realX=$realX, isAlphaAnimRever=$isAlphaAnimRever, currentSection=$currentSection, isEnd=$isEnd, isBeatRever=$isBeatRever)"
     }
 
-    companion object {
-        var interpolatorXs = arrayOf(
-            AccelerateDecelerateInterpolator(),
-            DecelerateInterpolator(),
-            OvershootInterpolator()
-        )
-    }
+
 
 }
