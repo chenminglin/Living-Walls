@@ -41,11 +41,14 @@ dependencies {
     implementation rootProject.ext.depsLibs.androidxAppCompat
     implementation rootProject.ext.depsLibs.googleMaterial
     implementation rootProject.ext.depsLibs.androidxConstrant
-    implementation 'androidx.preference:preference:1.1.+'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+
+    implementation rootProject.ext.depsLibs.androidxPreference
+    implementation rootProject.ext.depsLibs.androidxPreferenceKtx
+
+    implementation rootProject.ext.depsLibs.androidxNavigationFragment
+    implementation rootProject.ext.depsLibs.androidxNavigationUI
+    implementation rootProject.ext.depsLibs.androidxNavigationFragmentKtx
+    implementation rootProject.ext.depsLibs.androidxNavigationUIKtx
 
     testImplementation rootProject.ext.depsLibs.junit
     androidTestImplementation rootProject.ext.depsLibs.androidxJunit
@@ -55,4 +58,5 @@ dependencies {
 
     implementation project(path: ':walls:circle')
     implementation project(path: ':walls:starry_sky')
+    implementation project(path: ':walls:thunder_breath')
 }

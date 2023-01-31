@@ -18,6 +18,7 @@ abstract class BaseEngineHandler {
     lateinit var mainHandler: Handler
 
     var refreshRate = 60L
+    var refreshTime = 0L
 
     protected var isVisible = false
     var spUtils: SpUtil? = null
@@ -31,8 +32,8 @@ abstract class BaseEngineHandler {
         mContext?.let {
             refreshRate = ScreenUtil.getScreenRefreshRate(it).toLong()
             spUtils = SpUtil(it, javaClass.name)
+            refreshTime = 1000 / refreshRate
         }
-
     }
 
     /**
@@ -61,12 +62,19 @@ abstract class BaseEngineHandler {
         return canvas
     }
 
+    fun unlockCanvasAndPost(canvas: Canvas?) {
+        mSurfaceHolder?.unlockCanvasAndPost(canvas)
+    }
+
     open fun onVisibilityChanged(visible: Boolean) {
         isPaused = false
         isVisible = visible
         LogUtil.d("BaseEngineHandler onVisibilityChanged visible = $visible mContext = $mContext")
         if (mContext == null) {
             return
+        }
+        if (refreshTime == 0L) {
+            refreshTime = 1000 / 60
         }
 
         if (visible) {
