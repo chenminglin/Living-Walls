@@ -25,7 +25,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
 
     var baseIncreateY = 0f
     var baseRefreshTime = 1000 / 60
-    var refreshTime = 0L
+
 
 
 
@@ -55,7 +55,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background2))
             backgroundColors.add(ContextCompat.getColor(it, R.color.starry_sky_background3))
             baseIncreateY = ScreenUtil.dp2pxF(it, 0.05f);
-            refreshTime = 1000 / refreshRate
+
         }
         spUtils?.let {
             StarrySkyConst.let { const ->
