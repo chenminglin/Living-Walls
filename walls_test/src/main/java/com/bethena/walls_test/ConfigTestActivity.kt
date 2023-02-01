@@ -1,9 +1,13 @@
 package com.bethena.walls_test
 
 import android.os.Bundle
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.bethena.walls.thunder_breath.ThunderBreathEngineHandler
+import com.google.android.material.slider.Slider
 
 class ConfigTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +27,9 @@ class ConfigTestActivity : AppCompatActivity() {
                 .add(R.id.fragment_container, configFragment)
                 .commitAllowingStateLoss()
         }
+
+
     }
-
-
 
 
 

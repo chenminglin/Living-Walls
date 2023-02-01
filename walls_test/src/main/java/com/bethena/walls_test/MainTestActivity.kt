@@ -11,13 +11,15 @@ import android.view.PixelCopy.OnPixelCopyFinishedListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bethena.base_wall.utils.LogUtil
+import com.bethena.walls.thunder_breath.ThunderBreathEngineHandler
+import com.google.android.material.slider.Slider
 import com.permissionx.guolindev.PermissionX
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 
 
-class MainTestActivity : AppCompatActivity() {
+class MainTestActivity : AppCompatActivity(), Slider.OnChangeListener {
 //    var wallEngineHandler: BaseEngineHandler? = null
 
     lateinit var toolbar: Toolbar
@@ -53,7 +55,17 @@ class MainTestActivity : AppCompatActivity() {
 
         })
 
+        var slider = findViewById<Slider>(R.id.slider)
+        slider.addOnChangeListener(this)
 
+    }
+
+    override fun onValueChange(slider: Slider, value: Float, fromUser: Boolean) {
+        if (fromUser){
+            if ( TestApp.wallEngineHandler is ThunderBreathEngineHandler){
+                (TestApp.wallEngineHandler as ThunderBreathEngineHandler).maskRadius = value
+            }
+        }
     }
 
     override fun onResume() {
@@ -212,4 +224,6 @@ class MainTestActivity : AppCompatActivity() {
             choreographer.postFrameCallback(frameCallback)
         }
     }
+
+
 }
