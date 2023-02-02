@@ -30,6 +30,7 @@
         android:valueFrom="10"
         android:value="100"
         android:valueTo="300"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

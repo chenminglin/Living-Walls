@@ -11,6 +11,7 @@ import android.view.PixelCopy.OnPixelCopyFinishedListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bethena.base_wall.utils.LogUtil
+import com.bethena.walls.space.SpaceEngineHandler
 import com.bethena.walls.thunder_breath.ThunderBreathEngineHandler
 import com.google.android.material.slider.Slider
 import com.permissionx.guolindev.PermissionX
@@ -64,6 +65,8 @@ class MainTestActivity : AppCompatActivity(), Slider.OnChangeListener {
         if (fromUser){
             if ( TestApp.wallEngineHandler is ThunderBreathEngineHandler){
                 (TestApp.wallEngineHandler as ThunderBreathEngineHandler).maskRadius = value
+            }else if ( TestApp.wallEngineHandler is SpaceEngineHandler){
+                (TestApp.wallEngineHandler as SpaceEngineHandler).degree = value
             }
         }
     }
