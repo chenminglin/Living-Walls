@@ -3,6 +3,14 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-feature
+        android:name="android.software.live_wallpaper"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS"/>
+
     <application
         android:name=".TestApp"
         android:allowBackup="true"
@@ -11,23 +19,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealingWall">
-
         <activity
-            android:name=".CanvasTestActivity"
-            android:exported="true"
-            android:label="@string/title_activity_nav_test">
+            android:name=".SensorManagerTestActivity"
+            android:exported="true">
+
 
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
+        <activity
+            android:name=".CanvasTestActivity"
+            android:exported="true"
+            android:label="@string/title_activity_nav_test">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".NavTestActivity"
             android:exported="true"
             android:label="@string/title_activity_nav_test">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -48,7 +61,6 @@
         <activity
             android:name=".ConfigTestActivity"
             android:exported="false">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -66,6 +78,20 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <service
+            android:name=".service.HealingWallService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/live_wallpaper" />
+        </service>
     </application>
 
 </manifest>

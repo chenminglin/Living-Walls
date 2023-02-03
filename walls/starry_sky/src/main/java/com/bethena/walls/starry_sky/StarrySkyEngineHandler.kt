@@ -24,10 +24,6 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     var speed = StarrySkyConst.KEY_INIT_STARS_SPEED
 
     var baseIncreateY = 0f
-    var baseRefreshTime = 1000 / 60
-
-
-
 
 
     private var stars = arrayListOf<Star>()

@@ -1,7 +1,6 @@
 package com.bethena.walls.space
 
 import android.graphics.*
-import com.bethena.base_wall.utils.LogUtil
 import com.bethena.base_wall.utils.RandomUtil
 
 
@@ -79,6 +78,7 @@ data class PlanetBig(
 
 
         var subDegree = RandomUtil.nextInt(360).toDouble()
+        var subDegreeIncreate = 1f
 
         fun draw(canvas: Canvas, x: Float, y: Float, paint: Paint, subPaint: Paint) {
             var rect = RectF()
@@ -104,7 +104,7 @@ data class PlanetBig(
         }
 
         private fun next() {
-            subDegree++
+            subDegree += subDegreeIncreate
             if (subDegree > 360) {
                 subDegree = 0.0
             }

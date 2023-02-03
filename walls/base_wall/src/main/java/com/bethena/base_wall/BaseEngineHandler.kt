@@ -19,6 +19,7 @@ abstract class BaseEngineHandler {
 
     var refreshRate = 60L
     var refreshTime = 0L
+    var baseRefreshTime = 1000 / 60
 
     protected var isVisible = false
     var spUtils: SpUtil? = null

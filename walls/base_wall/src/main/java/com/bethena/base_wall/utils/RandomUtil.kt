@@ -13,5 +13,9 @@ class RandomUtil {
         fun nextInt(bound: Int): Int {
             return random.nextInt(bound)
         }
+
+        fun nextFloat(): Float {
+            return random.nextFloat()
+        }
     }
 }

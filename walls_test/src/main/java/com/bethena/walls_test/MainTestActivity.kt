@@ -11,6 +11,7 @@ import android.view.PixelCopy.OnPixelCopyFinishedListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bethena.base_wall.utils.LogUtil
+import com.bethena.walls_test.service.HealingWallService
 import com.bethena.walls.space.SpaceEngineHandler
 import com.bethena.walls.thunder_breath.ThunderBreathEngineHandler
 import com.google.android.material.slider.Slider
@@ -66,7 +67,7 @@ class MainTestActivity : AppCompatActivity(), Slider.OnChangeListener {
             if ( TestApp.wallEngineHandler is ThunderBreathEngineHandler){
                 (TestApp.wallEngineHandler as ThunderBreathEngineHandler).maskRadius = value
             }else if ( TestApp.wallEngineHandler is SpaceEngineHandler){
-                (TestApp.wallEngineHandler as SpaceEngineHandler).degree = value
+//                (TestApp.wallEngineHandler as SpaceEngineHandler).degree = value
             }
         }
     }
@@ -120,7 +121,6 @@ class MainTestActivity : AppCompatActivity(), Slider.OnChangeListener {
                 startActivity(intent)
             }
             R.id.menu_cut -> {
-
                 PermissionX.init(this).permissions(
                     arrayListOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 ).request { allGranted, grantedList, deniedList ->
@@ -195,6 +195,10 @@ class MainTestActivity : AppCompatActivity(), Slider.OnChangeListener {
                 }
 
 
+            }
+
+            R.id.menu_check->{
+                HealingWallService.start(this@MainTestActivity)
             }
         }
         return super.onOptionsItemSelected(item)

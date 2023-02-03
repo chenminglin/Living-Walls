@@ -2,7 +2,6 @@ package com.bethena.walls.space
 
 import android.graphics.*
 import com.bethena.base_wall.utils.RandomUtil
-import java.util.*
 
 data class Meteor(
     var x: Float,
@@ -32,9 +31,9 @@ data class Meteor(
         next(canvas)
     }
 
-    var dx = 10
+    var increateX = 10f
     fun next(canvas: Canvas) {
-        x -= dx
+        x -= increateX
 //        alpha -= 1
 //        var dy = (dx / tan(Math.toRadians(30.0))).toInt()
 //        y += dy
