@@ -2,9 +2,9 @@ package com.bethena.walls.starry_sky
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Matrix
 import android.graphics.Paint
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
@@ -84,7 +84,9 @@ data class Star(
         positionMatrix.preConcat(scaleMatrix)
         positionMatrix.preConcat(rotateMatrix)
         canvas.drawBitmap(starBitmap!!, positionMatrix, paint)
-
+//        paint.color = Color.WHITE
+//        paint.textSize = 30f
+//        canvas.drawText("x = $x\ny = $y", realX, realY, paint)
         next(canvas)
 
     }
@@ -203,7 +205,6 @@ data class Star(
     override fun toString(): String {
         return "Star(initX=$initX, initY=$initY, initScale=$initScale, initAlpha=$initAlpha, initDegree=$initDegree, x=$x, y=$y, increateY=$increateY, increateDegree=$increateDegree, scale=$scale, alpha=$alpha, degree=$degree, bitmapSize=$bitmapSize, maxY=$maxY, middleX=${middleX.contentToString()}, isBeat=$isBeat, increateScale=$increateScale, realX=$realX, isAlphaAnimRever=$isAlphaAnimRever, currentSection=$currentSection, isEnd=$isEnd, isBeatRever=$isBeatRever)"
     }
-
 
 
 }

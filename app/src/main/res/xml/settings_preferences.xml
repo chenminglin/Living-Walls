@@ -50,25 +50,32 @@
                 android:data="https://www.buymeacoffee.com/Bethena" />
         </Preference>
 
-        <PreferenceCategory app:title="@string/settings_item_about">
-            <Preference app:title="@string/settings_item_privacy">
-                <intent
-                    android:action="android.intent.action.VIEW"
-                    android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Privacy/1.0/privacy.md" />
-            </Preference>
+        <Preference
+            app:icon="@drawable/ic_round_star_rate_24"
+            app:summary="@string/settings_item_rate_summary"
+            app:title="@string/settings_item_rate">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://play.google.com/store/apps/details?id=com.bethena.healingwall" />
+        </Preference>
 
-            <Preference app:title="@string/settings_item_terms">
-                <intent
-                    android:action="android.intent.action.VIEW"
-                    android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Terms/1.0/Terms.md" />
-            </Preference>
+    </PreferenceCategory>
+    <PreferenceCategory app:title="@string/settings_item_about">
+        <Preference app:title="@string/settings_item_privacy">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Privacy/1.0/privacy.md" />
+        </Preference>
 
-            <Preference
-                app:key="@string/settings_item_version"
-                app:title="@string/settings_item_version" />
-        </PreferenceCategory>
+        <Preference app:title="@string/settings_item_terms">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/chenminglin/CureWallExtra/blob/master/Terms/1.0/Terms.md" />
+        </Preference>
 
-
+        <Preference
+            app:key="@string/settings_item_version"
+            app:title="@string/settings_item_version" />
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stepSize="5"
-        android:valueFrom="0"
+        android:valueFrom="10"
         android:valueTo="70"
         android:contentDescription="@string/starry_sky_config_n_of_stars"
         app:layout_constraintLeft_toLeftOf="parent"

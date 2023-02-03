@@ -31,6 +31,8 @@
     <string name="settings_item_version">App Version</string>
     <string name="settings_item_twitter">Twitter</string>
     <string name="settings_item_support">Support</string>
+    <string name="settings_item_rate">Rate App</string>
+    <string name="settings_item_rate_summary">If you like my Healing Walls, rate it on the Google Play Store.</string>
     <string name="settings_item_support_summary">If you like my Healing Walls, you can support me so that I can provide you with better service and develop more beautiful wallpapers for you.</string>
     <string name="settings_item_bug_report">Bug Report</string>
     <string name="settings_item_privacy">Privacy Policy</string>

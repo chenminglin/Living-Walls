@@ -3,18 +3,10 @@ package com.bethena.walls.starry_sky
 import android.content.Context
 import android.graphics.*
 import android.view.SurfaceHolder
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.OvershootInterpolator
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bethena.base_wall.BaseEngineHandler
-import com.bethena.base_wall.utils.ColorUtil
-import com.bethena.base_wall.utils.DrawableUtil
-import com.bethena.base_wall.utils.LogUtil
-import com.bethena.base_wall.utils.ScreenUtil
-import kotlin.random.Random
+import com.bethena.base_wall.utils.*
 
 class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     private var mPaint: Paint = Paint()
@@ -148,6 +140,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         mPaint.color = Color.WHITE
         mPaint.style = Paint.Style.STROKE
         mPaint.strokeWidth = ScreenUtil.dp2pxF(mContext!!, 1f)
+        mPaint.textSize = ScreenUtil.dp2pxF(mContext!!, 50f)
         canvas?.drawRect(100f, 100f, 100f + bitmapSize, 100f + bitmapSize, mPaint)
         mSurfaceHolder?.unlockCanvasAndPost(canvas)
     }
@@ -182,75 +175,87 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
         var canvasHeight = canvas.height - bitmapSize
         //是否横屏
         var isLangscape = canvasWidth >= canvasHeight
+        LogUtil.d("initStars canvasWidth = $canvasWidth")
         LogUtil.d("initStars canvasHeight = $canvasHeight")
         LogUtil.d("initStars starCount = $starCount")
+        var horizontalCount = 5
+        var verticalCount = starCount / horizontalCount
+        //高度分成几段，星星的数量必须是5的倍数
+        var eachWidth = canvasWidth / horizontalCount
+        var eachHeight = canvasHeight / verticalCount
 
         var ratePer = refreshTime / baseRefreshTime.toFloat()
         LogUtil.d("initStars ratePer = $ratePer")
         var increateY = baseRefreshTime * ratePer * speed * baseIncreateY
         LogUtil.d("initStars increateY = $increateY")
 
-        for (i in 0 until starCount) {
-            var x = Random.nextInt(canvasWidth)
-            var y = Random.nextInt(canvasHeight)
-//            LogUtil.d("initStars y = $y")
+        for (pieceX in 0 until horizontalCount) {
+            for (pieceY in 0 until verticalCount) {
+                LogUtil.d("initStars pieceX = $pieceX  pieceY = $pieceY eachWidth = $eachWidth eachHeight = $eachHeight")
+                var x = RandomUtil.nextInt(eachWidth) + pieceX * eachWidth
+                var y = RandomUtil.nextInt(eachHeight) + pieceY * eachHeight
+                LogUtil.d("initStars x = $x  y = $y")
 //            var scale = RandomUtil.between2numsF(0.5f, 3f)
-            var indexBitmap = Random.nextInt(starBitmaps.size)
-            var starBitmap = starBitmaps[indexBitmap]
-            var star = Star(starBitmap, x.toFloat(), y.toFloat(), 1f, 255, 0f)
+                var indexBitmap = RandomUtil.nextInt(starBitmaps.size)
+                var starBitmap = starBitmaps[indexBitmap]
+                var star = Star(starBitmap, x.toFloat(), y.toFloat(), 1f, 255, 0f)
 //            star.reset()
 
-            star.bitmapSize = starBitmap.height
-            star.maxY = bitmapSize + canvas.height + bitmapSize
+                star.bitmapSize = starBitmap.height
+                star.maxY = bitmapSize + canvas.height + bitmapSize
 //            star.partOfMaxYtoFlash = Random.nextInt(4)
-            var randomXSection = Random.nextInt(2)
-            if (isLangscape) {
-                if (star.initX >= 0 && star.initX <= canvasWidth / 2) {
+                var randomXSection = RandomUtil.nextInt(2)
+                if (isLangscape) {
+                    if (star.initX >= 0 && star.initX <= canvasWidth / 2) {
+                        if (randomXSection == 0) {
+                            star.middleX = intArrayOf(RandomUtil.nextInt(canvasWidth / 2))
+                        } else {
+                            star.middleX = intArrayOf(
+                                RandomUtil.nextInt(canvasWidth / 2),
+                                RandomUtil.nextInt(canvasWidth / 2)
+                            )
+                        }
+                    } else {
+                        if (randomXSection == 0) {
+                            star.middleX = intArrayOf(
+                                RandomUtil.nextInt(canvasWidth / 2, canvasWidth)
+                            )
+                        } else {
+                            star.middleX = intArrayOf(
+                                RandomUtil.nextInt(canvasWidth / 2, canvasWidth),
+                                RandomUtil.nextInt(canvasWidth / 2, canvasWidth)
+                            )
+                        }
+
+                    }
+                } else {
                     if (randomXSection == 0) {
-                        star.middleX =
-                            intArrayOf(Random.nextInt(canvasWidth / 2))
+                        star.middleX = intArrayOf(RandomUtil.nextInt(canvasWidth))
                     } else {
                         star.middleX =
                             intArrayOf(
-                                Random.nextInt(canvasWidth / 2),
-                                Random.nextInt(canvasWidth / 2)
+                                RandomUtil.nextInt(canvasWidth),
+                                RandomUtil.nextInt(canvasWidth)
                             )
                     }
-                } else {
-                    if (randomXSection == 0) {
-                        star.middleX = intArrayOf(
-                            Random.nextInt(canvasWidth / 2, canvasWidth)
-                        )
-                    } else {
-                        star.middleX = intArrayOf(
-                            Random.nextInt(canvasWidth / 2, canvasWidth),
-                            Random.nextInt(canvasWidth / 2, canvasWidth)
-                        )
-                    }
 
                 }
-            } else {
-                if (randomXSection == 0) {
-                    star.middleX = intArrayOf(Random.nextInt(canvasWidth))
-                } else {
-                    star.middleX =
-                        intArrayOf(Random.nextInt(canvasWidth), Random.nextInt(canvasWidth))
-                }
-
-            }
 
 
-            star.increateY = increateY
+                star.increateY = increateY
 
-            star.increateDegree = (Random.nextDouble(-3.0, 3.0) * ratePer).toFloat()
+                star.increateDegree = (RandomUtil.nextInt(-3, 3) * ratePer).toFloat()
 //            LogUtils.d("Random.nextInt(3) = ${Random.nextInt(3)}")
-            star.isBeat = (Random.nextInt(3) == 1)
-            star.increateScale = Random.nextDouble(0.01, 0.03).toFloat() * ratePer
-            star.partOfMaxYtoFlash = Random.nextInt(3, 6)
+                star.isBeat = (RandomUtil.nextInt(3) == 1)
+                star.increateScale = RandomUtil.nextInt(1, 3).toFloat() * ratePer * 0.01f
+                star.partOfMaxYtoFlash = RandomUtil.nextInt(3, 6)
 //            star.isBeat = true
-            stars.add(star)
+                stars.add(star)
 //            LogUtils.d(star.toString())
+            }
         }
+
+
 
         mSurfaceHolder?.unlockCanvasAndPost(canvas)
     }

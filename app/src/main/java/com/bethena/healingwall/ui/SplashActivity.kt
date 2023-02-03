@@ -64,6 +64,20 @@ class SplashActivity : BaseActivity() {
                 startMain()
             }
         }
+        preventExceptionStar()
+    }
+
+    /**
+     * 防止异常不跳转
+     */
+    private fun preventExceptionStar(){
+        window.decorView.postDelayed({
+            if (isFinishing) {
+                return@postDelayed
+            }
+            MainActivity.start(this)
+            finish()
+        }, 1500)
     }
 
     fun initTheme() {

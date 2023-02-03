@@ -14,6 +14,10 @@ class RandomUtil {
             return random.nextInt(bound)
         }
 
+        fun nextInt(from: Int, until: Int): Int {
+            return random.nextInt(until - from) + from
+        }
+
         fun nextFloat(): Float {
             return random.nextFloat()
         }
