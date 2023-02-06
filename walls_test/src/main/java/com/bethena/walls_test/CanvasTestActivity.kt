@@ -1,12 +1,9 @@
 package com.bethena.walls_test
 
 import android.graphics.Color
-import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.drawable.VectorDrawable
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -71,7 +68,7 @@ class CanvasTestActivity : AppCompatActivity() {
     var degree = 45
 
     fun doDraw(holder: SurfaceHolder) {
-        var canvas = holder.lockHardwareCanvas()
+        var canvas = holder.lockCanvas()
         paint.color = Color.WHITE
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 10f
@@ -87,38 +84,43 @@ class CanvasTestActivity : AppCompatActivity() {
         var bitmapPlanet = DrawableUtil.getDrawableToBitmap(this, R.drawable.planet)
 
 
-//        canvas.drawBitmap(bitmapCloud!!, 0f, 0f, paint)
-////        canvas.drawBitmap(bitmapPlanet!!, 400f, 800f, paint)
-//        var planet = VectorMasterDrawable(this, R.drawable.planet)
-//        var topPath = planet?.getPathModelByName("top")
-//        topPath.fillColor = Color.WHITE
+        canvas.drawBitmap(bitmapCloud!!, 0f, 0f, paint)
+//        canvas.drawBitmap(bitmapPlanet!!, 400f, 800f, paint)
+//        var planet = VectorMasterDrawable(this, com.bethena.walls.space.R.drawable.planet_big)
+//        var topPath = planet?.getPathModelByName("outter_circle")
+//        topPath.pathPaint.shader
+//        var bitmap = planet.toBitmap()
 //        planet?.draw(canvas)
-        val cx = (canvas.width / 2).toFloat()
-        val cy = (canvas.height / 2).toFloat()
-        val rectWidth = 100f
-        val rectHeight = 200f
-        val left = cx - rectWidth / 2
-        val top = cy - rectHeight / 2
-        val right = cx + rectWidth / 2
-        val bottom = cy + rectHeight / 2
-        var degree = 45f
-        val radian = degree * Math.PI / 180
-        var path1 = Path()
-        path1.addRect(left, top, right, bottom, Path.Direction.CCW)
-        val matrix = Matrix()
-        matrix.postRotate(radian.toFloat(), cx, cy)
-        path1.transform(matrix)
-        canvas.drawPath(path1, paint)
-        Log.d("aaa","degree = $degree")
+
+//        canvas.drawBitmap(bitmap,0f,0f,paint)
+
+
+//        val cx = (canvas.width / 2).toFloat()
+//        val cy = (canvas.height / 2).toFloat()
+//        val rectWidth = 100f
+//        val rectHeight = 200f
+//        val left = cx - rectWidth / 2
+//        val top = cy - rectHeight / 2
+//        val right = cx + rectWidth / 2
+//        val bottom = cy + rectHeight / 2
+//        var degree = 45f
+//        val radian = degree * Math.PI / 180
+//        var path1 = Path()
+//        path1.addRect(left, top, right, bottom, Path.Direction.CCW)
+//        val matrix = Matrix()
+//        matrix.postRotate(radian.toFloat(), cx, cy)
+//        path1.transform(matrix)
+//        canvas.drawPath(path1, paint)
+        Log.d("aaa", "degree = $degree")
 
         degree++
         if (degree >= 360) {
-            degree = 0f
+            degree = 0
         }
         holder.unlockCanvasAndPost(canvas)
         Handler(Looper.getMainLooper()).postDelayed({
             doDraw(holder)
-        },30)
+        }, 30)
     }
 
 

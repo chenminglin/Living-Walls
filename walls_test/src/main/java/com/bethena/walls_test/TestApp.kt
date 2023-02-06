@@ -18,5 +18,6 @@ class TestApp: Application() {
     override fun onCreate() {
         super.onCreate()
         wallEngineHandler = SpaceEngineHandler(this)
+//        wallEngineHandler = StarrySkyEngineHandler(this)
     }
 }

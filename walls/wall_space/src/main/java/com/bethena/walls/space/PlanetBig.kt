@@ -7,11 +7,56 @@ import com.bethena.base_wall.utils.RandomUtil
 data class PlanetBig(
     var x: Float,
     var y: Float,
-    var bitmap: Bitmap,
+    var radius: Float,
+    var gradientColors: IntArray,
+    var pitColor: Int,
     var rings: ArrayList<PlanetBigRing>,
     var ringDegree: Float,
-    var paint: Paint
+    var ringPaint: Paint
 ) {
+    var bitmap: Bitmap =
+        Bitmap.createBitmap((radius * 2).toInt(), (radius * 2).toInt(), Bitmap.Config.ARGB_8888)
+
+    init {
+        var canvas = Canvas(bitmap)
+        var paint = Paint()
+        paint.isAntiAlias = true
+        paint.color = Color.BLACK
+        paint.shader = LinearGradient(
+            0f,
+            0f,
+            radius * 2,
+            radius * 2,
+            gradientColors,
+            floatArrayOf(0.2f, 0.8f),
+            Shader.TileMode.CLAMP
+        )
+        canvas.drawCircle(
+            (canvas.width / 2).toFloat(), (canvas.height / 2).toFloat(), radius, paint
+        )
+        drawPit(canvas, paint, radius - radius / 5, radius / 3, radius / 5)
+        drawPit(canvas, paint, radius / 3, radius + radius / 4, radius / 6)
+        drawPit(canvas, paint, radius + radius / 2, radius - radius / 9, radius / 9)
+    }
+
+    private fun drawPit(canvas: Canvas, paint: Paint, cx: Float, cy: Float, cradius: Float) {
+        var path11 = Path()
+        var path12 = Path()
+        var path1 = Path()
+        path1.addCircle(cx, cy, cradius, Path.Direction.CW)
+        var path2 = Path()
+        path2.addCircle(
+            cx, cy + radius / 20, cradius, Path.Direction.CW
+        )
+        path11.op(path1, path2, Path.Op.INTERSECT)
+        path12.op(path1, path2, Path.Op.DIFFERENCE)
+        paint.shader = null
+        paint.color = pitColor
+        paint.alpha = 80
+        canvas.drawPath(path11, paint)
+        paint.alpha = 128
+        canvas.drawPath(path12, paint)
+    }
 
 
     /**
@@ -71,9 +116,7 @@ data class PlanetBig(
     }
 
     data class PlanetBigRing(
-        var heightRadius: Float,
-        var widthRadius: Float,
-        var subPlanet: Planet?
+        var heightRadius: Float, var widthRadius: Float, var subPlanet: Planet?
     ) {
 
 
@@ -91,7 +134,9 @@ data class PlanetBig(
             subPlanet?.let {
                 var subX = x + widthRadius * Math.cos(Math.toRadians(subDegree))
                 var subY = y + heightRadius * Math.sin(Math.toRadians(subDegree))
-                subPaint.shader = it.shader
+                it.x = subX.toFloat()
+                it.y = subY.toFloat()
+                subPaint.shader = it.newShader()
                 canvas.drawCircle(subX.toFloat(), subY.toFloat(), it.radius, subPaint)
 //                subPaint.color = Color.WHITE
 //                subPaint.shader = null

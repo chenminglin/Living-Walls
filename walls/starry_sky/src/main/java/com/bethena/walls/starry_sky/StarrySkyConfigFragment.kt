@@ -3,92 +3,63 @@ package com.bethena.walls.starry_sky
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
-import android.view.SurfaceHolder.Callback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bethena.base_wall.BaseConfigFragment
+import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.colorpicker.ColorItem
 import com.bethena.base_wall.colorpicker.ColorPickerAdapter
 import com.bethena.base_wall.utils.ColorUtil
 import com.bethena.base_wall.utils.LogUtil
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.slider.Slider
 
 
-class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
+class StarrySkyConfigFragment : BaseConfigFragment<StarrySkyEngineHandler>(), Slider.OnChangeListener,
     Slider.OnSliderTouchListener {
 
     private val TAG = "StarrySkyConfigFragment"
 
-    lateinit var engineHandler: StarrySkyEngineHandler
-    lateinit var surfaceView: SurfaceView
     var isSliderTouching = false
     lateinit var bottomDrawerBehaviorColor: BottomSheetBehavior<View>
     lateinit var bottomDrawerBehaviorEqualizer: BottomSheetBehavior<View>
     var slider_star_num: Slider? = null
     var slider_speed: Slider? = null
     var slider_mash: Slider? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        engineHandler = StarrySkyEngineHandler(context)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        setHasOptionsMenu(true)
-        // Inflate the layout for this fragment
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun layoutId(): Int {
-        return R.layout.fragment_starry_sky_config
-    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        view.findViewById<View>()
-        surfaceView = view.findViewById(R.id.surfaceView)
-        surfaceView.holder.addCallback(object : Callback {
-            override fun surfaceCreated(holder: SurfaceHolder) {
-                //这里会调用两次，不知道为什么
-                LogUtil.d("surfaceView surfaceCreated")
-                engineHandler.surfaceCreated(holder)
-                initSettingParams(view)
-                initColorAdapter(view)
-            }
-
-            override fun surfaceChanged(
-                holder: SurfaceHolder,
-                format: Int,
-                width: Int,
-                height: Int
-            ) {
-            }
-
-            override fun surfaceDestroyed(holder: SurfaceHolder) {
-
-            }
-        })
 
         initDrawer(view)
-
-        var bar = view.findViewById<BottomAppBar>(R.id.bar)
 
         slider_star_num = view.findViewById(R.id.slider_star_num)
         slider_speed = view.findViewById(R.id.slider_speed)
         slider_mash = view.findViewById(R.id.slider_mash)
+    }
 
-        initBtnCheck(view)
+    override fun menuId(): Int {
+        return R.menu.menu_config_starry_sky
+    }
 
-        (activity as AppCompatActivity?)!!.setSupportActionBar(bar)
+    override fun onSurfaceCreated(view: View, holder: SurfaceHolder) {
+        //这里会调用两次，不知道为什么
+        LogUtil.d("surfaceView surfaceCreated")
+        engineHandler.surfaceCreated(holder)
+        initSettingParams(view)
+        initColorAdapter(view)
+    }
 
+    override fun onSurfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+    }
 
+    override fun inflateId(): Int {
+        return R.layout.fragment_starry_sky_config
+    }
+
+    override fun newEngineHandler(): StarrySkyEngineHandler {
+        return StarrySkyEngineHandler(context)
     }
 
     fun initDrawer(view: View) {
@@ -122,12 +93,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
         })
     }
 
-    fun initBtnCheck(view: View) {
-        var fab_check = view.findViewById<FloatingActionButton>(R.id.fab_check)
-        fab_check.setOnClickListener {
-            checkWall()
-        }
-    }
+
 
     var isSlideInited = false
     fun initSettingParams(view: View) {
@@ -175,6 +141,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
         if (isAdapterInit) {
             return
         }
+
         var rv_background_color_picker =
             view.findViewById<RecyclerView>(R.id.rv_background_color_picker)
         var colorItems = arrayListOf<ColorItem>()
@@ -194,8 +161,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
         }
         rv_background_color_picker?.adapter = backgroundColorAdapter
 
-        var rv_star_color_picker =
-            view.findViewById<RecyclerView>(R.id.rv_star_color_picker)
+        var rv_star_color_picker = view.findViewById<RecyclerView>(R.id.rv_star_color_picker)
         var starColorItems = arrayListOf<ColorItem>()
         engineHandler.starColors.forEach {
             starColorItems.add(ColorItem(it, it == engineHandler.starColor))
@@ -216,9 +182,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
         isAdapterInit = true
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_config_starry_sky, menu)
-    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -258,8 +222,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
             R.id.slider_mash -> {
                 engineHandler.apply {
                     spUtils?.putInt(
-                        StarrySkyConst.KEY_MASH_PERCENT,
-                        value.toInt()
+                        StarrySkyConst.KEY_MASH_PERCENT, value.toInt()
                     )
                     mashColor = ColorUtil.adjustAlpha(Color.BLACK, value / 100)
                 }
@@ -269,17 +232,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        surfaceView.post {
-            engineHandler.onVisibilityChanged(true)
-        }
-    }
 
-    override fun onPause() {
-        super.onPause()
-        engineHandler.onVisibilityChanged(false)
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -311,8 +264,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
             R.id.slider_star_num -> {
                 engineHandler.apply {
                     spUtils?.putInt(
-                        StarrySkyConst.KEY_STARS_COUNT,
-                        slider.value.toInt()
+                        StarrySkyConst.KEY_STARS_COUNT, slider.value.toInt()
                     )
                     starCount = slider.value.toInt()
                     restart()
@@ -321,8 +273,7 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
             R.id.slider_speed -> {
                 engineHandler.apply {
                     spUtils?.putFloat(
-                        StarrySkyConst.KEY_STARS_SPEED,
-                        slider.value
+                        StarrySkyConst.KEY_STARS_SPEED, slider.value
                     )
                     speed = slider.value
                     restart()
@@ -330,6 +281,10 @@ class StarrySkyConfigFragment : BaseConfigFragment(), Slider.OnChangeListener,
             }
 
         }
+    }
+
+    override fun onSurfaceDestroyed(holder: SurfaceHolder) {
+
     }
 
 

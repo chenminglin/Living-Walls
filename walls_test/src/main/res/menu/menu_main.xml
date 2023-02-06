@@ -4,7 +4,7 @@
     <item
         android:id="@+id/menu_cut"
         android:icon="@drawable/ic_baseline_content_cut_24"
-        app:showAsAction="always"
+        app:showAsAction="collapseActionView"
         android:contentDescription="截图"
         />
     <item
@@ -12,19 +12,19 @@
         android:icon="@drawable/ic_baseline_pause_circle_filled_24"
         android:title="pause"
         android:visible="true"
-        app:showAsAction="always" />
+        app:showAsAction="collapseActionView" />
 
     <item
         android:id="@+id/menu_config"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="settings"
         android:visible="true"
-        app:showAsAction="collapseActionView" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/menu_check"
         android:icon="@drawable/ic_baseline_check_24"
         android:title="check"
         android:visible="true"
-        app:showAsAction="collapseActionView" />
+        app:showAsAction="always" />
 </menu>

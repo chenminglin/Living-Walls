@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_color_start">#16163B</color>
-    <color name="background_color_center">#1D379B</color>
+    <color name="ws_temp1_bg_color_start">#16163B</color>
+    <color name="ws_temp1_bg_color_center">#1D379B</color>
+    <color name="ws_temp1_star_color1">#FFF7B500</color>
+    <color name="ws_temp1_star_color2">#FFFFFFFF</color>
+    <color name="ws_temp1_planet1_color1">#FFAA82</color>
+    <color name="ws_temp1_planet1_color2">#F35005</color>
+    <color name="ws_temp1_planet2_color1">#04A9ED</color>
+    <color name="ws_temp1_planet2_color2">#092271</color>
+    <color name="ws_temp1_planet3_color1">#FF63BFFF</color>
+    <color name="ws_temp1_planet3_color2">#FF6B88FE</color>
+    <color name="ws_temp1_planet3_ring_color">#FF64B6FE</color>
+    <color name="ws_temp1_big_planet_color1">#FF04A9ED</color>
+    <color name="ws_temp1_big_planet_color2">#FF092271</color>
+    <color name="ws_temp1_big_planet_pit_color">#083481</color>
+    <color name="ws_temp1_big_planet_ring_color">#FF037EB4</color>
+    <color name="ws_temp1_bp_sub1_color1">#FFFFD4FF</color>
+    <color name="ws_temp1_bp_sub1_color2">#FFFF68A1</color>
+    <color name="ws_temp1_bp_sub2_color1">#FF9F9FFF</color>
+    <color name="ws_temp1_bp_sub2_color2">#FFDB8EFF</color>
+    <color name="ws_temp1_meteor_color">#ffffff</color>
+
+
+
+    <color name="ws_temp2_bg_color_start">#16163B</color>
+    <color name="ws_temp2_bg_color_center">#7C2E92</color>
+    <color name="ws_temp2_star_color1">#59C2E1</color>
+    <color name="ws_temp2_star_color2">#FFFFFFFF</color>
+    <color name="ws_temp2_planet1_color1">#50B1DA</color>
+    <color name="ws_temp2_planet1_color2">#3880AC</color>
+    <color name="ws_temp2_planet2_color1">#D9B160</color>
+    <color name="ws_temp2_planet2_color2">#D58732</color>
+    <color name="ws_temp2_planet3_color1">#ED6EBA</color>
+    <color name="ws_temp2_planet3_color2">#EB5288</color>
+    <color name="ws_temp2_big_planet_color1">#F6CF79</color>
+    <color name="ws_temp2_big_planet_color2">#980533</color>
+    <color name="ws_temp2_big_planet_pit_color">#A8264A</color>
+    <color name="ws_temp2_planet3_ring_color">#EB4777</color>
+    <color name="ws_temp2_big_planet_ring_color">#EB8065</color>
+    <color name="ws_temp2_bp_sub1_color1">#4DAAD3</color>
+    <color name="ws_temp2_bp_sub1_color2">#4192BF</color>
+    <color name="ws_temp2_bp_sub2_color1">#82D59E</color>
+    <color name="ws_temp2_bp_sub2_color2">#337080</color>
+    <color name="ws_temp2_meteor_color">#D9B160</color>
+
 </resources>

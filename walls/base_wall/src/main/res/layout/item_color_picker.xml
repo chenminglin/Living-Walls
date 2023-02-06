@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.bethena.base_wall.colorpicker.ColorCircleView
         android:id="@+id/fab_color"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="4dp"
-        android:contentDescription="btnColor"
-        app:fabCustomSize="40dp"
-        app:tint="@color/white" />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="4dp" />
 
 </FrameLayout>

@@ -21,7 +21,7 @@ class SpaceEngineHandler(context: Context?) : BaseEngineHandler(context) {
 
 
     override fun doDraw() {
-        LogUtil.d("doDraw")
+        LogUtil.d("doDraw refreshTime = $refreshTime")
 
         mainHandler.postDelayed({
             var canvas = lockCanvas() ?: return@postDelayed
@@ -35,6 +35,11 @@ class SpaceEngineHandler(context: Context?) : BaseEngineHandler(context) {
     }
 
     override fun newConfigFragment(): Fragment {
-        return Fragment()
+        return SpaceConfigFragment()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        factory?.destory()
     }
 }

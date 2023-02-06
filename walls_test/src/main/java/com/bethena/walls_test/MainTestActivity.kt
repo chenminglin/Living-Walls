@@ -11,9 +11,9 @@ import android.view.PixelCopy.OnPixelCopyFinishedListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bethena.base_wall.utils.LogUtil
-import com.bethena.walls_test.service.HealingWallService
 import com.bethena.walls.space.SpaceEngineHandler
 import com.bethena.walls.thunder_breath.ThunderBreathEngineHandler
+import com.bethena.walls_test.service.HealingWallService
 import com.google.android.material.slider.Slider
 import com.permissionx.guolindev.PermissionX
 import java.io.ByteArrayOutputStream
@@ -60,15 +60,31 @@ class MainTestActivity : AppCompatActivity(), Slider.OnChangeListener {
         var slider = findViewById<Slider>(R.id.slider)
         slider.addOnChangeListener(this)
 
+
+        findViewById<Slider>(R.id.slider_refresh_time).addOnChangeListener(this)
+
     }
 
+    var defualtRefreshTime = 0L
     override fun onValueChange(slider: Slider, value: Float, fromUser: Boolean) {
-        if (fromUser){
-            if ( TestApp.wallEngineHandler is ThunderBreathEngineHandler){
-                (TestApp.wallEngineHandler as ThunderBreathEngineHandler).maskRadius = value
-            }else if ( TestApp.wallEngineHandler is SpaceEngineHandler){
+        if (fromUser) {
+            when (slider.id) {
+                R.id.slider_refresh_time -> {
+                    if (defualtRefreshTime == 0L) {
+                        defualtRefreshTime = TestApp.wallEngineHandler?.refreshTime!!
+                    }
+                    TestApp.wallEngineHandler?.refreshTime = (defualtRefreshTime * value).toLong()
+                    TestApp.wallEngineHandler?.restart()
+                }
+                else -> {
+                    if (TestApp.wallEngineHandler is ThunderBreathEngineHandler) {
+                        (TestApp.wallEngineHandler as ThunderBreathEngineHandler).maskRadius = value
+                    } else if (TestApp.wallEngineHandler is SpaceEngineHandler) {
 //                (TestApp.wallEngineHandler as SpaceEngineHandler).degree = value
+                    }
+                }
             }
+
         }
     }
 
@@ -197,7 +213,7 @@ class MainTestActivity : AppCompatActivity(), Slider.OnChangeListener {
 
             }
 
-            R.id.menu_check->{
+            R.id.menu_check -> {
                 HealingWallService.start(this@MainTestActivity)
             }
         }

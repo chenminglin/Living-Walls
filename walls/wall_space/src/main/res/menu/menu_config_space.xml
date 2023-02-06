@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_config_color"
+        android:icon="@drawable/ic_baseline_setting_color_lens_24"
+        android:title="color"
+        android:visible="true"
+        app:showAsAction="always" />
+
+</menu>

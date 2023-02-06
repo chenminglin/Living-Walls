@@ -15,16 +15,16 @@ data class Planet(
     var afterSensorX = initX
     var afterSensorY = initY
 
-    var shader: LinearGradient = newShader()
+//    var shader: LinearGradient = newShader()
 
-    private fun newShader(): LinearGradient {
+    fun newShader(): LinearGradient {
         return LinearGradient(
             x - radius,
             y - radius,
             x + radius,
             y + radius,
             colors,
-            floatArrayOf(0f, 1f),
+            floatArrayOf(0f, 0.8f),
             Shader.TileMode.CLAMP
         )
     }

@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="ColorCircleView">
+        <attr name="viewColor" format="color" />
+        <attr name="viewColorRes" format="color|reference" />
+    </declare-styleable>
+</resources>

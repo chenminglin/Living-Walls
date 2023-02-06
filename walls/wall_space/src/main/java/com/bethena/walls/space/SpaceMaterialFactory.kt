@@ -7,9 +7,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.bethena.base_wall.BaseMaterialFactory
-import com.bethena.base_wall.utils.DrawableUtil
 import com.bethena.base_wall.utils.RandomUtil
 import com.bethena.base_wall.utils.ScreenUtil
 
@@ -35,11 +33,13 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
 
     var meteors = ArrayList<Meteor>()
     var planetBig: PlanetBig? = null
+    lateinit var spaceColor: SpaceColor
 
     lateinit var sensorManager: SensorManager
     lateinit var sensor: Sensor
 
     override fun provider(context: Context, canvas: Canvas, ratePer: Float) {
+        spaceColor = SpaceColor(context, "temp2")
         starPaint.isAntiAlias = true
         starPaint.color = Color.WHITE
         starPaint.strokeWidth = ScreenUtil.dp2pxF(context, 6f)
@@ -51,18 +51,19 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
         ringPaint.strokeWidth = ScreenUtil.dp2pxF(context, 2f)
 
         bigPlanetPaint.isAntiAlias = true
-        bigPlanetPaint.color = Color.parseColor("#FF04A9ED")
+        bigPlanetPaint.color = spaceColor.big_planet_ring_color
         var maskFilter = BlurMaskFilter(100f, BlurMaskFilter.Blur.SOLID)
         bigPlanetPaint.maskFilter = maskFilter
 
         meteorPaint.isAntiAlias = true
         meteorPaint.style = Paint.Style.STROKE
         meteorPaint.strokeWidth = ScreenUtil.dp2pxF(context, 2.4f)
-        meteorPaint.color = Color.WHITE
+        meteorPaint.color = spaceColor.meteor_color
         meteorPaint.strokeCap = Paint.Cap.ROUND
 
-        backColorStart = ContextCompat.getColor(context, R.color.background_color_start)
-        backColorCenter = ContextCompat.getColor(context, R.color.background_color_center)
+        backColorStart = spaceColor.bg_color_start
+        backColorCenter = spaceColor.bg_color_center
+
 
         initStars(context, canvas, ratePer)
         initPlanet(context, canvas, ratePer)
@@ -71,7 +72,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
 
         sensorManager = context.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-//        sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_FASTEST)
+//        sensorManager.registerListener(sensorListener, sensor, SensorManager.SENSOR_DELAY_NORMAL)
 
 
     }
@@ -87,7 +88,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
         var HEIGHT_COUNT = 4
         var each_width = (widht - 2 * MAX_RADIUS) / WIDTH_COUNT
         var each_height = (height * 0.4f - 2 * MAX_RADIUS) / HEIGHT_COUNT
-        var colors = intArrayOf(Color.parseColor("#FFF7B500"), Color.WHITE)
+        var colors = intArrayOf(spaceColor.star_color1, spaceColor.star_color2)
         (0 until WIDTH_COUNT).forEach { x_d ->
             (0 until HEIGHT_COUNT).forEach { y_d ->
                 var x = RandomUtil.nextInt(each_width) + x_d * each_width + MAX_RADIUS
@@ -128,7 +129,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
         var x1 = canvas.width * 0.8f
         var y1 = canvas.height * 0.7f
         var radius1 = ScreenUtil.dp2pxF(context, 23f)
-        var colors1 = intArrayOf(Color.parseColor("#FFAA82"), Color.parseColor("#F35005"))
+        var colors1 = intArrayOf(spaceColor.planet1_color1, spaceColor.planet1_color2)
 
         var planet1 = Planet(x1, y1, radius1, colors1)
         planets.add(planet1)
@@ -137,7 +138,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
         var x2 = canvas.width * 0.65f
         var y2 = canvas.height * 0.65f
         var radius2 = ScreenUtil.dp2pxF(context, 16f)
-        var colors2 = intArrayOf(Color.parseColor("#04A9ED"), Color.parseColor("#092271"))
+        var colors2 = intArrayOf(spaceColor.planet2_color1, spaceColor.planet2_color2)
 
         var planet2 = Planet(x2, y2, radius2, colors2)
         planets.add(planet2)
@@ -148,18 +149,18 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
         var radius3 = ScreenUtil.dp2pxF(context, 36f)
         var radiusRingX3 = ScreenUtil.dp2pxF(context, 56f)
         var radiusRingY3 = ScreenUtil.dp2pxF(context, 20f)
-        var colors3 = intArrayOf(Color.parseColor("#FF63BFFF"), Color.parseColor("#FF6B88FE"))
+        var colors3 = intArrayOf(spaceColor.planet3_color1, spaceColor.planet3_color2)
         var shader3 = LinearGradient(
             x3 - radius3,
             y3 - radius3,
             x3 + radius3,
             y3 + radius3,
             colors3,
-            floatArrayOf(0f, 1f),
+            floatArrayOf(0f, 0.6f),
             Shader.TileMode.CLAMP
         )
         var planet3 = PlanetRing(
-            x3, y3, radius3, shader3, radiusRingX3, radiusRingY3, Color.parseColor("#FF64B6FE")
+            x3, y3, radius3, shader3, radiusRingX3, radiusRingY3, spaceColor.planet3_ring_color
         )
         planetRings.add(planet3)
     }
@@ -185,14 +186,18 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
         var ringPaint = Paint()
         ringPaint.isAntiAlias = true
         ringPaint.strokeWidth = ScreenUtil.dp2pxF(context, 2f)
-        ringPaint.color = Color.parseColor("#FF037EB4")
+        ringPaint.color = spaceColor.big_planet_ring_color
         ringPaint.style = Paint.Style.STROKE
         var x = canvas.width / 2
         var y = canvas.height / 2
         var rings = ArrayList<PlanetBig.PlanetBigRing>()
-        var planetBigBitmap =
-            DrawableUtil.getDrawableToBitmap(context, R.drawable.planet_big, 0, 0.8f)
-        planetBig = PlanetBig(x.toFloat(), y.toFloat(), planetBigBitmap!!, rings, 20f, ringPaint)
+        var radius = ScreenUtil.dp2pxF(context, 65f)
+//        var planetBigBitmap =
+//            DrawableUtil.getDrawableToBitmap(context, R.drawable.planet_big, 0, 0.8f)
+        var gra_colors = intArrayOf(spaceColor.big_planet_color1, spaceColor.big_planet_color2)
+        var pit_color = spaceColor.big_planet_pit_color
+        planetBig =
+            PlanetBig(x.toFloat(), y.toFloat(), radius, gra_colors, pit_color, rings, 20f, ringPaint)
         planetBig!!.culTopHalfPath()
         var ringDefaultHeight = ScreenUtil.dp2pxF(context, 22f)
         var ringDefaultWidth = ScreenUtil.dp2pxF(context, 80f)
@@ -202,7 +207,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
         var x2 = 0f
         var y2 = 0f
         var radius2 = ScreenUtil.dp2pxF(context, 6f)
-        var colors2 = intArrayOf(Color.parseColor("#FFFFD4FF"), Color.parseColor("#FFFF68A1"))
+        var colors2 = intArrayOf(spaceColor.bp_sub1_color1, spaceColor.bp_sub1_color2)
 
         var subPlanet2 = Planet(x2, y2, radius2, colors2)
 
@@ -216,7 +221,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
         var x3 = 0f
         var y3 = 0f
         var radius3 = ScreenUtil.dp2pxF(context, 16f)
-        var colors3 = intArrayOf(Color.parseColor("#FF9F9FFF"), Color.parseColor("#FFDB8EFF"))
+        var colors3 = intArrayOf(spaceColor.bp_sub2_color1, spaceColor.bp_sub2_color2)
 
         var subPlanet3 = Planet(x3, y3, radius3, colors3)
 
@@ -265,7 +270,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
 
         //画旁边的星球
         planets.forEach {
-            planetPaint.shader = it.shader
+            planetPaint.shader = it.newShader()
             canvas.drawCircle(it.x, it.y, it.radius, planetPaint)
             it.next()
         }
@@ -304,7 +309,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
             canvas.save()
             canvas.rotate(-it.ringDegree, it.x, it.y)
             it.sortRings().forEach { ring ->
-                ring.draw(canvas, it.x, it.y, it.paint, planetPaint)
+                ring.draw(canvas, it.x, it.y, it.ringPaint, planetPaint)
             }
             canvas.restore()
             //这里画上半部的圆球
@@ -354,7 +359,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
     }
 
     override fun destory() {
-//        sensorManager.unregisterListener(sensorListener)
+        sensorManager.unregisterListener(sensorListener)
     }
 
 }
