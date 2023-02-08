@@ -65,25 +65,28 @@ data class Star(
         isBeatRever = false
     }
 
+    var positionMatrix = Matrix()
+    var scaleMatrix = Matrix()
+    var rotateMatrix = Matrix()
 
     fun draw(canvas: Canvas, paint: Paint) {
 //        paint.alpha = culAlpha()
+        positionMatrix.reset()
+        scaleMatrix.reset()
+        rotateMatrix.reset()
+
         paint.alpha = culAlpha2()
-        var positionMatrix = Matrix()
+
 //        var realY = interpolator.getInterpolation(y / maxY) * y
         var realY = y
         culX()
         positionMatrix.setTranslate(realX, realY)
-
-        var scaleMatrix = Matrix()
         scaleMatrix.setScale(scale, scale, bitmapSize.toFloat() / 2, bitmapSize.toFloat() / 2)
-
-        var rotateMatrix = Matrix()
         rotateMatrix.setRotate(degree.toFloat(), bitmapSize.toFloat() / 2, bitmapSize.toFloat() / 2)
-
         positionMatrix.preConcat(scaleMatrix)
         positionMatrix.preConcat(rotateMatrix)
-        canvas.drawBitmap(starBitmap!!, positionMatrix, paint)
+
+        canvas.drawBitmap(starBitmap, positionMatrix, paint)
 //        paint.color = Color.WHITE
 //        paint.textSize = 30f
 //        canvas.drawText("x = $x\ny = $y", realX, realY, paint)
