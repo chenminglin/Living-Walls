@@ -7,6 +7,7 @@ import androidx.preference.PreferenceManager
 import com.bethena.base_wall.BaseWallModule
 import com.bethena.base_wall.utils.SpUtil
 import com.bethena.healingwall.utils.LocalUtil
+import com.bethena.walls.rainbow.RainbowModule
 import com.bethena.walls.starry_sky.StarrySkyModule
 import kotlin.properties.Delegates
 
@@ -30,8 +31,8 @@ class App : Application() {
 
         var starrySkyModule = StarrySkyModule().init(this)
         wallModules.add(starrySkyModule)
-
-
+        var rainbowModule = RainbowModule().init(this)
+        wallModules.add(rainbowModule)
     }
 
     private fun initTheme(){

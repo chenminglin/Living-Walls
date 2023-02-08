@@ -5,6 +5,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.slider.Slider
 
 abstract class BaseConfigFragment<T : BaseEngineHandler> : BaseFragment() {
     var onWallCheckListener: OnWallCheckListener? = null
@@ -92,5 +93,12 @@ abstract class BaseConfigFragment<T : BaseEngineHandler> : BaseFragment() {
     abstract fun inflateId(): Int
 
     abstract fun newEngineHandler(): T
+
+    fun initBaseMashSlider(slider: Slider,slideDefaultValue:Float){
+        slider.valueFrom = 0f
+        slider.valueTo = 80f
+        slider.stepSize = 10f
+        slider.value = slideDefaultValue
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.bethena.wall.rainbow
+package com.bethena.walls.rainbow
 
 import android.content.Context
 import android.graphics.*
@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.utils.*
-import com.bethena.walls.rainbow.*
 
 class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
     var backgroundColor = Color.parseColor("#73E1D5")
@@ -14,25 +13,30 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
     var drawList = ArrayList<Any>()
     var backgroundPaint = Paint()
     var rainbowPaint = Paint()
+    var shaderPaint = Paint()
     var cloudPaint = Paint()
     var starPaint = Paint()
     var star4Paint = Paint()
     var bitmapStar41: Bitmap? = null
     var bitmapStar42: Bitmap? = null
     var bitmapStar43: Bitmap? = null
+    var cloudBitmap: Bitmap? = null
+    var cloudBitmap2: Bitmap? = null
+    var cloudBitmap3: Bitmap? = null
     var stars = ArrayList<StarCircle>()
     var star4s = ArrayList<Star4>()
+
+    val LAST_RAINBOW_INDEX = 6
 
     override fun initVariableMaterial() {
         drawList.clear()
         mContext?.let {
             var canvas = lockCanvas()
-            canvas?.let { canvas ->
-                initRainbow(it, canvas)
-                initStar(it, canvas)
-                initStar4(it, canvas)
+            canvas?.let { c ->
+                initRainbow(it, c)
+                initStar(it, c)
+                initStar4(it, c)
             }
-
             unlockCanvasAndPost(canvas)
         }
     }
@@ -50,30 +54,45 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
 
         rainbowPaint.isAntiAlias = true
         rainbowPaint.style = Paint.Style.STROKE
-
-        var strokWidth = ScreenUtil.dp2pxF(context, 50f)
+        shaderPaint.isAntiAlias = true
+        shaderPaint.style = Paint.Style.STROKE
+        shaderPaint.strokeWidth = ScreenUtil.dp2pxF(context, 2f)
+//        shaderPaint.strokeWidth = 0f
+        shaderPaint.color = Color.BLACK
+        shaderPaint.maskFilter =
+            BlurMaskFilter(ScreenUtil.dp2pxF(context, 10f), BlurMaskFilter.Blur.OUTER)
+        var strokWidth = ScreenUtil.dp2pxF(context, 60f)
 //        var strokWidth = ScreenUtil.dp2pxF(context, 10f)
 //        rainbowPaint.maskFilter = maskFilter
         rainbowPaint.strokeWidth = strokWidth
 //        rainbowPaint.strokeCap = Paint.Cap.ROUND
         cloudPaint.isAntiAlias = true
         cloudPaint.color = Color.WHITE
-        cloudPaint.alpha = 200
+        cloudPaint.alpha = 220
 
         starPaint.isAntiAlias = true
         starPaint.style = Paint.Style.FILL
-        var cloudBitmap = DrawableUtil.getDrawableToBitmap(context, R.drawable.cloud1)
-        var cloudBitmap2 = DrawableUtil.getDrawableToBitmap(context, R.drawable.cloud2, 0, 1.5f)
-        var cloudBitmap3 = DrawableUtil.getDrawableToBitmap(context, R.drawable.cloud3, 0, 1.5f)
+        cloudBitmap = DrawableUtil.getDrawableToBitmap(context, R.drawable.cloud1, 0, 0.7f)
+        cloudBitmap2 = DrawableUtil.getDrawableToBitmap(context, R.drawable.cloud2, 0, 1.5f)
+        cloudBitmap3 = DrawableUtil.getDrawableToBitmap(context, R.drawable.cloud3, 0, 1.5f)
 
-        var cx = -canvas.width / 2
+        var cx = if (canvas.width > canvas.height) {
+            0
+        } else {
+            -canvas.width / 3
+        }
 //        var cx = canvas.width / 3
         var cy = canvas.height
 //        var cy = canvas.height / 2
         val baseColorResName = "rainbow_color"
-        var baseRadius = canvas.width
+        var baseRadius = if (canvas.width > canvas.height) {
+            canvas.width / 3
+        } else {
+            canvas.width / 3 * 2
+        }
+
 //        (0 until 1).forEach { i ->
-        (0 until 7).forEach { i ->
+        (0..LAST_RAINBOW_INDEX).forEach { i ->
             var color = AppUtil.getColorValueByResName(context, "$baseColorResName${i + 1}")
             var color11 = AppUtil.getColorValueByResName(context, "$baseColorResName${i + 1}1")
             var bitmapStar =
@@ -85,6 +104,7 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
                 baseRadius + (strokWidth * i),
                 bitmapStar!!
             )
+            rainbow.paintHalfWidth = rainbowPaint.strokeWidth / 2 - shaderPaint.strokeWidth
             rainbow.degreeIncreate = rainbow.degreeIncreate * ratePer.value
             rainbow.alphaIncreate = rainbow.alphaIncreate * ratePer.value
             rainbow.starDegreeIncreate = rainbow.starDegreeIncreate * ratePer.value
@@ -181,30 +201,31 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
             var canvas = lockCanvas()
             canvas?.let {
 //                it.drawColor(backgroundColor)
-                backgroundRect?.let { it1 -> it.drawRect(it1,backgroundPaint) }
+                backgroundRect?.let { it1 -> it.drawRect(it1, backgroundPaint) }
                 var isAllFallFinish = true
+                var rainbowIndex = 0
                 drawList.forEach { a ->
                     if (a is Rainbow) {
                         rainbowPaint.color = a.color
-                        var arcRect = RectF(
-                            a.cx - a.radius,
-                            a.cy - a.radius,
-                            a.cx + a.radius,
-                            a.cy + a.radius,
-                        )
+
                         var startAngle = -90f
                         canvas.save()
 
                         canvas.rotate(startAngle, a.cx, a.cy)
                         rainbowPaint.alpha = a.alpha.toInt()
+                        shaderPaint.alpha = a.alpha.toInt()
 //                        rainbowPaint.maskFilter = null
-                        rainbowPaint.shader = a.shader.value
+//                        rainbowPaint.shader = a.shader.value
 //                        rainbowPaint.style = Paint.Style.FILL
 //                        canvas.drawArc(arcRect, startAngle, a.degree, false, rainbowPaint)
 //                        var maskFilter = BlurMaskFilter(30f, BlurMaskFilter.Blur.SOLID)
 //                        rainbowPaint.maskFilter = maskFilter
 //                        rainbowPaint.setShadowLayer(a.radius, a.cx, a.cy, a.color)
-                        canvas.drawArc(arcRect, 0f, a.degree, false, rainbowPaint)
+//                        shaderPaint.color = a.color
+                        if (rainbowIndex != 0) {
+                            canvas.drawArc(a.arcShadowRect.value, 0f, a.degree, false, shaderPaint)
+                        }
+                        canvas.drawArc(a.arcRect, 0f, a.degree, false, rainbowPaint)
 //                        canvas.drawCircle(a.cx, a.cy, a.radius, rainbowPaint)
                         canvas.restore()
                         var starDegree = a.degree + 5
@@ -253,9 +274,12 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
                             isAllFallFinish = false
                         }
 
+                        rainbowIndex++
                     } else if (a is Cloud) {
-                        canvas.drawBitmap(a.bitmap, a.left, a.top, cloudPaint)
-                        a.next(canvas)
+                        if (!a.bitmap.isRecycled) {
+                            canvas.drawBitmap(a.bitmap, a.left, a.top, cloudPaint)
+                            a.next(canvas)
+                        }
                     }
                 }
                 if (isAllFallFinish) {
@@ -290,6 +314,9 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
                 }
 
                 star4s.forEach { star4 ->
+                    if (star4.bitmap.isRecycled) {
+                        return@forEach
+                    }
                     canvas.save()
                     canvas.scale(star4.scale, star4.scale, star4.cx, star4.cy)
 //                    canvas.rotate(star4.degree.toFloat(), star4.cx, star4.cy)
@@ -302,33 +329,36 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
                     canvas.restore()
                     star4.next()
                 }
+                canvas.drawColor(mashColor)
             }
             unlockCanvasAndPost(canvas)
             doDraw()
         }, refreshTime)
     }
 
+    override fun getMashValue(): Int {
+        return spUtils.getInt(RainbowConst.KEY_MASH_PERCENT, 0)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        bitmapStar41?.let {
-            if (!it.isRecycled) {
-                it.recycle()
-            }
-        }
-        bitmapStar42?.let {
-            if (!it.isRecycled) {
-                it.recycle()
-            }
-        }
-        bitmapStar43?.let {
-            if (!it.isRecycled) {
-                it.recycle()
-            }
-        }
+        recycleBitmap(bitmapStar41)
+        recycleBitmap(bitmapStar42)
+        recycleBitmap(bitmapStar43)
+        recycleBitmap(cloudBitmap)
+        recycleBitmap(cloudBitmap2)
+        recycleBitmap(cloudBitmap3)
+    }
 
+    private fun recycleBitmap(bitmap: Bitmap?) {
+        bitmap?.let {
+            if (!it.isRecycled) {
+                it.recycle()
+            }
+        }
     }
 
     override fun newConfigFragment(): Fragment {
-        TODO("Not yet implemented")
+        return RainbowConfigFragment()
     }
 }

@@ -22,7 +22,6 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
     private var bitmapSize = 0
     var backgroundColor = 0
     var starColor = 0
-    var mashColor = StarrySkyConst.KEY_INIT_MASH_COLOR
 
     var backgroundColors = arrayListOf<Int>()
     var starColors = arrayListOf<Int>()
@@ -45,7 +44,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             baseIncreateY = ScreenUtil.dp2pxF(it, 0.05f);
 
         }
-        spUtils?.let {
+        spUtils.let {
             StarrySkyConst.let { const ->
                 starCount = it.getInt(
                     const.KEY_STARS_COUNT, const.KEY_INIT_STARS_COUNT
@@ -55,9 +54,6 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
                 )
                 starColor = it.getInt(const.KEY_STAR_COLOR, starColors[0])
                 backgroundColor = it.getInt(const.KEY_BACKGROUND_COLOR, backgroundColors[0])
-                mashColor = ColorUtil.adjustAlpha(
-                    Color.BLACK, it.getInt(const.KEY_MASH_PERCENT, 0) / 100f
-                )
             }
         }
 
@@ -65,8 +61,7 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
 
     override fun initVariableMaterial() {
         mContext?.let { it ->
-
-            spUtils?.let {
+            spUtils.let {
                 StarrySkyConst.let { const ->
                     starCount = it.getInt(
                         const.KEY_STARS_COUNT, const.KEY_INIT_STARS_COUNT
@@ -165,6 +160,10 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
             mSurfaceHolder?.unlockCanvasAndPost(canvas)
             doDraw()
         }, refreshTime)
+    }
+
+    override fun getMashValue(): Int {
+        return spUtils.getInt(StarrySkyConst.KEY_MASH_PERCENT, 0)
     }
 
 

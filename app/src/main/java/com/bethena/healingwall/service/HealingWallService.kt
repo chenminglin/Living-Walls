@@ -3,9 +3,11 @@ package com.bethena.healingwall.service
 import android.app.Activity
 import android.app.WallpaperManager
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
+import com.bethena.base_wall.BaseConfigFragment
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.WallInfo
 import com.bethena.base_wall.utils.LogUtil
@@ -33,7 +35,12 @@ class HealingWallService : WallpaperService() {
 
         override fun onCreate(surfaceHolder: SurfaceHolder?) {
             super.onCreate(surfaceHolder)
-            engineHandler = StarrySkyEngineHandler(this@HealingWallService)
+            var handlerClassName = App.spUtil.getString(Const.KEY_WALLS_NAME)
+            var handlerClass = Class.forName(handlerClassName)
+                .asSubclass(BaseEngineHandler::class.java)
+
+            var handler = handlerClass.getConstructor(Context::class.java).newInstance(this@HealingWallService)
+            engineHandler = handler as BaseEngineHandler?
             engineHandler?.surfaceCreated(surfaceHolder)
             LogUtil.d("HealingWallService HealingWallEngine onCreate-----${this@HealingWallService} $this")
         }
@@ -87,7 +94,7 @@ class HealingWallService : WallpaperService() {
             )
             activity.startActivity(intent)
             App.spUtil.putString(Const.KEY_WALLS_NAME, wallInfo.handlerClassName)
-            App.spUtil.putString(Const.KEY_WALLS_NAME, wallInfo.handlerClassName)
+//            App.spUtil.putString(Const.KEY_WALLS_NAME, wallInfo.handlerClassName)
         }
     }
 

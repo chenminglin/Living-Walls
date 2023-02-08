@@ -126,7 +126,9 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
         }, 20)
     }
 
-
+    override fun getMashValue(): Int {
+        TODO("Not yet implemented")
+    }
 
 
     fun initCirclese() {

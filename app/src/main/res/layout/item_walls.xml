@@ -42,43 +42,57 @@
             android:layout_marginBottom="8dp">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_battery"
                 style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:chipIcon="@drawable/ic_baseline_battery_saver_24"
                 android:text="@string/wall_suggestion_power_saving"
+                android:clickable="false"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_phone"
                 style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/wall_suggestion_phone"
+                android:clickable="false"
+                app:chipIcon="@drawable/ic_round_phone_android_24"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_tablet"
                 style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/wall_suggestion_tablet"
+                android:clickable="false"
+                app:chipIcon="@drawable/ic_round_tablet_android_24"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_portrait"
                 style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/wall_suggestion_portrait"
+                android:clickable="false"
+                app:chipIcon="@drawable/ic_round_stay_current_portrait_24"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/chip_landscape"
                 style="@style/Widget.Material3.Chip.Assist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/wall_suggestion_landscape"
+                app:chipIcon="@drawable/ic_round_stay_current_landscape_24"
+                android:clickable="false"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

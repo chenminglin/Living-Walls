@@ -2,4 +2,5 @@
 <resources>
     <string name="found_error">出错啦！</string>
     <string name="set_wallpaper">设置壁纸</string>
+    <string name="config_mash">面罩</string>
 </resources>

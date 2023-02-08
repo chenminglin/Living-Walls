@@ -1,9 +1,6 @@
 package com.bethena.walls.rainbow
 
-import android.graphics.Bitmap
-import android.graphics.Matrix
-import android.graphics.RadialGradient
-import android.graphics.Shader
+import android.graphics.*
 import com.bethena.base_wall.utils.RandomUtil
 
 data class Rainbow(
@@ -14,6 +11,25 @@ data class Rainbow(
     val radius: Float,
     val starBitmap: Bitmap
 ) {
+
+    var paintHalfWidth = 0f
+
+    var arcRect = RectF(
+        cx - radius,
+        cy - radius,
+        cx + radius,
+        cy + radius,
+    )
+
+    var arcShadowRect = lazy {
+        RectF(
+            cx - radius - paintHalfWidth,
+            cy - radius - paintHalfWidth,
+            cx + radius + paintHalfWidth,
+            cy + radius + paintHalfWidth,
+        )
+    }
+
     var degreeDiff = RandomUtil.nextInt(5)
     var degree = degreeDiff.toFloat()
 

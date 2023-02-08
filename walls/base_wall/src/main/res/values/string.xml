@@ -2,4 +2,5 @@
 <resources>
     <string name="found_error">The program has an error.</string>
     <string name="set_wallpaper">Set wallpeper</string>
+    <string name="config_mash">Mash</string>
 </resources>

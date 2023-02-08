@@ -2,12 +2,14 @@ package com.bethena.base_wall
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.SurfaceHolder
 import androidx.fragment.app.Fragment
+import com.bethena.base_wall.utils.ColorUtil
 import com.bethena.base_wall.utils.LogUtil
 import com.bethena.base_wall.utils.ScreenUtil
 import com.bethena.base_wall.utils.SpUtil
@@ -26,8 +28,9 @@ abstract class BaseEngineHandler {
     }
 
     protected var isVisible = false
-    var spUtils: SpUtil? = null
+    lateinit var spUtils: SpUtil
 
+    var mashColor = Color.parseColor("#00ffffff")
 
     //在子类的init前面调用
     constructor(context: Context?) {
@@ -89,6 +92,7 @@ abstract class BaseEngineHandler {
 
         if (visible) {
 //            testDraw()
+            resetMash()
             initVariableMaterial()
             doDraw()
         } else {
@@ -115,6 +119,14 @@ abstract class BaseEngineHandler {
 
 
     protected abstract fun doDraw()
+
+    abstract fun getMashValue():Int
+
+    fun resetMash(){
+        mashColor = ColorUtil.adjustAlpha(
+            Color.BLACK, getMashValue() / 100f
+        )
+    }
 
     abstract fun newConfigFragment(): Fragment
 

@@ -29,9 +29,14 @@ class SpaceEngineHandler(context: Context?) : BaseEngineHandler(context) {
                 return@postDelayed
             }
             factory?.doDraw(mContext!!, canvas)
+            canvas.drawColor(mashColor)
             unlockCanvasAndPost(canvas)
             doDraw()
         }, refreshTime)
+    }
+
+    override fun getMashValue(): Int {
+        return spUtils.getInt(SpaceConst.KEY_MASH_PERCENT)
     }
 
     override fun newConfigFragment(): Fragment {

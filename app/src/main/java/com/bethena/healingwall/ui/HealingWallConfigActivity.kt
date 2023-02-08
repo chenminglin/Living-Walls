@@ -5,17 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import com.bethena.base_wall.BaseActivity
-import com.bethena.base_wall.BaseConfigFragment
-import com.bethena.base_wall.OnWallCheckListener
-import com.bethena.base_wall.WallInfo
+import com.bethena.base_wall.*
 import com.bethena.base_wall.utils.ToastUtil
 import com.bethena.healingwall.Const
 import com.bethena.healingwall.R
 import com.bethena.healingwall.service.HealingWallService
 
 class HealingWallConfigActivity : BaseActivity() {
-    lateinit var fragment: BaseConfigFragment
+    var fragment: BaseConfigFragment<BaseEngineHandler>? = null
     var wallInfo: WallInfo? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,20 +37,32 @@ class HealingWallConfigActivity : BaseActivity() {
             }
             if (savedInstanceState == null) {
                 try {
-                    var fragmentClass = Class.forName(wallInfo!!.configClassName)
-                        .asSubclass(BaseConfigFragment::class.java)
-                    fragment = fragmentClass.newInstance()
-                    fragment.onWallCheckListener = object : OnWallCheckListener {
-                        override fun onWallCheck() {
-                            HealingWallService.start(this@HealingWallConfigActivity, wallInfo!!)
-                            finish()
+                    if (wallInfo!!.configClassName.isEmpty()) {
+                        HealingWallService.start(this@HealingWallConfigActivity, wallInfo!!)
+                        finish()
+                    } else {
+                        var fragmentClass = Class.forName(wallInfo!!.configClassName)
+                            .asSubclass(BaseConfigFragment::class.java)
+                        fragment =
+                            fragmentClass.newInstance() as BaseConfigFragment<BaseEngineHandler>
+                        fragment?.let {
+                            it.onWallCheckListener = object : OnWallCheckListener {
+                                override fun onWallCheck() {
+                                    HealingWallService.start(
+                                        this@HealingWallConfigActivity,
+                                        wallInfo!!
+                                    )
+                                    finish()
+                                }
+                            }
+                            supportFragmentManager.beginTransaction()
+                                .add(R.id.fragment_container, it).commitAllowingStateLoss()
                         }
+
+
                     }
-                    supportFragmentManager
-                        .beginTransaction()
-                        .add(R.id.fragment_container, fragment)
-                        .commitAllowingStateLoss()
                 } catch (e: Exception) {
+                    e.printStackTrace()
                     ToastUtil.showLong(this, com.bethena.base_wall.R.string.found_error)
                     finish()
                 }
@@ -66,7 +75,7 @@ class HealingWallConfigActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (!fragment.onBackPressed()) {
+        if (fragment != null && !fragment!!.onBackPressed()) {
             super.onBackPressed()
         }
     }
