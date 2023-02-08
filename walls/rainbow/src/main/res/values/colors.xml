@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="rainbow_background_color1">#29B4FF</color>
+    <color name="rainbow_background_color2">#73E1D5</color>
+
+    <color name="rainbow_color1">#FF5341</color>
+    <color name="rainbow_color2">#FDB344</color>
+    <color name="rainbow_color3">#FEFE42</color>
+    <color name="rainbow_color4">#97D56B</color>
+    <color name="rainbow_color5">#72B4CF</color>
+    <color name="rainbow_color6">#4274FE</color>
+    <color name="rainbow_color7">#D342FE</color>
+
+    <color name="rainbow_color11">#AC1000</color>
+    <color name="rainbow_color21">#AA6702</color>
+    <color name="rainbow_color31">#ABAB01</color>
+    <color name="rainbow_color41">#4E8626</color>
+    <color name="rainbow_color51">#2C6880</color>
+    <color name="rainbow_color61">#012EAB</color>
+    <color name="rainbow_color71">#8401AB</color>
+</resources>

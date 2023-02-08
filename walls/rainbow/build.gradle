@@ -1,14 +1,13 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace 'com.bethena.walls_test'
+    namespace 'com.bethena.walls.rainbow'
     compileSdk rootProject.ext.android.compileSdk
 
     defaultConfig {
-        applicationId "com.bethena.walls_test"
         minSdk rootProject.ext.android.minSdk
         targetSdk rootProject.ext.android.targetSdk
         versionCode 1
@@ -30,37 +29,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
-
     implementation rootProject.ext.depsLibs.androidxCoreKTX
     implementation rootProject.ext.depsLibs.androidxAppCompat
     implementation rootProject.ext.depsLibs.googleMaterial
     implementation rootProject.ext.depsLibs.androidxConstrant
-
-    implementation rootProject.ext.depsLibs.androidxPreference
-    implementation rootProject.ext.depsLibs.androidxPreferenceKtx
-
-    implementation rootProject.ext.depsLibs.androidxNavigationFragment
-    implementation rootProject.ext.depsLibs.androidxNavigationUI
-    implementation rootProject.ext.depsLibs.androidxNavigationFragmentKtx
-    implementation rootProject.ext.depsLibs.androidxNavigationUIKtx
-
     testImplementation rootProject.ext.depsLibs.junit
     androidTestImplementation rootProject.ext.depsLibs.androidxJunit
     androidTestImplementation rootProject.ext.depsLibs.androidxEspresso
 
-    implementation rootProject.ext.depsLibs.permissionx
-
-    implementation 'com.sdsmdg.harjot:vectormaster:1.1.3'
-
-    implementation project(path: ':walls:circle')
-    implementation project(path: ':walls:starry_sky')
-    implementation project(path: ':walls:thunder_breath')
-    implementation project(path: ':walls:wall_space')
-    implementation project(path: ':walls:rainbow')
+    api project(path: ':walls:base_wall')
 }

@@ -3,6 +3,7 @@ package com.bethena.base_wall.utils
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.core.content.ContextCompat
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -50,5 +51,10 @@ object AppUtil {
         }
         return result.toString()
 
+    }
+
+    fun getColorValueByResName(context: Context, resName: String): Int {
+        var colorResId = context.resources.getIdentifier(resName, "color", context.packageName)
+        return ContextCompat.getColor(context, colorResId)
     }
 }

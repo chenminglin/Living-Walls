@@ -9,6 +9,7 @@ import android.view.SurfaceHolder
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.utils.LogUtil
 import com.bethena.walls.space.SpaceEngineHandler
+import com.bethena.walls_test.TestApp
 
 class HealingWallService : WallpaperService() {
 
@@ -30,7 +31,7 @@ class HealingWallService : WallpaperService() {
 
         override fun onCreate(surfaceHolder: SurfaceHolder?) {
             super.onCreate(surfaceHolder)
-            engineHandler = SpaceEngineHandler(this@HealingWallService)
+            engineHandler = TestApp.wallEngineHandler
             engineHandler?.surfaceCreated(surfaceHolder)
             LogUtil.d("HealingWallService HealingWallEngine onCreate-----${this@HealingWallService} $this")
         }

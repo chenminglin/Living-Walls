@@ -21,6 +21,10 @@ abstract class BaseEngineHandler {
     var refreshTime = 0L
     var baseRefreshTime = 1000 / 60
 
+    var ratePer = lazy {
+        refreshTime / baseRefreshTime.toFloat()
+    }
+
     protected var isVisible = false
     var spUtils: SpUtil? = null
 
@@ -65,7 +69,11 @@ abstract class BaseEngineHandler {
     }
 
     fun unlockCanvasAndPost(canvas: Canvas?) {
-        mSurfaceHolder?.unlockCanvasAndPost(canvas)
+        try {
+            mSurfaceHolder?.unlockCanvasAndPost(canvas)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     open fun onVisibilityChanged(visible: Boolean) {
