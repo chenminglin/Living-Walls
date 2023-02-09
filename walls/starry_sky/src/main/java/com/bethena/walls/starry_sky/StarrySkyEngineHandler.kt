@@ -111,7 +111,6 @@ class StarrySkyEngineHandler(context: Context?) : BaseEngineHandler(context) {
 
     override fun pause() {
         super.pause()
-        mainHandler.removeCallbacksAndMessages(null)
     }
 
 

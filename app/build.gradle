@@ -76,5 +76,6 @@ dependencies {
     implementation project(path: ':walls:circle')
     implementation project(path: ':walls:starry_sky')
     implementation project(path: ':walls:rainbow')
+    implementation project(path: ':walls:wall_space')
 
 }

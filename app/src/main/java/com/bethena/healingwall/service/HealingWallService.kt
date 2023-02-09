@@ -7,19 +7,18 @@ import android.content.Context
 import android.content.Intent
 import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
-import com.bethena.base_wall.BaseConfigFragment
 import com.bethena.base_wall.BaseEngineHandler
 import com.bethena.base_wall.WallInfo
 import com.bethena.base_wall.utils.LogUtil
 import com.bethena.healingwall.App
 import com.bethena.healingwall.Const
-import com.bethena.walls.starry_sky.StarrySkyEngineHandler
 
 class HealingWallService : WallpaperService() {
 
     override fun onCreate() {
         super.onCreate()
         LogUtil.d("HealingWallService onCreate-----${this}")
+//        App.appViewModel.wallChangeEvent.observe()
     }
 
     override fun onCreateEngine(): Engine {
@@ -29,20 +28,26 @@ class HealingWallService : WallpaperService() {
 
 
     inner class HealingWallEngine : Engine() {
-
         var engineHandler: BaseEngineHandler? = null
-
-
         override fun onCreate(surfaceHolder: SurfaceHolder?) {
             super.onCreate(surfaceHolder)
+            initHandler(getSurfaceHolder())
+            App.wallChange = object :IHealingWallChange{
+                override fun change() {
+                    initHandler(getSurfaceHolder())
+                }
+            }
+            LogUtil.d("HealingWallService HealingWallEngine onCreate-----${this@HealingWallService} $this")
+        }
+
+        fun initHandler(surfaceHolder: SurfaceHolder?){
             var handlerClassName = App.spUtil.getString(Const.KEY_WALLS_NAME)
             var handlerClass = Class.forName(handlerClassName)
                 .asSubclass(BaseEngineHandler::class.java)
-
-            var handler = handlerClass.getConstructor(Context::class.java).newInstance(this@HealingWallService)
+            var handler = handlerClass.getConstructor(Context::class.java)
+                .newInstance(this@HealingWallService)
             engineHandler = handler as BaseEngineHandler?
             engineHandler?.surfaceCreated(surfaceHolder)
-            LogUtil.d("HealingWallService HealingWallEngine onCreate-----${this@HealingWallService} $this")
         }
 
         override fun onVisibilityChanged(visible: Boolean) {
@@ -58,22 +63,22 @@ class HealingWallService : WallpaperService() {
         }
 
 
-        override fun onSurfaceCreated(holder: SurfaceHolder?) {
-            super.onSurfaceCreated(holder)
+        override fun onSurfaceCreated(surfaceHolder: SurfaceHolder?) {
+            super.onSurfaceCreated(surfaceHolder)
             LogUtil.d("HealingWallService HealingWallEngine onSurfaceCreated-----${this@HealingWallService}")
 //            engineHandler?.onVisibilityChanged(visible)
         }
 
         override fun onSurfaceChanged(
-            holder: SurfaceHolder?, format: Int, width: Int, height: Int
+            surfaceHolder: SurfaceHolder?, format: Int, width: Int, height: Int
         ) {
-            super.onSurfaceChanged(holder, format, width, height)
+            super.onSurfaceChanged(surfaceHolder, format, width, height)
             engineHandler?.restart()
             LogUtil.d("HealingWallService HealingWallEngine onSurfaceChanged-----${this@HealingWallService}")
         }
 
-        override fun onSurfaceDestroyed(holder: SurfaceHolder?) {
-            super.onSurfaceDestroyed(holder)
+        override fun onSurfaceDestroyed(surfaceHolder: SurfaceHolder?) {
+            super.onSurfaceDestroyed(surfaceHolder)
 
             LogUtil.d("HealingWallService HealingWallEngine onSurfaceDestroyed-----${this@HealingWallService}")
         }
@@ -94,6 +99,7 @@ class HealingWallService : WallpaperService() {
             )
             activity.startActivity(intent)
             App.spUtil.putString(Const.KEY_WALLS_NAME, wallInfo.handlerClassName)
+            App.wallChange?.change()
 //            App.spUtil.putString(Const.KEY_WALLS_NAME, wallInfo.handlerClassName)
         }
     }

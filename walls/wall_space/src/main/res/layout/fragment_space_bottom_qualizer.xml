@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/c_drawer"
+    android:id="@+id/c_drawer_qualizer"
     style="@style/Widget.Material3.BottomSheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/bottom_sheet_paddingVertical"
     android:paddingBottom="@dimen/bottom_sheet_paddingVerticalMore"
     app:layout_behavior="@string/bottom_sheet_behavior"
-    tools:context=".RainbowConfigFragment">
+    tools:context=".SpaceConfigFragment">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
         android:id="@+id/drag_handle"

@@ -12,9 +12,13 @@ class SpaceEngineHandler(context: Context?) : BaseEngineHandler(context) {
     override fun initVariableMaterial() {
         mContext?.let {
             var canvas: Canvas? = lockCanvas() ?: return
-            factory = SpaceMaterialFactory()
+            if (factory == null) {
+                factory = SpaceMaterialFactory()
+            }
             var ratePer = refreshTime / baseRefreshTime.toFloat()
-            factory?.provider(it, canvas!!,ratePer)
+            factory?.colorTempId =
+                spUtils.getString(SpaceConst.KEY_COLOR_TEMP, SpaceConst.COLOR_TEMP_ID_1)
+            factory?.provider(it, canvas!!, ratePer)
             unlockCanvasAndPost(canvas)
         }
     }
@@ -35,8 +39,16 @@ class SpaceEngineHandler(context: Context?) : BaseEngineHandler(context) {
         }, refreshTime)
     }
 
+
+    fun changeColorTemp(colorTemp: ColorTemp) {
+        spUtils.putString(SpaceConst.KEY_COLOR_TEMP, colorTemp.tempId)
+        factory?.colorTempId = colorTemp.tempId
+        restart()
+    }
+
+
     override fun getMashValue(): Int {
-        return spUtils.getInt(SpaceConst.KEY_MASH_PERCENT)
+        return spUtils.getInt(SpaceConst.KEY_MASH_PERCENT, 0)
     }
 
     override fun newConfigFragment(): Fragment {

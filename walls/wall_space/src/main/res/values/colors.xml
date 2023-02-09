@@ -25,7 +25,7 @@
 
     <color name="ws_temp2_bg_color_start">#16163B</color>
     <color name="ws_temp2_bg_color_center">#7C2E92</color>
-    <color name="ws_temp2_star_color1">#59C2E1</color>
+    <color name="ws_temp2_star_color1">#FFFFFFFF</color>
     <color name="ws_temp2_star_color2">#FFFFFFFF</color>
     <color name="ws_temp2_planet1_color1">#50B1DA</color>
     <color name="ws_temp2_planet1_color2">#3880AC</color>

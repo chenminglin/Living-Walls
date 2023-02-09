@@ -18,7 +18,7 @@ data class Planet(
 //    var shader: LinearGradient = newShader()
 
     fun newShader(): LinearGradient {
-        return LinearGradient(
+        var shader = LinearGradient(
             x - radius,
             y - radius,
             x + radius,
@@ -27,6 +27,7 @@ data class Planet(
             floatArrayOf(0f, 0.8f),
             Shader.TileMode.CLAMP
         )
+        return shader
     }
 
     private var isRever = false

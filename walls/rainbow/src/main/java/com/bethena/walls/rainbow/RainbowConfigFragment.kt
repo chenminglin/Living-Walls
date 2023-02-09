@@ -43,8 +43,7 @@ class RainbowConfigFragment : BaseConfigFragment<RainbowEngineHandler>() {
         })
 
         var slider = view.findViewById<Slider>(R.id.slider_mash)
-        var defaultMash = engineHandler.spUtils.getInt(RainbowConst.KEY_MASH_PERCENT, 0)
-        initBaseMashSlider(slider, defaultMash.toFloat())
+        initBaseMashSlider(slider, engineHandler.getMashValue().toFloat())
 
         slider.addOnChangeListener(object : OnChangeListener {
             override fun onValueChange(slider: Slider, value: Float, fromUser: Boolean) {
@@ -55,14 +54,13 @@ class RainbowConfigFragment : BaseConfigFragment<RainbowEngineHandler>() {
             }
         })
 
-
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_config_equalizer -> {
-                bottomDrawerBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+                bottomDrawerBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
         return super.onOptionsItemSelected(item)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="bottom_sheet_paddingVertical">10dp</dimen>
+    <dimen name="bottom_sheet_paddingVerticalMore">20dp</dimen>
     <dimen name="bottom_sheet_paddingHorizontal">16dp</dimen>
 </resources>

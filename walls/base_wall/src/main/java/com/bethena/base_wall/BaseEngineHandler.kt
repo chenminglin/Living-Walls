@@ -115,6 +115,7 @@ abstract class BaseEngineHandler {
 
     open fun pause() {
         isPaused = true
+        mainHandler.removeCallbacksAndMessages(null)
     }
 
 

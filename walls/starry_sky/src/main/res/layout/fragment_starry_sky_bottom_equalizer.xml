@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/bottom_sheet_paddingHorizontal"
-    android:paddingVertical="@dimen/bottom_sheet_paddingVertical">
+    android:paddingTop="@dimen/bottom_sheet_paddingVertical"
+    android:paddingBottom="@dimen/bottom_sheet_paddingVerticalMore">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
         android:id="@+id/drag_handle_equalizer"

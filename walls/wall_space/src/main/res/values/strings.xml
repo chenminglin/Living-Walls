@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="space_colors">Colors</style>
+    <string name="space_wall_name">Space</string>
+    <string name="space_colors">Colors</string>
 </resources>

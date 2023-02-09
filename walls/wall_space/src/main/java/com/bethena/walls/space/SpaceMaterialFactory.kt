@@ -38,8 +38,10 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
     lateinit var sensorManager: SensorManager
     lateinit var sensor: Sensor
 
+    var colorTempId = SpaceConst.COLOR_TEMP_ID_1
+
     override fun provider(context: Context, canvas: Canvas, ratePer: Float) {
-        spaceColor = SpaceColor(context, "temp2")
+        spaceColor = SpaceColor(context, colorTempId)
         starPaint.isAntiAlias = true
         starPaint.color = Color.WHITE
         starPaint.strokeWidth = ScreenUtil.dp2pxF(context, 6f)
@@ -212,7 +214,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
         var subPlanet2 = Planet(x2, y2, radius2, colors2)
 
         var ring1 = PlanetBig.PlanetBigRing(ringDefaultHeight, ringDefaultWidth, subPlanet2)
-        ring1.subDegreeIncreate = 1 * ratePer
+        ring1.subDegreeIncreate = 1.5f * ratePer
 
         var ring2 = PlanetBig.PlanetBigRing(
             ringDefaultHeight + ringDeltaHeight, ringDefaultWidth + ringDeltaWidth, null
@@ -230,7 +232,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
             ringDefaultWidth + ringDeltaWidth * 2,
             subPlanet3
         )
-        ring3.subDegreeIncreate = 2 * ratePer
+        ring3.subDegreeIncreate = 1f * ratePer
         rings.add(ring1)
         rings.add(ring2)
         rings.add(ring3)

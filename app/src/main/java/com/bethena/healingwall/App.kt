@@ -1,21 +1,26 @@
 package com.bethena.healingwall
 
-import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
+import com.bethena.base_wall.AppViewModel
+import com.bethena.base_wall.BaseApp
 import com.bethena.base_wall.BaseWallModule
 import com.bethena.base_wall.utils.SpUtil
+import com.bethena.healingwall.service.IHealingWallChange
 import com.bethena.healingwall.utils.LocalUtil
 import com.bethena.walls.rainbow.RainbowModule
+import com.bethena.walls.space.SpaceModule
 import com.bethena.walls.starry_sky.StarrySkyModule
 import kotlin.properties.Delegates
 
-class App : Application() {
+class App : BaseApp() {
     companion object {
         var spUtil: SpUtil by Delegates.notNull()
         var thiz: App by Delegates.notNull()
         var wallModules = arrayListOf<BaseWallModule>()
+        var wallChange: IHealingWallChange? = null
+        lateinit var appViewModel: AppViewModel
     }
 
     override fun attachBaseContext(base: Context?) {
@@ -26,6 +31,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        appViewModel = getAppViewModelProvider().get(AppViewModel::class.java)
         spUtil = SpUtil(this, Const.KEY_APP_SP_NAME)
         thiz = this
 
@@ -33,9 +39,11 @@ class App : Application() {
         wallModules.add(starrySkyModule)
         var rainbowModule = RainbowModule().init(this)
         wallModules.add(rainbowModule)
+        var spaceModule = SpaceModule().init(this)
+        wallModules.add(spaceModule)
     }
 
-    private fun initTheme(){
+    private fun initTheme() {
 //        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
 //        var config = resources.configuration
 //        config.uiMode = Configuration.UI_MODE_NIGHT_YES
@@ -64,7 +72,7 @@ class App : Application() {
     }
 
 
-    private fun initLanguage(){
+    private fun initLanguage() {
         var localeList = LocalUtil.getLocaleListCompat(this)
         AppCompatDelegate.setApplicationLocales(localeList)
     }

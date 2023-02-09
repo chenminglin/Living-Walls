@@ -1,4 +1,4 @@
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <style name="space_colors">颜色模板</style>
+    <string name="space_wall_name">太空</string>
+    <string name="space_colors">颜色模板</string>
 </resources>
