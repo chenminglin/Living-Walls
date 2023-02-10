@@ -8,6 +8,7 @@ data class Rainbow(
     val color11: Int,
     val cx: Float,
     val cy: Float,
+    val paintWidth:Float,
     val radius: Float,
     val starBitmap: Bitmap
 ) {

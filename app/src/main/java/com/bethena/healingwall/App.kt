@@ -19,7 +19,7 @@ class App : BaseApp() {
         var spUtil: SpUtil by Delegates.notNull()
         var thiz: App by Delegates.notNull()
         var wallModules = arrayListOf<BaseWallModule>()
-        var wallChange: IHealingWallChange? = null
+        var wallChanges = arrayListOf<IHealingWallChange>()
         lateinit var appViewModel: AppViewModel
     }
 

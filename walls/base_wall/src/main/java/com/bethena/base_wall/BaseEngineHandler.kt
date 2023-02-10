@@ -82,7 +82,12 @@ abstract class BaseEngineHandler {
     open fun onVisibilityChanged(visible: Boolean) {
         isPaused = false
         isVisible = visible
-        LogUtil.d("BaseEngineHandler onVisibilityChanged visible = $visible mContext = $mContext")
+        LogUtil.d(
+            "BaseEngineHandler onVisibilityChanged visible = ",
+            visible,
+            "mContext = ",
+            mContext
+        )
         if (mContext == null) {
             return
         }
@@ -102,7 +107,6 @@ abstract class BaseEngineHandler {
 
     open fun onDestroy() {
         pause()
-
     }
 
     fun restart() {
@@ -121,9 +125,9 @@ abstract class BaseEngineHandler {
 
     protected abstract fun doDraw()
 
-    abstract fun getMashValue():Int
+    abstract fun getMashValue(): Int
 
-    fun resetMash(){
+    fun resetMash() {
         mashColor = ColorUtil.adjustAlpha(
             Color.BLACK, getMashValue() / 100f
         )

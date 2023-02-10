@@ -6,7 +6,5 @@ public static *** e(...);
 public static *** w(...);
 }
 
-#-assumenosideeffects class com.bethena.base_wall.utils.LogUtil {
-#public static *** d(...);
-#public static *** e(...);
-#}
+-assumenosideeffects class com.bethena.base_wall.utils.LogUtil {*;}
+

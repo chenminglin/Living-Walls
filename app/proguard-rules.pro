@@ -181,8 +181,4 @@ public <init>(android.view.View);
     public static ** valueOf(java.lang.String);
 }
 
--keep public class com.xinhu.aimanager.R$*{
-public static final int *;
-}
-
 -keep class com.umeng.analytics.** { *; }

@@ -29,7 +29,14 @@ class CircleLivingWallEngineHandler(context: Context?) : BaseEngineHandler(conte
                     val yAcceleration = event.values[1]
                     val zAcceleration = event.values[2]
 
-                    LogUtil.d("xAcceleration = $xAcceleration yAcceleration = $yAcceleration zAcceleration = $zAcceleration")
+                    LogUtil.d(
+                        "xAcceleration = ",
+                        xAcceleration,
+                        " yAcceleration = ",
+                        yAcceleration,
+                        " zAcceleration = ",
+                        zAcceleration
+                    )
                 }
             }
 

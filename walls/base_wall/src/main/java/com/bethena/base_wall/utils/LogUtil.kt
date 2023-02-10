@@ -7,27 +7,35 @@ object LogUtil {
     val TAG = "LogUtils"
     val DEBUG = BuildConfig.DEBUG
 
-    fun d(tag: String, msg: String) {
+    fun d(tag: String, vararg msg: Any?) {
         if (DEBUG) {
-            Log.d(tag, msg)
+            var a = ""
+            msg.forEach {
+                a + it.toString()
+            }
+            Log.d(tag, a)
         }
     }
 
     fun d(msg: String) {
         if (DEBUG) {
-            Log.d(TAG, msg)
+            d(TAG, msg)
         }
     }
 
     fun e(msg: String) {
         if (DEBUG) {
-            Log.e(TAG, msg)
+            e(TAG, msg)
         }
     }
 
-    fun e(tag: String, msg: String) {
+    fun e(tag: String, vararg msg: Any?) {
         if (DEBUG) {
-            Log.e(tag, msg)
+            var a = ""
+            msg.forEach {
+                a + it.toString()
+            }
+            Log.e(tag, a)
         }
     }
 }

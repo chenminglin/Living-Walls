@@ -48,6 +48,21 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            def appName = "HealingWalls"
+            def buildTypeName = variant.buildType.name
+            def fileName = "${appName}" + "_${releaseTime()}_${buildTypeName}.apk"
+            outputFileName = fileName
+
+        }
+    }
+}
+
+def releaseTime() {
+    return new Date().format("MMdd_HHmm", TimeZone.getTimeZone("GMT+8:00"))
 }
 
 dependencies {

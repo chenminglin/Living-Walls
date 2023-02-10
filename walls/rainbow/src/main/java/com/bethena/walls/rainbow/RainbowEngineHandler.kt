@@ -62,6 +62,7 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
         shaderPaint.maskFilter =
             BlurMaskFilter(ScreenUtil.dp2pxF(context, 10f), BlurMaskFilter.Blur.OUTER)
         var strokWidth = ScreenUtil.dp2pxF(context, 60f)
+        var radiusDiff = ScreenUtil.dp2pxF(context, 2f)
 //        var strokWidth = ScreenUtil.dp2pxF(context, 10f)
 //        rainbowPaint.maskFilter = maskFilter
         rainbowPaint.strokeWidth = strokWidth
@@ -90,21 +91,32 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
         } else {
             canvas.width / 3 * 2
         }
-
+        var preRadius = 0f//上一条彩虹的半径
 //        (0 until 1).forEach { i ->
+
         (0..LAST_RAINBOW_INDEX).forEach { i ->
             var color = AppUtil.getColorValueByResName(context, "$baseColorResName${i + 1}")
             var color11 = AppUtil.getColorValueByResName(context, "$baseColorResName${i + 1}1")
             var bitmapStar =
                 DrawableUtil.getDrawableToBitmap(context, R.drawable.ig_rainbow_star, color, 2.5f)
+            var paintWidth = strokWidth - (radiusDiff * i)
+
+            var radius = if (preRadius == 0f) {
+                baseRadius + paintWidth
+            } else {
+                preRadius + paintWidth
+            }
+
             var rainbow = Rainbow(
                 color, color11,
                 cx.toFloat(),
                 cy.toFloat(),
-                baseRadius + (strokWidth * i),
+                paintWidth,
+                radius,
                 bitmapStar!!
             )
-            rainbow.paintHalfWidth = rainbowPaint.strokeWidth / 2 - shaderPaint.strokeWidth
+            preRadius = radius
+            rainbow.paintHalfWidth = paintWidth / 2 - shaderPaint.strokeWidth
             rainbow.degreeIncreate = rainbow.degreeIncreate * ratePer.value
             rainbow.alphaIncreate = rainbow.alphaIncreate * ratePer.value
             rainbow.starDegreeIncreate = rainbow.starDegreeIncreate * ratePer.value
@@ -207,12 +219,13 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
                 drawList.forEach { a ->
                     if (a is Rainbow) {
                         rainbowPaint.color = a.color
-
+                        rainbowPaint.strokeWidth = a.paintWidth
                         var startAngle = -90f
-                        canvas.save()
 
+                        canvas.save()
                         canvas.rotate(startAngle, a.cx, a.cy)
                         rainbowPaint.alpha = a.alpha.toInt()
+
                         shaderPaint.alpha = a.alpha.toInt()
 //                        rainbowPaint.maskFilter = null
 //                        rainbowPaint.shader = a.shader.value
@@ -228,7 +241,11 @@ class RainbowEngineHandler(context: Context) : BaseEngineHandler(context) {
                         canvas.drawArc(a.arcRect, 0f, a.degree, false, rainbowPaint)
 //                        canvas.drawCircle(a.cx, a.cy, a.radius, rainbowPaint)
                         canvas.restore()
-                        var starDegree = a.degree + 5
+                        var starDegree = if (rainbowIndex == LAST_RAINBOW_INDEX) {
+                            a.degree + 6
+                        } else {
+                            a.degree + 5
+                        }
                         var starX =
                             a.cx + ((a.radius) * Math.sin(Math.toRadians(starDegree.toDouble()))) - a.starBitmap.width / 2
                         var starY =

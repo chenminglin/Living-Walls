@@ -8,6 +8,8 @@ import android.net.Uri
 import android.os.*
 import android.view.*
 import android.view.PixelCopy.OnPixelCopyFinishedListener
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bethena.base_wall.utils.LogUtil
@@ -57,8 +59,29 @@ class MainTestActivity : AppCompatActivity(), Slider.OnChangeListener {
 
         })
 
+
+        surfaceView.postDelayed({
+//            var anim = AnimationUtils.loadAnimation(this,R.anim.surface_scale)
+//            var scaleAnimation = ScaleAnimation(
+//                1f,
+//                1f,
+//                0.5f,
+//                0.5f,
+//                Animation.RELATIVE_TO_SELF,
+//                0.5f,
+//                Animation.RELATIVE_TO_SELF,
+//                0.5f
+//            )
+////            anim.fillBefore = true
+//            scaleAnimation.duration = 100
+//            scaleAnimation.fillAfter = true
+//            surfaceView.animation = scaleAnimation
+//            scaleAnimation.start()
+        }, 1000)
+
         var slider = findViewById<Slider>(R.id.slider)
         slider.addOnChangeListener(this)
+
 
 
         findViewById<Slider>(R.id.slider_refresh_time).addOnChangeListener(this)
@@ -145,7 +168,7 @@ class MainTestActivity : AppCompatActivity(), Slider.OnChangeListener {
 //                        TestApp.wallEngineHandler?.isCutPicture = true
 
                         var bitmap = Bitmap.createBitmap(
-                            surfaceView.width, surfaceView.height, Bitmap.Config.RGB_565
+                            surfaceView.width, surfaceView.height, Bitmap.Config.ARGB_8888
                         )
 
                         var canvas = Canvas(bitmap)

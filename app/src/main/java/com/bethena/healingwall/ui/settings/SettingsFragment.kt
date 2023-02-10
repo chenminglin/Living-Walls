@@ -66,7 +66,6 @@ class SettingsFragment : PreferenceFragmentCompat(),
     }
 
     override fun onSharedPreferenceChanged(sp: SharedPreferences?, key: String?) {
-        LogUtil.d("key = $key")
         if (sp == null || key == null) {
             return
         }
