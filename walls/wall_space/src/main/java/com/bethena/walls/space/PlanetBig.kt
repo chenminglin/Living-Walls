@@ -58,23 +58,23 @@ data class PlanetBig(
         canvas.drawPath(path12, paint)
     }
 
-
+    var ringArray = ArrayList<PlanetBigRing>()
     /**
      * 重新排序
      * 最外面的星球如果在下面，应该最先画
      */
     fun sortRings(): ArrayList<PlanetBigRing> {
-        var newArray = ArrayList<PlanetBigRing>()
+        ringArray.clear()
         if (rings[2].subDegree > 0 && rings[2].subDegree < 180) {
-            newArray.add(rings[0])
-            newArray.add(rings[1])
-            newArray.add(rings[2])
+            ringArray.add(rings[0])
+            ringArray.add(rings[1])
+            ringArray.add(rings[2])
         } else {
-            newArray.add(rings[2])
-            newArray.add(rings[1])
-            newArray.add(rings[0])
+            ringArray.add(rings[2])
+            ringArray.add(rings[1])
+            ringArray.add(rings[0])
         }
-        return newArray
+        return ringArray
     }
 
 
@@ -122,9 +122,9 @@ data class PlanetBig(
 
         var subDegree = RandomUtil.nextInt(360).toDouble()
         var subDegreeIncreate = 1f
-
+        var rect = RectF()
         fun draw(canvas: Canvas, x: Float, y: Float, paint: Paint, subPaint: Paint) {
-            var rect = RectF()
+
             rect.top = y - heightRadius
             rect.left = x - widthRadius
             rect.right = x + widthRadius

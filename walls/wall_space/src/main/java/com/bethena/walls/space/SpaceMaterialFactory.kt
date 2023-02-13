@@ -16,6 +16,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
     var starPaint = Paint()
 
     var backPaint = Paint()
+    var backgroundRect = Rect(0,0,0,0)
     var ringPaint = Paint()
 
     var backColorStart = 0
@@ -41,6 +42,9 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
     var colorTempId = SpaceConst.COLOR_TEMP_ID_1
 
     override fun provider(context: Context, canvas: Canvas, ratePer: Float) {
+
+
+
         spaceColor = SpaceColor(context, colorTempId)
         starPaint.isAntiAlias = true
         starPaint.color = Color.WHITE
@@ -65,8 +69,17 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
 
         backColorStart = spaceColor.bg_color_start
         backColorCenter = spaceColor.bg_color_center
-
-
+        var shader = LinearGradient(
+            canvas.width / 2f,
+            0f,
+            canvas.width / 2f,
+            canvas.height.toFloat(),
+            intArrayOf(backColorStart, backColorCenter, backColorStart),
+            floatArrayOf(0f, 0.5f, 1f),
+            Shader.TileMode.CLAMP
+        )
+        backPaint.shader = shader
+        backgroundRect = Rect(0, 0, canvas.width, canvas.height)
         initStars(context, canvas, ratePer)
         initPlanet(context, canvas, ratePer)
         initMeteor(context, canvas, ratePer)
@@ -241,17 +254,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
 
     override fun doDraw(context: Context, canvas: Canvas) {
         //画背景
-        var shader = LinearGradient(
-            canvas.width / 2f,
-            0f,
-            canvas.width / 2f,
-            canvas.height.toFloat(),
-            intArrayOf(backColorStart, backColorCenter, backColorStart),
-            floatArrayOf(0f, 0.5f, 1f),
-            Shader.TileMode.CLAMP
-        )
-        backPaint.shader = shader
-        canvas.drawRect(Rect(0, 0, canvas.width, canvas.height), backPaint)
+        canvas.drawRect(backgroundRect, backPaint)
 
         //画流星
         canvas.save()
@@ -282,20 +285,14 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
         planetRings.forEach {
             planetPaint.shader = it.shader
             canvas.drawCircle(it.x, it.y, it.radius, planetPaint)
-            var ring = RectF(
-                it.x - it.radiusRingX,
-                it.y - it.radiusRingY,
-                it.x + it.radiusRingX,
-                it.y + it.radiusRingY
-            )
+
             ringPaint.color = it.colorRing
             canvas.save()
             canvas.rotate(-30f, it.x, it.y)
-            canvas.drawOval(ring, ringPaint)
+            canvas.drawOval(it.ringRectF, ringPaint)
             canvas.restore()
-            var circleRectf =
-                RectF(it.x - it.radius, it.y - it.radius, it.x + it.radius, it.y + it.radius)
-            canvas.drawArc(circleRectf, 150f, 180f, false, planetPaint)
+
+            canvas.drawArc(it.circleRectf, 150f, 180f, false, planetPaint)
         }
 
         //画大球

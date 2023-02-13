@@ -17,15 +17,19 @@ data class Meteor(
     }
 
     var alpha = 125
-
+    var gradient = LinearGradient(
+        x, y, x + tailLength, y,
+        intArrayOf(Color.WHITE, Color.TRANSPARENT),
+        floatArrayOf(0f, 1f),
+        Shader.TileMode.CLAMP
+    )
+    var gradientMatrix = Matrix()
     fun draw(canvas: Canvas, paint: Paint) {
-        var shader = LinearGradient(
-            x, y, x + tailLength, y,
-            intArrayOf(Color.WHITE, Color.TRANSPARENT),
-            floatArrayOf(0f, 1f),
-            Shader.TileMode.CLAMP
-        )
-        paint.shader = shader
+        gradientMatrix.reset()
+        gradient.getLocalMatrix(gradientMatrix)
+        gradientMatrix.setTranslate(x, y)
+        gradient.setLocalMatrix(gradientMatrix)
+        paint.shader = gradient
         paint.alpha = alpha
         canvas.drawLine(x, y, x + tailLength, y, paint)
         next(canvas)

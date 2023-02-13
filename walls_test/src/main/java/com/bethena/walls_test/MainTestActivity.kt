@@ -12,6 +12,7 @@ import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.bethena.base_wall.utils.LogUtil
 import com.bethena.walls.space.SpaceEngineHandler
 import com.bethena.walls.thunder_breath.ThunderBreathEngineHandler
@@ -59,6 +60,7 @@ class MainTestActivity : AppCompatActivity(), Slider.OnChangeListener {
 
         })
 
+        var vectorDrawableCompat = VectorDrawableCompat.create(resources,R.drawable.cloud,null)
 
         surfaceView.postDelayed({
 //            var anim = AnimationUtils.loadAnimation(this,R.anim.surface_scale)

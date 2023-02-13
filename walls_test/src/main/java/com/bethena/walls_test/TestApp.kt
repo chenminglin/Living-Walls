@@ -19,7 +19,8 @@ class TestApp: Application() {
     override fun onCreate() {
         super.onCreate()
 //        wallEngineHandler = SpaceEngineHandler(this)
-        wallEngineHandler = RainbowEngineHandler(this)
+//        wallEngineHandler = RainbowEngineHandler(this)
+        wallEngineHandler = ThunderBreathEngineHandler(this)
 //        wallEngineHandler = StarrySkyEngineHandler(this)
     }
 }

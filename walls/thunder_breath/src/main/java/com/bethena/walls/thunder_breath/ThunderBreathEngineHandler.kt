@@ -72,7 +72,7 @@ class ThunderBreathEngineHandler(context: Context?) : BaseEngineHandler(context)
     }
 
     override fun getMashValue(): Int {
-        TODO("Not yet implemented")
+        return 0
     }
 
     override fun newConfigFragment(): Fragment {
