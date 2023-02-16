@@ -4,7 +4,7 @@ import java.util.*
 
 class RandomUtil {
     companion object {
-        var random = Random(System.nanoTime())
+        private var random = Random(System.nanoTime())
 
         fun nextInt(): Int {
             return random.nextInt()

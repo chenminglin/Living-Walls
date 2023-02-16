@@ -31,14 +31,15 @@ class HealingWallService : WallpaperService() {
 
         override fun onCreate(surfaceHolder: SurfaceHolder?) {
             super.onCreate(surfaceHolder)
-            engineHandler = TestApp.wallEngineHandler
-            engineHandler?.surfaceCreated(surfaceHolder)
+
             LogUtil.d("HealingWallService HealingWallEngine onCreate-----${this@HealingWallService} $this")
         }
 
         override fun onVisibilityChanged(visible: Boolean) {
             super.onVisibilityChanged(visible)
             LogUtil.d("HealingWallService HealingWallEngine onVisibilityChanged-----$visible -- ${this@HealingWallService} $this")
+            engineHandler = TestApp.wallEngineHandler
+            engineHandler?.surfaceCreated(surfaceHolder)
             engineHandler?.onVisibilityChanged(visible)
         }
 

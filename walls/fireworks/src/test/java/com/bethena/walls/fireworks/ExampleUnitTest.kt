@@ -1,6 +1,8 @@
-package com.bethena.walls_test
+package com.bethena.walls.fireworks
 
 import org.junit.Test
+
+import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -10,13 +12,6 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-//        assertEquals(4, 2 + 2)
-        var x = 1f
-        var y = 2f
-        println("x = $x, y = $y")
+        assertEquals(4, 2 + 2)
     }
-
-
-
-
 }

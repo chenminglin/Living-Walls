@@ -44,8 +44,8 @@ data class Rainbow(
 
     private var positionMatrix = Matrix()
     private var rotateMatrix = Matrix()
-    var degreeIncreate = 0.2f
-    var alphaIncreate = 0.02f
+    var degreeIncreate = 0.18f
+    var alphaIncreate = 0.2f
     var starDegreeIncreate = 2f
 
     var shader = lazy {

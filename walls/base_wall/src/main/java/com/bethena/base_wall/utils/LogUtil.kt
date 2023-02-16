@@ -10,8 +10,8 @@ object LogUtil {
     fun d(tag: String, vararg msg: Any?) {
         if (DEBUG) {
             var a = ""
-            msg.forEach {
-                a + it.toString()
+            for (m in msg) {
+                a += m.toString()
             }
             Log.d(tag, a)
         }
