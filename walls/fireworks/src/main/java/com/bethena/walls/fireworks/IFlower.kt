@@ -8,7 +8,8 @@ import android.os.Build
 import com.bethena.base_wall.utils.RandomUtil
 
 interface IFlower {
-    fun provider(context: Context, canvas: Canvas, x: Float, y: Float)
+    
+    fun provider(context: Context, canvas: Canvas, x: Float, y: Float, ratePer: Float)
     fun draw(canvas: Canvas)
     fun recycler()
     fun next(canvas: Canvas)
@@ -34,4 +35,10 @@ interface IFlower {
     fun randomY(canvas: Canvas): Float {
         return canvas.height / 2 * RandomUtil.nextFloat()
     }
+    
+    fun randomAllScale():Float{
+//        return 0.5f + RandomUtil.nextFloat() * 0.7f
+        return 1f
+    }
+
 }

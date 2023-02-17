@@ -3,6 +3,7 @@ package com.bethena.walls.fireworks
 import android.content.Context
 import android.graphics.*
 import com.bethena.base_wall.utils.LogUtil
+import com.bethena.base_wall.utils.RandomUtil
 import com.bethena.base_wall.utils.ScreenUtil
 import kotlin.math.cos
 
@@ -23,47 +24,60 @@ class Flower1 : IFlower {
 
     var matrix = Matrix()
     var camera = Camera()
+    var allScale = 1f
+
     var rotateYDegree = -87f
     var bitmapWidth = 0
     lateinit var bitmap1: Bitmap
     lateinit var bitmap2: Bitmap
     lateinit var bitmap3: Bitmap
     lateinit var bitmap4: Bitmap
-    lateinit var bitmap5: Bitmap
 
     var animRadius1 = 0f
     var animRadius2 = 0f
     var animRadius3 = 0f
     var animRadius4 = 0f
-    var animRadius5 = 0f
-    var alpha = 255
+    var alpha = 255f
 
-    override fun provider(context: Context, canvas: Canvas, x: Float, y: Float) {
+    var animRadiusIncreate1 = 0f
+    var animRadiusIncreate2 = 0f
+    var animRadiusIncreate3 = 0f
+    var animRadiusIncreate4 = 0f
+    var animRadiusIncreate5 = 0f
+    var alphaIncreate = 1f
+
+
+    override fun provider(context: Context, canvas: Canvas, x: Float, y: Float, ratePer: Float) {
         paint1.isAntiAlias = true
 
-        paint1.strokeWidth = ScreenUtil.dp2pxF(context, 0.3f)
+        paint1.strokeWidth = ScreenUtil.dp2pxF(context, 0.4f)
         paint1.style = Paint.Style.STROKE
         paint1.strokeCap = Paint.Cap.ROUND
 //        paint1.strokeMiter = 2f
         this.x = x
         this.y = y
-        radius1 = ScreenUtil.dp2pxF(context, 144f)
-        radius2 = ScreenUtil.dp2pxF(context, 138f)
-        radius3 = ScreenUtil.dp2pxF(context, 146f)
-        radius4 = ScreenUtil.dp2pxF(context, 143f)
-        radius5 = ScreenUtil.dp2pxF(context, 142f)
+        radius1 = ScreenUtil.dp2pxF(context, 184f)
+        radius2 = ScreenUtil.dp2pxF(context, 174f)
+        radius3 = ScreenUtil.dp2pxF(context, 180f)
+        radius4 = ScreenUtil.dp2pxF(context, 178f)
         startRadius = ScreenUtil.dp2pxF(context, 90f)
 
-        paint1.color = Color.parseColor("#C65172")
+        paint1.color = Color.parseColor("#356BFE")
         bitmap1 = providerBitmap(radius1, 0)
-        paint1.color = Color.parseColor("#F2C244")
+        paint1.color = Color.parseColor("#E45083")
         bitmap2 = providerBitmap(radius2, 8)
-        paint1.color = Color.parseColor("#B15FF7")
+        paint1.color = Color.parseColor("#FDAE37")
         bitmap3 = providerBitmap(radius3, 16)
-        paint1.color = Color.parseColor("#C65172")
+        paint1.color = Color.parseColor("#D5ED47")
         bitmap4 = providerBitmap(radius4, 24)
-        paint1.color = Color.parseColor("#7FC151")
-        bitmap5 = providerBitmap(radius5, 32)
+
+        animRadiusIncreate1 = ScreenUtil.dp2pxF(context, 0.5f) * ratePer
+        animRadiusIncreate2 = ScreenUtil.dp2pxF(context, 0.2f) * ratePer
+        animRadiusIncreate3 = ScreenUtil.dp2pxF(context, 0.3f) * ratePer
+        animRadiusIncreate4 = ScreenUtil.dp2pxF(context, 0.4f) * ratePer
+        alphaIncreate = 2 * ratePer
+
+        allScale = randomAllScale()
 
     }
 
@@ -73,7 +87,7 @@ class Flower1 : IFlower {
         var bitmap = Bitmap.createBitmap(bitmapWidth, bitmapWidth, Bitmap.Config.ARGB_8888)
         var bitmap1Canvas = Canvas(bitmap)
         bitmap1Canvas.translate((bitmapWidth / 2).toFloat(), (bitmapWidth / 2).toFloat())
-        (starDegree..360 + starDegree step 40).forEach {
+        (starDegree..360 + starDegree step 36).forEach {
             bitmap1Canvas.save()
             matrix.reset()
             camera.save()
@@ -92,15 +106,16 @@ class Flower1 : IFlower {
     override fun draw(canvas: Canvas) {
         canvas.save()
         canvas.translate(x, y)
+
+        canvas.scale(allScale, allScale)
 //        paint1.color = Color.WHITE
 
-        paintBitmap.alpha = alpha
+        paintBitmap.alpha = alpha.toInt()
 
         drawBitmap(animRadius1, canvas, bitmap1, paintBitmap)
         drawBitmap(animRadius2, canvas, bitmap2, paintBitmap)
         drawBitmap(animRadius3, canvas, bitmap3, paintBitmap)
         drawBitmap(animRadius4, canvas, bitmap4, paintBitmap)
-        drawBitmap(animRadius5, canvas, bitmap5, paintBitmap)
 //        canvas.drawBitmap(bitmap2, -bitmap2.width / 2f, -bitmap2.height / 2f, paintBitmap)
 //        canvas.drawBitmap(bitmap3, -bitmap3.width / 2f, -bitmap3.height / 2f, paintBitmap)
 //        canvas.drawBitmap(bitmap4, -bitmap4.width / 2f, -bitmap4.height / 2f, paintBitmap)
@@ -125,13 +140,12 @@ class Flower1 : IFlower {
 
     override fun next(canvas: Canvas) {
         if (isFirstAnimFinish() && alpha > 0) {
-            alpha--
+            alpha -= alphaIncreate
         } else {
-            animRadius1 += 8
-            animRadius2 += 7
-            animRadius3 += 10
-            animRadius4 += 9
-            animRadius5 += 5
+            animRadius1 += animRadiusIncreate1
+            animRadius2 += animRadiusIncreate2
+            animRadius3 += animRadiusIncreate3
+            animRadius4 += animRadiusIncreate4
         }
 
 //        if (isAnimFinish()){
@@ -146,7 +160,6 @@ class Flower1 : IFlower {
                 && animRadius2 >= bitmap2.width / 2
                 && animRadius3 >= bitmap3.width / 2
                 && animRadius4 >= bitmap4.width / 2
-                && animRadius5 >= bitmap5.width / 2
     }
 
     override fun recycler() {
@@ -154,7 +167,6 @@ class Flower1 : IFlower {
         bitmap2.recycle()
         bitmap3.recycle()
         bitmap4.recycle()
-        bitmap5.recycle()
     }
 
     override fun isAnimFinish(): Boolean {
@@ -168,8 +180,10 @@ class Flower1 : IFlower {
         animRadius2 = 0f
         animRadius3 = 0f
         animRadius4 = 0f
-        animRadius5 = 0f
-        alpha = 255
+        alpha = 255f
+
+        allScale = randomAllScale()
+
     }
 
 

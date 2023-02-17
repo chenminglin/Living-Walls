@@ -19,4 +19,12 @@ object ColorUtil {
         val isDark = Color.red(color) < 128 && Color.green(color) < 128 && Color.blue(color) < 128
         return isDark
     }
+
+    fun randomColor(): Int {
+        val hsv = FloatArray(3)
+        hsv[0] = Math.random().toFloat() * 360 // 色相范围为 0 ~ 360
+        hsv[1] = 0.5f + Math.random().toFloat() * 0.5f // 饱和度范围为 0.5 ~ 1.0
+        hsv[2] = 0.5f + Math.random().toFloat() * 0.5f // 值范围为 0.5 ~ 1.0
+        return Color.HSVToColor(hsv)
+    }
 }

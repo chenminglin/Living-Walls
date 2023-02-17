@@ -22,14 +22,14 @@ class Fireworks {
 
     var increateY = 0f
 
-    fun provider(context: Context, canvas: Canvas, index: Int) {
+    fun provider(context: Context, canvas: Canvas, index: Int, ratePer: Float) {
         paint.isAntiAlias = true
         paintWidth = ScreenUtil.dp2pxF(context, 3f)
         paint.strokeWidth = paintWidth
         paint.style = Paint.Style.STROKE
         paint.strokeCap = Paint.Cap.ROUND
         paint.color = Color.parseColor("#80F0EBAE")
-        paint.setPathEffect(DiscretePathEffect(ScreenUtil.dp2pxF(context, 5f), 3.0F))
+        paint.pathEffect = DiscretePathEffect(ScreenUtil.dp2pxF(context, 10f), 3.0F)
 
         paint2.strokeWidth = ScreenUtil.dp2pxF(context, 1f)
         paint2.color = Color.WHITE
@@ -44,12 +44,19 @@ class Fireworks {
             tailLenght + canvas.height + ScreenUtil.dp2px(context, 1000f) * RandomUtil.nextFloat()
         initStarY = starY
 
-        increateY = ScreenUtil.dp2pxF(context,10f)
+        increateY = ScreenUtil.dp2pxF(context, 10f) * ratePer
 
-        providerFlower(context, canvas, x, endY, index)
+        providerFlower(context, canvas, x, endY, index, ratePer)
     }
 
-    fun providerFlower(context: Context, canvas: Canvas, x: Float, y: Float, index: Int) {
+    fun providerFlower(
+        context: Context,
+        canvas: Canvas,
+        x: Float,
+        y: Float,
+        index: Int,
+        ratePer: Float
+    ) {
         var r = index % 4
         when (r) {
             0 -> {
@@ -65,7 +72,7 @@ class Fireworks {
                 flower = Flower4()
             }
         }
-        flower.provider(context, canvas, x, y)
+        flower.provider(context, canvas, x, y, ratePer)
     }
 
     fun draw(canvas: Canvas) {
@@ -127,7 +134,7 @@ class Fireworks {
         return animStatus == 2
     }
 
-    fun destory(){
+    fun destory() {
         flower.recycler()
     }
 

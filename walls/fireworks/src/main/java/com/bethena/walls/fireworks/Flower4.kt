@@ -2,6 +2,7 @@ package com.bethena.walls.fireworks
 
 import android.content.Context
 import android.graphics.*
+import com.bethena.base_wall.utils.ColorUtil
 import com.bethena.base_wall.utils.ScreenUtil
 
 class Flower4 : IFlower {
@@ -24,12 +25,16 @@ class Flower4 : IFlower {
     var animDegree = 0f
 
     var alpha = 0
+    var alphaIncreate1 = 10
+    var alphaIncreate2 = 2
+
+    var allScale = 1f
 
     lateinit var bitmap1: Bitmap
     lateinit var bitmap2: Bitmap
     lateinit var bitmap3: Bitmap
 
-    override fun provider(context: Context, canvas: Canvas, x: Float, y: Float) {
+    override fun provider(context: Context, canvas: Canvas, x: Float, y: Float, ratePer: Float) {
         paint.isAntiAlias = true
         paint.color = Color.WHITE
         paint2.color = Color.WHITE
@@ -41,15 +46,20 @@ class Flower4 : IFlower {
         startRadius1 = ScreenUtil.dp2pxF(context, 13f)
         startRadius2 = ScreenUtil.dp2pxF(context, 16f)
         startRadius3 = ScreenUtil.dp2pxF(context, 10f)
-        radius1 = ScreenUtil.dp2pxF(context, 70f)
-        radius2 = ScreenUtil.dp2pxF(context, 60f)
-        radius3 = ScreenUtil.dp2pxF(context, 80f)
-        paint.color = Color.parseColor("#C9526D")
+        radius1 = ScreenUtil.dp2pxF(context, 65f)
+        radius2 = ScreenUtil.dp2pxF(context, 55f)
+        radius3 = ScreenUtil.dp2pxF(context, 75f)
+        paint.color = ColorUtil.randomColor()
         bitmap1 = providerBitmap(radius1, startRadius1, 0)
-        paint.color = Color.parseColor("#F7CF46")
+        paint.color = ColorUtil.randomColor()
         bitmap2 = providerBitmap(radius2, startRadius2, 12)
-        paint.color = Color.parseColor("#A453ED")
+        paint.color = ColorUtil.randomColor()
         bitmap3 = providerBitmap(radius3, startRadius3, 24)
+
+        alphaIncreate1 = (10 * ratePer).toInt()
+        alphaIncreate2 = (2 * ratePer).toInt()
+
+        allScale = randomAllScale()
     }
 
     private fun providerBitmap(radius: Float, startRadius: Float, startDegree: Int): Bitmap {
@@ -75,6 +85,7 @@ class Flower4 : IFlower {
     override fun draw(canvas: Canvas) {
         canvas.save()
         canvas.translate(x, y)
+        canvas.scale(allScale, allScale)
 
         if (animStatus == 3) {
             paintBitmap.alpha = alpha
@@ -133,7 +144,7 @@ class Flower4 : IFlower {
     override fun next(canvas: Canvas) {
         if (animStatus < 3) {
 //            animDegree += 10
-            alpha += 10
+            alpha += alphaIncreate1
 //            if (animDegree >= 360) {
 //                animDegree = 0f
 //                animStatus++
@@ -149,7 +160,7 @@ class Flower4 : IFlower {
             }
         }
         if (animStatus == 3) {
-            alpha -= 2
+            alpha -= alphaIncreate2
             if (alpha < 0) {
                 alpha = 0
             }
@@ -175,5 +186,6 @@ class Flower4 : IFlower {
         animDegree = 0f
         animStatus = 0
         alpha = 0
+        allScale = randomAllScale()
     }
 }

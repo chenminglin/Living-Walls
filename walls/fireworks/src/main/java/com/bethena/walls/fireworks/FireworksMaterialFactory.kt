@@ -20,6 +20,7 @@ class FireworksMaterialFactory : BaseMaterialFactory() {
         var cap = Paint.Cap.ROUND
         paint.strokeCap = cap
 
+
         backgroundPaint.shader = LinearGradient(
             0f, 0f,
             canvas.width.toFloat(), canvas.height.toFloat(),
@@ -28,20 +29,18 @@ class FireworksMaterialFactory : BaseMaterialFactory() {
             Shader.TileMode.CLAMP
         )
         backgroundRect = RectF(0f, 0f, canvas.width.toFloat(), canvas.height.toFloat())
-
-        initFireworks(context, canvas)
-        initFlowers(context, canvas)
+        initFireworks(context, canvas, ratePer)
+//        initFlowers(context, canvas)
 
     }
 
     var maxFireworksCount = 7
 
-    private fun initFireworks(context: Context, canvas: Canvas) {
+    private fun initFireworks(context: Context, canvas: Canvas, ratePer: Float) {
         fireworks.clear()
         (0..maxFireworksCount).forEach {
-
             var firework = Fireworks()
-            firework.provider(context, canvas, it)
+            firework.provider(context, canvas, it, ratePer)
             fireworks.add(firework)
         }
     }

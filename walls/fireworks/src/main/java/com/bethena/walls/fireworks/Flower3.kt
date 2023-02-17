@@ -3,6 +3,7 @@ package com.bethena.walls.fireworks
 import android.content.Context
 import android.graphics.*
 import com.bethena.base_wall.utils.LogUtil
+import com.bethena.base_wall.utils.RandomUtil
 import com.bethena.base_wall.utils.ScreenUtil
 import kotlin.math.cos
 import kotlin.math.sin
@@ -21,18 +22,22 @@ class Flower3 : IFlower {
     var paint2 = Paint()
     lateinit var maxBitmap: Bitmap
     lateinit var minBitmap: Bitmap
-    override fun provider(context: Context, canvas: Canvas, x: Float, y: Float) {
+    var radiusIncreate = 5f
+
+    var allScale = 1f
+    
+    override fun provider(context: Context, canvas: Canvas, x: Float, y: Float, ratePer: Float) {
         this.x = x
         this.y = y
         paint1.isAntiAlias = true
         paint1.style = Paint.Style.FILL
         paint1.strokeWidth = ScreenUtil.dp2pxF(context, 1f)
-        paint1.color = Color.parseColor("#4DAAC7")
+        paint1.color = Color.parseColor("#E34E82")
 
         paint2.isAntiAlias = true
         paint2.style = Paint.Style.FILL
         paint2.strokeWidth = ScreenUtil.dp2pxF(context, 1f)
-        paint2.color = Color.parseColor("#F1C644")
+        paint2.color = Color.parseColor("#D5EC44")
 
         maxRadius = ScreenUtil.dp2pxF(context, 50f)
         startRadius = ScreenUtil.dp2pxF(context, 6f)
@@ -74,12 +79,16 @@ class Flower3 : IFlower {
             minBitmapCanvas.restore()
         }
 
+        radiusIncreate = ScreenUtil.dp2pxF(context,1f) * ratePer
+
+        allScale = randomAllScale()
     }
 
 
     override fun draw(canvas: Canvas) {
         canvas.save()
         canvas.translate(x, y)
+        canvas.scale(allScale, allScale)
         var pathClip = Path()
         pathClip.addCircle(0f, 0f, maxAnimRadius, Path.Direction.CW)
         canvas.save()
@@ -123,7 +132,7 @@ class Flower3 : IFlower {
     var animStatus: Int = 0
     override fun next(canvas: Canvas) {
         if (animStatus <= 3) {
-            maxAnimRadius += 5f
+            maxAnimRadius += radiusIncreate
             if (maxAnimRadius > maxBitmap.width / 2) {
                 maxAnimRadius = 0f
                 animStatus++
@@ -149,5 +158,7 @@ class Flower3 : IFlower {
         this.y = y
         animStatus = 0
         maxAnimRadius = 0f
+
+        allScale = randomAllScale()
     }
 }

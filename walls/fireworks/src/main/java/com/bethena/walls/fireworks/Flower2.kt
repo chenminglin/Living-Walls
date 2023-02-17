@@ -4,10 +4,10 @@ import android.content.Context
 import android.graphics.*
 import android.view.animation.DecelerateInterpolator
 import com.bethena.base_wall.utils.LogUtil
+import com.bethena.base_wall.utils.RandomUtil
 import com.bethena.base_wall.utils.ScreenUtil
 
 class Flower2 : IFlower {
-
     var x: Float = 0f
     var y: Float = 0f
 
@@ -20,10 +20,13 @@ class Flower2 : IFlower {
     lateinit var shader: RadialGradient
     lateinit var bitmap: Bitmap
 
+    var scaleIncreate = 0.005f
+
+    var allScale = 1f
 
     lateinit var testBitmap: Bitmap
 
-    override fun provider(context: Context, canvas: Canvas, x: Float, y: Float) {
+    override fun provider(context: Context, canvas: Canvas, x: Float, y: Float, ratePer: Float) {
 //        x = RandomUtil.nextFloat() * canvas.width
 //        y = RandomUtil.nextFloat() * canvas.height / 2
         paint.isAntiAlias = true
@@ -51,7 +54,7 @@ class Flower2 : IFlower {
             0f,
             0f,
             maxRadius.toFloat(),
-            intArrayOf(Color.WHITE, Color.RED),
+            intArrayOf(Color.parseColor("#E45083"), Color.parseColor("#D5ED47")),
             floatArrayOf(0.3f, 1f),
             Shader.TileMode.CLAMP
         )
@@ -63,6 +66,8 @@ class Flower2 : IFlower {
             var rect = RectF(-half, -half, +half, +half)
             bitmapCanvas.drawOval(rect, paint)
         }
+        scaleIncreate = 0.005f * ratePer
+        allScale = randomAllScale()
 //        testBitmap = DrawableUtil.getDrawableToBitmap(context,R.drawable.ic_round_stay_current_landscape_24)!!
     }
 
@@ -72,8 +77,11 @@ class Flower2 : IFlower {
     var realScale = 0f
 
     override fun draw(canvas: Canvas) {
+
         canvas.save()
         canvas.translate(x, y)
+        canvas.scale(allScale, allScale)
+        
         bitmapPaint.alpha = alpha
 
         var top = -bitmap.height / 2
@@ -122,5 +130,6 @@ class Flower2 : IFlower {
         alpha = 255
         realScale = 0f
         scale = 0f
+        allScale = randomAllScale()
     }
 }
