@@ -2,6 +2,7 @@ package com.bethena.walls.fireworks
 
 import android.content.Context
 import android.graphics.*
+import com.bethena.base_wall.utils.ColorUtil
 import com.bethena.base_wall.utils.LogUtil
 import com.bethena.base_wall.utils.RandomUtil
 import com.bethena.base_wall.utils.ScreenUtil
@@ -15,7 +16,6 @@ class Flower1 : IFlower {
     var radius2 = 0f
     var radius3 = 0f
     var radius4 = 0f
-    var radius5 = 0f
     var startRadius = 0f
 
     var paint1 = Paint()
@@ -43,7 +43,6 @@ class Flower1 : IFlower {
     var animRadiusIncreate2 = 0f
     var animRadiusIncreate3 = 0f
     var animRadiusIncreate4 = 0f
-    var animRadiusIncreate5 = 0f
     var alphaIncreate = 1f
 
 
@@ -56,19 +55,19 @@ class Flower1 : IFlower {
 //        paint1.strokeMiter = 2f
         this.x = x
         this.y = y
-        radius1 = ScreenUtil.dp2pxF(context, 184f)
-        radius2 = ScreenUtil.dp2pxF(context, 174f)
-        radius3 = ScreenUtil.dp2pxF(context, 180f)
-        radius4 = ScreenUtil.dp2pxF(context, 178f)
+        radius1 = ScreenUtil.dp2pxF(context, 174f)
+        radius2 = ScreenUtil.dp2pxF(context, 164f)
+        radius3 = ScreenUtil.dp2pxF(context, 170f)
+        radius4 = ScreenUtil.dp2pxF(context, 168f)
         startRadius = ScreenUtil.dp2pxF(context, 90f)
 
-        paint1.color = Color.parseColor("#356BFE")
+        paint1.color = ColorUtil.randomColor()
         bitmap1 = providerBitmap(radius1, 0)
-        paint1.color = Color.parseColor("#E45083")
+        paint1.color = ColorUtil.randomColor()
         bitmap2 = providerBitmap(radius2, 8)
-        paint1.color = Color.parseColor("#FDAE37")
+        paint1.color = ColorUtil.randomColor()
         bitmap3 = providerBitmap(radius3, 16)
-        paint1.color = Color.parseColor("#D5ED47")
+        paint1.color = ColorUtil.randomColor()
         bitmap4 = providerBitmap(radius4, 24)
 
         animRadiusIncreate1 = ScreenUtil.dp2pxF(context, 0.5f) * ratePer

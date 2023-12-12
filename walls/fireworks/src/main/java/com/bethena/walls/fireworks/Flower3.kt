@@ -2,6 +2,7 @@ package com.bethena.walls.fireworks
 
 import android.content.Context
 import android.graphics.*
+import com.bethena.base_wall.utils.ColorUtil
 import com.bethena.base_wall.utils.LogUtil
 import com.bethena.base_wall.utils.RandomUtil
 import com.bethena.base_wall.utils.ScreenUtil
@@ -32,12 +33,12 @@ class Flower3 : IFlower {
         paint1.isAntiAlias = true
         paint1.style = Paint.Style.FILL
         paint1.strokeWidth = ScreenUtil.dp2pxF(context, 1f)
-        paint1.color = Color.parseColor("#E34E82")
+        paint1.color = ColorUtil.randomColor()
 
         paint2.isAntiAlias = true
         paint2.style = Paint.Style.FILL
         paint2.strokeWidth = ScreenUtil.dp2pxF(context, 1f)
-        paint2.color = Color.parseColor("#D5EC44")
+        paint2.color = ColorUtil.randomColor()
 
         maxRadius = ScreenUtil.dp2pxF(context, 50f)
         startRadius = ScreenUtil.dp2pxF(context, 6f)

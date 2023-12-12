@@ -25,4 +25,25 @@ class TestApp: Application() {
 //       wallEngineHandler = StarrySkyEngineHandler(this)
         wallEngineHandler = FireworksEngineHandler(this)
     }
+
+
+    //校验身份证
+    fun isIdCard(idCard: String): Boolean {
+        val pattern = "(\\d{14}[0-9a-zA-Z])|(\\d{17}[0-9a-zA-Z])".toRegex()
+        return pattern.matches(idCard)
+    }
+
+    //校验邮箱
+    fun isEmail(email: String): Boolean {
+        val pattern = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*".toRegex()
+        return pattern.matches(email)
+    }
+
+    
+    
+
+
+
+
+
 }

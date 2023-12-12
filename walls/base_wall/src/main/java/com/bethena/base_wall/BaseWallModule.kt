@@ -9,5 +9,4 @@ abstract class BaseWallModule {
          }
 
     abstract fun init(context: Context): BaseWallModule
-
 }

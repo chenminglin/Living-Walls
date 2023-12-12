@@ -37,7 +37,7 @@ class SpaceMaterialFactory : BaseMaterialFactory() {
     lateinit var spaceColor: SpaceColor
 
     lateinit var sensorManager: SensorManager
-    lateinit var sensor: Sensor
+    var sensor: Sensor? = null
 
     var colorTempId = SpaceConst.COLOR_TEMP_ID_1
 

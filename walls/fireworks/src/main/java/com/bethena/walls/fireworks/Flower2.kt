@@ -3,6 +3,7 @@ package com.bethena.walls.fireworks
 import android.content.Context
 import android.graphics.*
 import android.view.animation.DecelerateInterpolator
+import com.bethena.base_wall.utils.ColorUtil
 import com.bethena.base_wall.utils.LogUtil
 import com.bethena.base_wall.utils.RandomUtil
 import com.bethena.base_wall.utils.ScreenUtil
@@ -54,7 +55,7 @@ class Flower2 : IFlower {
             0f,
             0f,
             maxRadius.toFloat(),
-            intArrayOf(Color.parseColor("#E45083"), Color.parseColor("#D5ED47")),
+            intArrayOf(ColorUtil.randomColor(), ColorUtil.randomColor()),
             floatArrayOf(0.3f, 1f),
             Shader.TileMode.CLAMP
         )

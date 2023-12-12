@@ -37,8 +37,8 @@ interface IFlower {
     }
     
     fun randomAllScale():Float{
-//        return 0.5f + RandomUtil.nextFloat() * 0.7f
-        return 1f
+        return 0.5f + RandomUtil.nextFloat() * 0.7f
+//        return 1f
     }
 
 }
