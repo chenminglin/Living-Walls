@@ -86,7 +86,8 @@ abstract class BaseEngineHandler {
             "BaseEngineHandler onVisibilityChanged visible = ",
             visible,
             "mContext = ",
-            mContext
+            mContext,
+            "refreshTime = ", refreshTime
         )
         if (mContext == null) {
             return

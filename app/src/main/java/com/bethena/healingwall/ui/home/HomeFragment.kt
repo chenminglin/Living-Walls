@@ -23,7 +23,7 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         var rv_walls = view.findViewById<RecyclerView>(R.id.rv_walls)
         var walls = arrayListOf<WallInfo>()
-        App.wallModules.forEach {
+        App.wallModules.value.forEach {
             walls.add(it.wallInfo!!)
         }
         var adapter = HomeAdapter()
@@ -32,7 +32,7 @@ class HomeFragment : BaseFragment() {
             activity?.let {
                 HealingWallConfigActivity.start(
                     it,
-                    App.wallModules[position].wallInfo!!,
+                    App.wallModules.value[position].wallInfo!!,
                     view
                 )
             }

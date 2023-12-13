@@ -4,12 +4,7 @@ import android.content.Context
 import android.view.Gravity
 import android.widget.Toast
 
-/**
- * Toast封装工具类
- * 注：不知咋回事，设置Toast为静态LeakCanary就报内存泄漏，即使设置成context.applicationContext
- *
- * @author LTP  2018/3/26
- */
+
 object ToastUtil {
 
     /**

@@ -18,6 +18,4 @@ class ColorPickerAdapter(data: MutableList<ColorItem>?) :
         fab.isCheck = item.isSelected
 
     }
-
-
 }

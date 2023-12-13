@@ -9,9 +9,5 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        ImmersionBar.with(this)
-//            .fullScreen(false)
-//            .fitsSystemWindows(true)
-//            .statusBarDarkFont(false).init()
     }
 }

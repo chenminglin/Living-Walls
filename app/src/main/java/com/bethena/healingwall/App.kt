@@ -18,12 +18,22 @@ class App : BaseApp() {
     companion object {
         var spUtil: SpUtil by Delegates.notNull()
         var thiz: App by Delegates.notNull()
-        var wallModules = arrayListOf<BaseWallModule>()
+        var wallModules  = lazy {
+            var arrayList = ArrayList<BaseWallModule>()
+            var starrySkyModule = StarrySkyModule().init(thiz)
+            arrayList.add(starrySkyModule)
+            var rainbowModule = RainbowModule().init(thiz)
+            arrayList.add(rainbowModule)
+            var spaceModule = SpaceModule().init(thiz)
+            arrayList.add(spaceModule)
+            arrayList
+        }
         var wallChanges = arrayListOf<IHealingWallChange>()
         lateinit var appViewModel: AppViewModel
     }
 
     override fun attachBaseContext(base: Context?) {
+        thiz = this
         super.attachBaseContext(base)
         initTheme()
         initLanguage()
@@ -33,14 +43,7 @@ class App : BaseApp() {
         super.onCreate()
         appViewModel = getAppViewModelProvider().get(AppViewModel::class.java)
         spUtil = SpUtil(this, Const.KEY_APP_SP_NAME)
-        thiz = this
 
-        var starrySkyModule = StarrySkyModule().init(this)
-        wallModules.add(starrySkyModule)
-        var rainbowModule = RainbowModule().init(this)
-        wallModules.add(rainbowModule)
-        var spaceModule = SpaceModule().init(this)
-        wallModules.add(spaceModule)
     }
 
     private fun initTheme() {

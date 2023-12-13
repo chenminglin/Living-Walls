@@ -61,6 +61,7 @@ dependencies {
     implementation project(path: ':walls:circle')
     implementation project(path: ':walls:starry_sky')
     implementation project(path: ':walls:thunder_breath')
-    implementation project(path: ':walls:wall_space')
+    implementation project(path: ':walls:space')
     implementation project(path: ':walls:rainbow')
+    implementation project(path: ':walls:fireworks')
 }
